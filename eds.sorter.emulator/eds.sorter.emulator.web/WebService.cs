@@ -11,9 +11,6 @@ using eds.sorter.emulator.services.Services.Interfaces;
 using log4net;
 using Microsoft.Owin.Host.HttpListener;
 using Microsoft.Owin.Hosting;
-using System.Configuration;
-using System.Collections.Specialized;
-
 
 namespace eds.sorter.emulator.web
 {
@@ -29,11 +26,8 @@ namespace eds.sorter.emulator.web
 
         public void Start()
         {
-            string portNumber = GetPortFromConfig();
-
             Trace.TraceInformation(typeof(OwinHttpListener).FullName);
-            string baseAddress = "http://+:" + portNumber  + "/";
-            //string baseAddress = "http://+:9005/";
+            string baseAddress = "http://+:9000/";
             var startup = new Startup(_services);
             
             // Start OWIN host
@@ -41,20 +35,6 @@ namespace eds.sorter.emulator.web
             {
                 startup.Configuration(builder);
             });
-        }
-
-        private string GetPortFromConfig()
-        {
-            string portNumber = "9000";
-            try
-            {
-                portNumber = ConfigurationManager.AppSettings.Get("wsEmulatorPort");
-            }
-            catch (Exception ex)
-            {
-                _log.Error("Failed retrieving port from config.", ex);
-            }
-            return portNumber;
         }
 
         public void Stop()
