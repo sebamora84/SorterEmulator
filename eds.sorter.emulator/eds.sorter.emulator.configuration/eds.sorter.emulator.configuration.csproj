@@ -69,6 +69,9 @@
     <None Include="Config\SorterNodesConfig.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Config\WebServiceConfig.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\SorterServiceConfig.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

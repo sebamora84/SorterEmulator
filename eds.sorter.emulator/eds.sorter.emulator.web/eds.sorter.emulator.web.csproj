@@ -84,6 +84,7 @@
     <Compile Include="Api\ParcelsController.cs" />
     <Compile Include="Api\NodesController.cs" />
     <Compile Include="Api\TrackingController.cs" />
+    <Compile Include="Configuration\WebServiceConfig.cs" />
     <Compile Include="Dto\NewParcelDto.cs" />
     <Compile Include="IWebService.cs" />
     <Compile Include="Startup.cs" />

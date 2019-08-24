@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-const endpoint = 'http://localhost:9000/api/';
+import { GlobalService } from './global.service';
+
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -15,15 +16,14 @@ const httpOptions = {
 })
 export class TrackingService {
   
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private globalService:GlobalService) { }
 
   getTracking(): Observable<any> {
-    return this.http.get(endpoint + 'tracking').pipe(
+    return this.http.get(this.globalService.endpoint + 'tracking').pipe(
       map(this.extractData));
   }
   deleteTrackingByPic(id): any {
-    return this.http.delete<any>(endpoint + 'tracking/' + id, httpOptions).pipe(
+    return this.http.delete<any>(this.globalService.endpoint + 'tracking/' + id, httpOptions).pipe(
       tap(_ => console.log(`deleted tracking by pic=${id}`)),
       catchError(this.handleError<any>('deleteTrackingByPic'))
     );

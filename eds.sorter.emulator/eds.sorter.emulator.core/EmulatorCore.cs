@@ -35,12 +35,13 @@ namespace eds.sorter.emulator.core
             var physicsService = new PhysicsService(nodesService, new NodeActionFactory(_services));
             var sorterService = new SorterService(physicsService, parcelService, nodesService);
             var messageService = new MessageService(new CommunicationManager(), new ProcessorFactory(_services));
-            
+            var webService = new WebService(_services);
             _services.Add(nodesService);
             _services.Add(parcelService);
             _services.Add(sorterService);
             _services.Add(messageService);
             _services.Add(physicsService);
+            _services.Add(webService);
 
             foreach (var emulationService in _services)
             {
@@ -49,7 +50,7 @@ namespace eds.sorter.emulator.core
                 _log.Info($"Started {emulationService.GetType().Name}");
             }
 
-            new WebService(_services).Start();
+            
 
 
             _log.Info("Started EmulatorCore");

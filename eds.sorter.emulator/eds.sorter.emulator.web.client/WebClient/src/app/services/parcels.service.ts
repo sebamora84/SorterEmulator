@@ -4,10 +4,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-import {Parcel} from '../Model/Parcel';
+import { GlobalService } from './global.service';
 
 
-const endpoint = 'http://localhost:9000/api/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -17,21 +16,22 @@ const httpOptions = {
 @Injectable({  providedIn: 'root'})
 export class ParcelsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private globalService:GlobalService) { }
+
 
   getParcels(): Observable<any> {
-    return this.http.get(endpoint + 'parcels').pipe(
+    return this.http.get(this.globalService.endpoint + 'parcels').pipe(
       map(this.extractData));
   }
   
   getParcel(id): Observable<any> {
-    return this.http.get(endpoint + 'parcels/' + id).pipe(
+    return this.http.get(this.globalService.endpoint + 'parcels/' + id).pipe(
       map(this.extractData));
   }
   
   addParcel (parcel): Observable<any> {
     console.log(parcel);
-     return this.http.post<any>(endpoint + 'parcels',JSON.stringify(parcel) , httpOptions)
+     return this.http.post<any>(this.globalService.endpoint + 'parcels',JSON.stringify(parcel) , httpOptions)
     .pipe(      
       tap(() => console.log('Parcel added')),
       catchError(this.handleError<any>('addParcel'))
@@ -39,7 +39,7 @@ export class ParcelsService {
   }
   
   updateParcel (id, parcel): Observable<any> {
-    return this.http.put(endpoint + 'parcels/' + id, JSON.stringify(parcel), httpOptions).pipe(
+    return this.http.put(this.globalService.endpoint + 'parcels/' + id, JSON.stringify(parcel), httpOptions).pipe(
       tap((parcel) => console.log('Parcel updated')),
       catchError(this.handleError<any>('updateParcel'))
     );
@@ -47,7 +47,7 @@ export class ParcelsService {
   
   
   deleteParcel (id): Observable<any> {
-    return this.http.delete<any>(endpoint + 'parcels/' + id, httpOptions).pipe(
+    return this.http.delete<any>(this.globalService.endpoint + 'parcels/' + id, httpOptions).pipe(
       tap(_ => console.log(`deleted parcel id=${id}`)),
       catchError(this.handleError<any>('deleteParcel'))
     );

@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
+import { GlobalService } from './global.service';
 
-const endpoint = 'http://localhost:9000/api/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -15,10 +15,10 @@ const httpOptions = {
 })
 export class SorterService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private globalService:GlobalService) { }
   
   updateNode (id, node): Observable<any> {
-    return this.http.put(endpoint + 'sorter/' + id, JSON.stringify(node), httpOptions).pipe(
+    return this.http.put(this.globalService.endpoint + 'sorter/' + id, JSON.stringify(node), httpOptions).pipe(
       tap(_ => console.log(`updated node id=${id}`)),
       catchError(this.handleError<any>('updateNode'))
     );
