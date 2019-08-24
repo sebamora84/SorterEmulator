@@ -65,7 +65,7 @@ namespace eds.sorter.emulator.web
                 // Rewrite request to use app root
                 if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
                 {
-                    context.Request.Path =  new PathString("./index.html"); // Put your Angular root page here 
+                    context.Request.Path =  new PathString("/index.html"); // Put your Angular root page here 
                     context.Response.StatusCode = 200; // Make sure we update the status code, otherwise it returns 404
                     await next();
                 }
