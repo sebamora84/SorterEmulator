@@ -22,7 +22,7 @@ export class SorterComponent implements OnInit {
   WeightToWeigh;
   TranslateX:number = 0;
   TranslateY:number = 0;
-  SorterProportion : number=0.0125;
+  SorterProportion : number=0.0095;
 
   trackParcelInterval: any;
   trackNodeInterval: any;
