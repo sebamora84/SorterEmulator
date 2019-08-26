@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Configurations\MessageServiceConfig.cs" />
     <Compile Include="Configurations\NodeActionConfig\CustomData\EntryPointData.cs" />
+    <Compile Include="Configurations\NodeActionConfig\CustomData\MultiRemoteControlData.cs" />
     <Compile Include="Configurations\PhysicsConfig.cs" />
     <Compile Include="Configurations\SorterActionsConfig.cs" />
     <Compile Include="Configurations\SorterNodesConfig.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="NodeActions\MaxMoved.cs" />
     <Compile Include="NodeActions\NoNext.cs" />
     <Compile Include="NodeActions\ScaleWeight.cs" />
+    <Compile Include="NodeActions\MultiRemoteControl.cs" />
     <Compile Include="NodeActions\SortReport.cs" />
     <Compile Include="Processors\Base\IMessageProcessor.cs" />
     <Compile Include="Processors\Base\IProcessorFactory.cs" />

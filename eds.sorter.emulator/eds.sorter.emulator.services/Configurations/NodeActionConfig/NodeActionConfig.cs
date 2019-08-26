@@ -26,6 +26,7 @@ namespace eds.sorter.emulator.services.Configurations.NodeActionConfig
         SortReport,
         DefaulNext,
         MaxMoved,
-        NoNext
+        NoNext,
+        MultiRemoteControl
     }
 }

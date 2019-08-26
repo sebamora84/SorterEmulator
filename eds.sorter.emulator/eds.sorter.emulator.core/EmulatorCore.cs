@@ -33,8 +33,8 @@ namespace eds.sorter.emulator.core
             var nodesService = new NodesService();
             var parcelService = new ParcelService();
             var physicsService = new PhysicsService(nodesService, new NodeActionFactory(_services));
-            var sorterService = new SorterService(physicsService, parcelService, nodesService);
             var messageService = new MessageService(new CommunicationManager(), new ProcessorFactory(_services));
+            var sorterService = new SorterService(physicsService, parcelService, nodesService, messageService);
             var webService = new WebService(_services);
             _services.Add(nodesService);
             _services.Add(parcelService);

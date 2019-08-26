@@ -32,16 +32,34 @@ namespace eds.sorter.emulator.services.Services
         }
         private static SorterActionsConfig ActionConfig
         {
-            get => ConfigurationManager.GetConfig<SorterActionsConfig>(new[] { typeof(SortReportData), typeof(DestinationRequestData), typeof(NodeDeviationData), typeof(EntryPointData) });
-            set => ConfigurationManager.SaveConfig(value, new[] { typeof(SortReportData), typeof(DestinationRequestData), typeof(NodeDeviationData), typeof(EntryPointData) });
+            get => ConfigurationManager.GetConfig<SorterActionsConfig>(new[] { typeof(SortReportData), typeof(DestinationRequestData), typeof(NodeDeviationData), typeof(EntryPointData), typeof(MultiRemoteControlData) });
+            set => ConfigurationManager.SaveConfig(value, new[] { typeof(SortReportData), typeof(DestinationRequestData), typeof(NodeDeviationData), typeof(EntryPointData), typeof(MultiRemoteControlData) });
         }
 
 
         public void Start()
         {
-          
-           LoadNodes();
-          
+            //var sorterActionsConfig = ActionConfig;
+            //foreach (var nodeConfig in NodesConfig.NodesConfig.Where(n=>n.Name.StartsWith("SOT")))
+            //{
+            //    var chuteNumber = nodeConfig.Name.Substring(3, 2);
+            //    sorterActionsConfig.ActionsConfig.Add(
+            //        new NodeActionConfig
+            //        {
+            //            Id =  Guid.NewGuid(),
+            //            Name = $"{nodeConfig.Name}_MultiRemoteControl",
+            //            NodeId = nodeConfig.Id,
+            //            NodeEvent = NodeEvent.MultiRemoteControl,
+            //            Occurs = nodeConfig.Size -10,
+            //            Continues = nodeConfig.Size - 10,
+            //            Data = new MultiRemoteControlData { Name = $"MULTI{chuteNumber}", ActivateDelay = 0, DeactivateDelay = 2},
+            //        }
+                    
+            //        );
+            //}
+            //ActionConfig = sorterActionsConfig;
+
+            LoadNodes();        
 
         }
         public void Stop()

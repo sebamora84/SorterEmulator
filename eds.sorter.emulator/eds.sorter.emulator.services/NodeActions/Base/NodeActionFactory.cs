@@ -45,6 +45,9 @@ namespace eds.sorter.emulator.services.NodeActions.Base
                         _services.First(s => s is IMessageService) as IMessageService,
                         _services.First(s => s is IParcelService) as IParcelService,
                         _services.First(s => s is IPhysicsService) as IPhysicsService);
+                case NodeEvent.MultiRemoteControl:
+                    return new MultiRemoteControl(
+                        _services.First(s => s is ISorterService) as ISorterService);
                 case NodeEvent.DefaulNext:
                     return new DefaultNext();
                 case NodeEvent.NoNext:

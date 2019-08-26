@@ -21,15 +21,20 @@ namespace eds.sorter.emulator.services.Services
         private readonly IPhysicsService _physicsService;
         private readonly IParcelService _parcelService;
         private readonly INodesService _nodesService;
+        private readonly IMessageService _messageService;
 
         private readonly ILog _log = EmulatorLogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private Timer _addTrayTimer;
+        private Timer _multiRemoteControlTimer;
 
-        public SorterService(IPhysicsService physicsService, IParcelService parcelService, INodesService nodesService)
+        private readonly Dictionary<string, Queue<RemoteControlParcel>> _multiRemoteControlParcels= new Dictionary<string, Queue<RemoteControlParcel>>();
+
+        public SorterService(IPhysicsService physicsService, IParcelService parcelService, INodesService nodesService, IMessageService messageService)
         {
             _physicsService = physicsService;
             _parcelService = parcelService;
             _nodesService = nodesService;
+            _messageService = messageService;
         }
 
         private static SorterServiceConfig Config
@@ -38,18 +43,22 @@ namespace eds.sorter.emulator.services.Services
             set => ConfigurationManager.SaveConfig(value);
         }
 
-       
-
         public void Start()
         {
             
             StartTraysActivity();
+            StartMultiRemoteControlActivity();
         }
+
+        
+
         public void Stop()
         {
             StopTraysActivity();
+            StopMultiRemoteControlActivity();
         }
-       
+        
+
         private void StartTraysActivity()
         {
             _addTrayTimer = new Timer(5000);
@@ -77,5 +86,73 @@ namespace eds.sorter.emulator.services.Services
         {
            _addTrayTimer.Stop();
         }
+
+        private void StartMultiRemoteControlActivity()
+        {
+            _multiRemoteControlTimer = new Timer(1000);
+            _multiRemoteControlTimer.Elapsed += SendMultiRemoteControlTimerElapsed;
+            _multiRemoteControlTimer.Start();
+        }
+
+        private void StopMultiRemoteControlActivity()
+        {
+            _multiRemoteControlTimer.Stop();
+        }
+
+        private void SendMultiRemoteControlTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            foreach (var multiRemoteControl in _multiRemoteControlParcels)
+            {
+                if(multiRemoteControl.Value.Count==0)
+                    continue;
+
+                var multiName = multiRemoteControl.Key;
+                var remoteControlParcel = multiRemoteControl.Value.Peek();
+
+                if (!remoteControlParcel.Active && remoteControlParcel.ActivateTime < DateTime.Now)
+                {
+                    var message = $"CC|       {multiName}|attrval|        active|Y|3F";
+                    Task.Run(() => _messageService.SendMessage(message));
+                    remoteControlParcel.Active = true;
+                }
+                else if (remoteControlParcel.Active && remoteControlParcel.DeactivateTime < DateTime.Now)
+                {
+                    var message = $"CC|       {multiName}|attrval|        active|N|3F";
+                    Task.Run(() => _messageService.SendMessage(message));
+                    remoteControlParcel.Active = false;
+
+                    multiRemoteControl.Value.Dequeue();
+                    _parcelService.RemoveParcel(remoteControlParcel.Pic);
+                    _physicsService.RemoveTrackingByPic(remoteControlParcel.Pic);
+                }
+            }
+        }
+
+        public void AddMultiRemoteControl(string multiName, int pic, int delayActivate, int delayDeactivate)
+        {
+            if (!_multiRemoteControlParcels.ContainsKey(multiName))
+            {
+                _multiRemoteControlParcels.Add(multiName,new Queue<RemoteControlParcel>());
+            }
+            _multiRemoteControlParcels[multiName].Enqueue(
+                new RemoteControlParcel()
+                {
+                    Pic = pic,
+                    Active = false,
+                    ActivateTime = DateTime.Now.AddSeconds(delayActivate),
+                    DeactivateTime = DateTime.Now.AddSeconds(delayDeactivate),
+                });
+        }
+
+        public class RemoteControlParcel
+        {
+            public int Pic { get; set; }
+            public bool Active  { get; set; }
+            public DateTime ActivateTime { get; set; }
+            public DateTime DeactivateTime { get; set; }
+        }
+
     }
+
+    
 }
