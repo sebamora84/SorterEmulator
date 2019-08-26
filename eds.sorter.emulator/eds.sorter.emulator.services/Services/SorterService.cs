@@ -109,17 +109,19 @@ namespace eds.sorter.emulator.services.Services
                 var multiName = multiRemoteControl.Key;
                 var remoteControlParcel = multiRemoteControl.Value.Peek();
 
-                if (!remoteControlParcel.Active && remoteControlParcel.ActivateTime < DateTime.Now)
+                if (!remoteControlParcel.Active && remoteControlParcel.Updated.AddSeconds(remoteControlParcel.ActivateDelay) < DateTime.Now)
                 {
                     var message = $"CC|       {multiName}|attrval|        active|Y|3F";
                     Task.Run(() => _messageService.SendMessage(message));
                     remoteControlParcel.Active = true;
+                    remoteControlParcel.Updated=DateTime.Now;
                 }
-                else if (remoteControlParcel.Active && remoteControlParcel.DeactivateTime < DateTime.Now)
+                else if (remoteControlParcel.Active && remoteControlParcel.Updated.AddSeconds(remoteControlParcel.DeactivateDelay) < DateTime.Now)
                 {
                     var message = $"CC|       {multiName}|attrval|        active|N|3F";
                     Task.Run(() => _messageService.SendMessage(message));
                     remoteControlParcel.Active = false;
+                    remoteControlParcel.Updated = DateTime.Now;
 
                     multiRemoteControl.Value.Dequeue();
                     _parcelService.RemoveParcel(remoteControlParcel.Pic);
@@ -128,7 +130,7 @@ namespace eds.sorter.emulator.services.Services
             }
         }
 
-        public void AddMultiRemoteControl(string multiName, int pic, int delayActivate, int delayDeactivate)
+        public void AddMultiRemoteControl(string multiName, int pic, int activateDelay, int deactivateDelay)
         {
             if (!_multiRemoteControlParcels.ContainsKey(multiName))
             {
@@ -139,17 +141,20 @@ namespace eds.sorter.emulator.services.Services
                 {
                     Pic = pic,
                     Active = false,
-                    ActivateTime = DateTime.Now.AddSeconds(delayActivate),
-                    DeactivateTime = DateTime.Now.AddSeconds(delayDeactivate),
+                    ActivateDelay = activateDelay,
+                    DeactivateDelay = deactivateDelay,
+                    Updated = DateTime.Now,
                 });
         }
 
-        public class RemoteControlParcel
+        private class RemoteControlParcel
         {
             public int Pic { get; set; }
             public bool Active  { get; set; }
-            public DateTime ActivateTime { get; set; }
-            public DateTime DeactivateTime { get; set; }
+            public int ActivateDelay { get; set; }
+            public int DeactivateDelay { get; set; }
+            public DateTime Updated { get; set; }
+
         }
 
     }

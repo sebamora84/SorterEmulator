@@ -12,6 +12,6 @@ namespace eds.sorter.emulator.services.Services.Interfaces
        
         void StartAddTray();
         void StopAddTray();
-        void AddMultiRemoteControl(string multiName, int pic, int delayActivate, int delayDeactivate);
+        void AddMultiRemoteControl(string multiName, int pic, int activateDelay, int deactivateDelay);
     }
 }

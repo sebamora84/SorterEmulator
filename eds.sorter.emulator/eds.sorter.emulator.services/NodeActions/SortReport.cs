@@ -34,8 +34,19 @@ namespace eds.sorter.emulator.services.NodeActions
 
         public bool Execute(Tracking tracking, NodeActionConfig nodeActionConfig)
         {
+
             var parcel = _parcelsService.GetParcel(tracking.Pic);
             var sortReportData = nodeActionConfig.GetData<SortReportData>();
+            
+            if (sortReportData.ExecuteOnExisting && !tracking.Present)
+            {
+                return true;
+            }
+            if (sortReportData.ExecuteOnEmpty && tracking.Present)
+            {
+                return true;
+            }
+
             var message = new Message
             {
                 MessageId = sortReportData.MessageId,

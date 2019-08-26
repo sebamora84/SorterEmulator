@@ -39,25 +39,25 @@ namespace eds.sorter.emulator.services.Services
 
         public void Start()
         {
-            //var sorterActionsConfig = ActionConfig;
-            //foreach (var nodeConfig in NodesConfig.NodesConfig.Where(n=>n.Name.StartsWith("SOT")))
-            //{
-            //    var chuteNumber = nodeConfig.Name.Substring(3, 2);
-            //    sorterActionsConfig.ActionsConfig.Add(
-            //        new NodeActionConfig
-            //        {
-            //            Id =  Guid.NewGuid(),
-            //            Name = $"{nodeConfig.Name}_MultiRemoteControl",
-            //            NodeId = nodeConfig.Id,
-            //            NodeEvent = NodeEvent.MultiRemoteControl,
-            //            Occurs = nodeConfig.Size -10,
-            //            Continues = nodeConfig.Size - 10,
-            //            Data = new MultiRemoteControlData { Name = $"MULTI{chuteNumber}", ActivateDelay = 0, DeactivateDelay = 2},
-            //        }
-                    
-            //        );
-            //}
-            //ActionConfig = sorterActionsConfig;
+            //    var sorterActionsConfig = ActionConfig;
+            //    foreach (var actionsConfig in sorterActionsConfig.ActionsConfig.Where(n => n.Name.Contains("DeviationReport")).ToList())
+            //    {
+            //        var sortReportData = actionsConfig.Data as SortReportData;
+            //        sorterActionsConfig.ActionsConfig.Add(
+            //            new NodeActionConfig
+            //            {
+            //                Id = Guid.NewGuid(),
+            //                Name = actionsConfig.Name.Replace("DeviationReport", "SortReport"),
+            //                NodeId = actionsConfig.NodeId,
+            //                NodeEvent = NodeEvent.SortReport,
+            //                Occurs = actionsConfig.Occurs + 100,
+            //                Continues = actionsConfig.Continues + 100,
+            //                Data = new SortReportData { MessageId = 20, ExitPoint = sortReportData.ExitPoint},
+            //            }
+
+            //            );
+            //    }
+            //    ActionConfig = sorterActionsConfig;
 
             LoadNodes();        
 
