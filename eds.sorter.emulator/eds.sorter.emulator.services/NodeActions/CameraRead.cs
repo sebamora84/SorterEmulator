@@ -28,7 +28,7 @@ namespace eds.sorter.emulator.services.NodeActions
         public bool Execute(Tracking tracking, NodeActionConfig nodeActionConfig)
         {
             var parcel = _parcelsService.GetParcel(tracking.Pic);
-            parcel.Barcode = $"3  32{parcel.BarcodeToRead},0006";
+            parcel.Barcode = $"{parcel.BarcodeToRead}";
             return false;
         }
     }
