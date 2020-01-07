@@ -93,7 +93,7 @@ namespace eds.sorter.emulator.services.Services
         }
         private void KeepAliveTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            SendMessage("W2              65", "Client");
+            SendMessage("W2\0\0\0\0\0\0\0\0\0\0\0\0\0\065", "Client");
         }
         private void StopKeepAliveActivity()
         {
