@@ -149,7 +149,10 @@ namespace eds.sorter.emulator.services.Services
 
         private void ExecuteAction(Tracking tracking, NodeActionConfig nextActionConfig)
         {
-            _log.Debug($"Executing Action {JsonConvert.SerializeObject(nextActionConfig)}");
+            if (nextActionConfig.Id != Guid.Empty)
+            {
+                _log.Debug($"Executing Action {JsonConvert.SerializeObject(nextActionConfig)} for tracking {JsonConvert.SerializeObject(tracking)}");
+            }
             tracking.CurrentPosition = nextActionConfig.Occurs;
             switch (nextActionConfig.NodeEvent)
             {
