@@ -3,8 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using eds.sorter.emulator.configuration;
 using eds.sorter.emulator.services.Configurations;
@@ -16,6 +14,7 @@ using eds.sorter.emulator.services.Configurations.NodeActionConfig;
 using eds.sorter.emulator.services.Configurations.NodeActionConfig.CustomData;
 using eds.sorter.emulator.services.Extensions;
 using log4net;
+using Newtonsoft.Json;
 
 namespace eds.sorter.emulator.services.Services
 {
@@ -150,6 +149,7 @@ namespace eds.sorter.emulator.services.Services
 
         private void ExecuteAction(Tracking tracking, NodeActionConfig nextActionConfig)
         {
+            _log.Debug($"Executing Action {JsonConvert.SerializeObject(nextActionConfig)}");
             tracking.CurrentPosition = nextActionConfig.Occurs;
             switch (nextActionConfig.NodeEvent)
             {
