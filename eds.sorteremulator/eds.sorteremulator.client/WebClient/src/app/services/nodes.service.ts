@@ -60,21 +60,22 @@ export class NodesService {
   
   addNode (node): Observable<any> {
     return this.http.post<any>(this.globalService.endpoint + 'nodes', JSON.stringify(node), httpOptions).pipe(
-      tap((node) =>{ console.log('added node w/ id=${node.id}')}),
+      tap((node) =>{ console.log('added node w/ id='+node.id)}),
       catchError(this.handleError<any>('addNode'))
     );
   }
   
   updateNode (id, node): Observable<any> {
+    console.log('updating node id='+id)
     return this.http.put(this.globalService.endpoint + 'nodes/' + id, JSON.stringify(node), httpOptions).pipe(
-      tap(_ => console.log('updated node id=${id}')),
+      tap(_ => console.log('updated node id='+id)),
       catchError(this.handleError<any>('updateNode'))
     );
   }
   
   deleteNode (id): Observable<any> {
     return this.http.delete<any>(this.globalService.endpoint + 'nodes/' + id, httpOptions).pipe(
-      tap(_ => console.log('deleted node id=${id}')),
+      tap(_ => console.log('deleted node id='+id)),
       catchError(this.handleError<any>('deleteNode'))
     );
   }

@@ -18,7 +18,10 @@ export class NodeDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) {
       route.params.subscribe(val => {        
+        
+        
         this.nodeId = this.route.snapshot.paramMap.get('id');
+        console.log("Setting up nodeId "+this.nodeId);
         this.getAllNodes();
       });
      }
@@ -55,7 +58,9 @@ export class NodeDetailsComponent implements OnInit {
    this.deleteNode();
   }
   updateNode(): void {
+    console.log(this.node);
     this.nodesService.updateNode(this.nodeId, this.node).subscribe((data) => {
+      
       this.router.navigate(['/node-details/'+data.id]).then(nav => {
         console.log(nav); // true if navigation is successful      
         

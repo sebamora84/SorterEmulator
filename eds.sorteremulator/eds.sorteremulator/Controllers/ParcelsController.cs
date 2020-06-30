@@ -52,7 +52,7 @@ namespace eds.sorteremulator.Controllers
             return Ok(parcelWithBarcode);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(string id, [FromBody]Node value)
         {
             return Ok("");

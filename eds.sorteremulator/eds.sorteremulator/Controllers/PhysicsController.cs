@@ -44,13 +44,13 @@ namespace eds.sorteremulator.Controllers
             return Ok(Config);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]string value)
         {
             return Ok("");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             return Ok("");
