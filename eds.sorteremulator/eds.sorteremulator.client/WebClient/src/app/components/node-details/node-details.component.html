@@ -1,0 +1,70 @@
+<div *ngIf="node">
+    <h2>{{node.name}} Details</h2>
+    <div><span>Id: </span>{{node.id}}</div>
+    <div>
+      <label>Name:
+        <input matInput [(ngModel)]="node.name" placeholder="Name" />
+      </label>
+    </div>
+    <div>
+      <label>HostDestinationId:
+        <input matInput [(ngModel)]="node.hostDestinationId" placeholder="HostDestinationId" />
+      </label>
+    </div>
+    <div>
+      <label>Speed:
+        <input matInput [(ngModel)]="node.speed" placeholder="Speed" />
+      </label>
+    </div>
+    <div>
+      <label>Size:
+        <input matInput [(ngModel)]="node.size" placeholder="Size" />
+      </label>
+    </div>
+    <div>
+        <label>PositionX:
+          <input matInput [(ngModel)]="node.positionX" placeholder="PositionX" />
+        </label>
+    </div>    
+    <div>
+        <label>PositionY:
+          <input matInput [(ngModel)]="node.positionY" placeholder="PositionY" />
+        </label>
+    </div>
+    <div>
+        <label>Rotation:
+          <input matInput [(ngModel)]="node.rotation" placeholder="Rotation" />
+        </label>
+    </div>
+    <div>
+        <label>Curvature:
+          <input matInput [(ngModel)]="node.curvature" placeholder="Curvature" />
+        </label>
+    </div>
+    <div>
+      <label>DefaultNextId:
+          <select [(ngModel)]="node.defaultNextId">
+              <option *ngFor="let node of nodes" [ngValue]="node.id">
+                {{ node.Name }}
+              </option>
+            </select>
+      </label>
+      <a routerLink="/node-details/{{node.defaultNextId}}"><mat-icon>menu</mat-icon></a>
+    </div>
+    <div>
+      <label>DefaultNextOccurs:
+        <input matInput [(ngModel)]="node.defaultNextOccurs" placeholder="DefaultNextOccurs" />
+      </label>
+    </div>
+    <div>
+      <label>DefaultNextContinues:
+        <input matInput [(ngModel)]="node.defaultNextContinues" placeholder="DefaultNextContinues" />
+      </label>
+    </div>
+    <div><span>IsStopped: </span>{{node.isStopped}}</div>
+    <div>
+        <button class="badge-left button" (click)="onSaveNode()">Save</button>
+        <button class="badge-middle button is-stop" (click)="onDeleteNode()">Delete</button>
+        <button class="badge-right button" (click)="onDuplicateNode()">Duplicate</button>
+    </div>
+  </div>

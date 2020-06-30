@@ -1,0 +1,80 @@
+<div *ngIf="physicsConfig">
+  <button mat-button [ngClass]="{
+        'is-start':true,
+        'is-inactive': physicsConfig.timeLapseSpeed==0}" ng-show (click)="startSorter(1)"><mat-icon>play_arrow</mat-icon></button>
+  <button mat-button color="warn" [ngClass]="{
+          'is-stop':true,
+          'is-inactive': physicsConfig.timeLapseSpeed>0}" (click)="startSorter(0)"><mat-icon>stop</mat-icon></button>
+
+  <button mat-button [ngClass]="{
+          'is-inactive': physicsConfig.timeLapseSpeed==0}"
+    (click)="startSorter(physicsConfig.timeLapseSpeed*0.5)"><mat-icon>fast_rewind</mat-icon></button>
+  <button mat-flat-button>{{physicsConfig.timeLapseSpeed}}x</button>
+  <button mat-button [ngClass]="{
+       'button':true,
+       'is-inactive': physicsConfig.timeLapseSpeed==0}" ng-show
+    (click)="startSorter(physicsConfig.timeLapseSpeed*2)"><mat-icon>fast_forward</mat-icon></button>
+
+</div>
+<div>
+  <input matInput [(ngModel)]="barcodeToRead" placeholder="Barcode to read" />
+  <input matInput [(ngModel)]="weightToWeigh" placeholder="Weight to weigh" />
+  <input matInput [(ngModel)]="sorterProportion" placeholder="Sorter Proportion" />
+  <input matInput [(ngModel)]="translateX" placeholder="Translate X" />
+  <input matInput [(ngModel)]="translateY" placeholder="Translate Y" />
+</div>
+<mat-card class="sorter-area-container">
+ <svg class="sorter-area">
+    <path *ngFor="let path of nodePaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
+      [attr.stroke]="path.stroke" (click)="onNodeSelect(path.node)" fill="none" stroke-opacity="0.8">
+      <title>{{path.node.name}}</title>
+    </path>
+    <path *ngFor="let path of trackingPaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
+      [attr.stroke]="path.stroke" (click)="onTrackingSelect(path.tracking)" [attr.stroke-opacity]="path.tracking.present?'0.8':'0.4'" >
+      <title>{{path.tracking.pic}}</title>
+    </path>
+  </svg>
+</mat-card>
+
+<div class="node-control-container" *ngIf="nodeSelected">
+  <mat-card>
+      <div>
+        <span>
+          Node {{nodeSelected.name}}
+        </span>
+          <a routerLink="/node-details/{{nodeSelected.id}}"  matTooltip="Details"><mat-icon>description</mat-icon></a>
+        
+        
+      </div>
+      <div>
+        <button mat-button (click)="onAddParcel(nodeSelected)"><mat-icon>add</mat-icon></button>
+        <button mat-button [ngClass]="{
+                    'is-start':true,
+                    'is-inactive': nodeSelected.isStopped}" ng-show (click)="onStart(nodeSelected)"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-button color="warn" [ngClass]="{
+                      'is-stop':true,
+                      'is-inactive': !nodeSelected.isStopped}" (click)="onStop(nodeSelected)"><mat-icon>stop</mat-icon></button>
+      </div>
+  </mat-card>
+</div>
+<div class="tracking-control-container"  *ngIf="nodeSelected" >  
+    <mat-card *ngFor="let tracking of getTrackings(nodeSelected.id)">
+      <div>
+        <div>
+          <span>Pic {{tracking.pic}}</span>
+        </div>
+        <div>
+          <span>Position {{tracking.currentPosition | number:'1.3'}}</span>
+        </div>
+        <div>
+          <button mat-button color="warn" (click)="onRemoveTracking(tracking)"><mat-icon>delete_forever</mat-icon></button>
+        </div>
+      </div>
+    </mat-card>
+</div>
+<div class="clear"></div>
+<div>
+  <span>
+    <h5> Updated:</h5>
+  </span>{{lastTracked| date :  "HH:mm:ss"}}
+</div>
