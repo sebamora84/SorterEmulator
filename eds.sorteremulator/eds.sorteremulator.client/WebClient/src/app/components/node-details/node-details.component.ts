@@ -30,7 +30,6 @@ export class NodeDetailsComponent implements OnInit {
   }
   getAllNodes(): any {
     this.nodesService.getNodes().subscribe((data:{}) => {
-      console.log(data);
       this.nodes = data;    
       this.getNode();
     });
@@ -56,7 +55,7 @@ export class NodeDetailsComponent implements OnInit {
    this.deleteNode();
   }
   updateNode(): void {
-    this.nodesService.updateNode(this.node.id, this.node).subscribe((data) => {
+    this.nodesService.updateNode(this.nodeId, this.node).subscribe((data) => {
       this.router.navigate(['/node-details/'+data.id]).then(nav => {
         console.log(nav); // true if navigation is successful      
         

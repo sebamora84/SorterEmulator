@@ -15,7 +15,6 @@ export class NodesComponent implements OnInit {
 
   ngOnInit() {    
     this.nodesService.getNodes().subscribe((data:{}) => {
-      console.log(data);
       this.nodes=data;
       this.nodesData = new MatTableDataSource(this.nodes);
     });

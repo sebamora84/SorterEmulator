@@ -66,6 +66,12 @@ export class SorterComponent implements OnInit {
         this.trackings.push(data)
         return;
       };
+      currentTracking.currentNodeId = data.currentNodeId;
+      currentTracking.currentPosition = data.currentPosition;
+      currentTracking.destinationNodeId=data.destinationNodeId;
+      currentTracking.pic = data.pic;
+      currentTracking.present = data.present;
+
     });
     this.trackingService.deleteTracking.subscribe((data)=>{      
       console.log("Informed Removed tracking "+ data.id);
@@ -99,7 +105,7 @@ export class SorterComponent implements OnInit {
       });
   }
   onStart(node) {
-    node.IsStopped = false;
+    node.isStopped = false;
     this.sorterService.updateNode(node.id, node).subscribe(
       (data: {}) => {
       });

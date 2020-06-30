@@ -63,7 +63,7 @@ namespace eds.sorteremulator.Controllers
         {
             _parcelsService.RemoveParcel(int.Parse(id));
             _physicsService.RemoveTrackingByPic(int.Parse(id));
-            return Ok("Parcel removed");
+            return Ok("");
         }
     }
 }

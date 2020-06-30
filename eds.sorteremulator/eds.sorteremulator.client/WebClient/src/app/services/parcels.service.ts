@@ -47,8 +47,8 @@ export class ParcelsService {
   
   
   deleteParcel (id): Observable<any> {
-    return this.http.delete<any>(this.globalService.endpoint + 'parcels/' + id, httpOptions).pipe(
-      tap(_ => console.log(`deleted parcel id=${id}`)),
+    return this.http.delete<any>(this.globalService.endpoint + 'parcels/' + id).pipe(
+      tap(_ => console.log('deleted parcel')),
       catchError(this.handleError<any>('deleteParcel'))
     );
   }
