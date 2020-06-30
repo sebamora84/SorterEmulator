@@ -178,7 +178,7 @@ module.exports = "\r\n  <app-navigation></app-navigation>"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".is-inactive {\n  opacity: 0.5; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvRDpcXFByb2plY3RzXFxFZHNTb3J0ZXJFbXVsYXRvclxcRWRzU29ydGVyRW11bGF0b3JcXGVkcy5zb3J0ZXJlbXVsYXRvclxcZWRzLnNvcnRlcmVtdWxhdG9yLmNsaWVudFxcV2ViQ2xpZW50L3NyY1xcYXBwXFxhcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRU07RUFDRSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgICAgXHJcbiAgIFxyXG4gICAgICAuaXMtaW5hY3RpdmUge1xyXG4gICAgICAgIG9wYWNpdHk6IDAuNTtcclxuICAgICAgfSJdfQ== */"
+module.exports = ".is-inactive {\n  opacity: 0.5; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvRDpcXFByb2plY3RzXFxFZHNTb3J0ZXJFbXVsYXRvclxcRWRzU29ydGVyRW11bGF0b3JHaXRcXGVkcy5zb3J0ZXJlbXVsYXRvclxcZWRzLnNvcnRlcmVtdWxhdG9yLmNsaWVudFxcV2ViQ2xpZW50L3NyY1xcYXBwXFxhcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRU07RUFDRSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIgICAgXHJcbiAgIFxyXG4gICAgICAuaXMtaW5hY3RpdmUge1xyXG4gICAgICAgIG9wYWNpdHk6IDAuNTtcclxuICAgICAgfSJdfQ== */"
 
 /***/ }),
 
@@ -412,7 +412,7 @@ var NodeActionsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"Node\">\r\n    <h2>{{Node.Name}} Details</h2>\r\n    <div><span>Id: </span>{{Node.Id}}</div>\r\n    <div>\r\n      <label>Name:\r\n        <input matInput [(ngModel)]=\"Node.Name\" placeholder=\"Name\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>HostDestinationId:\r\n        <input matInput [(ngModel)]=\"Node.HostDestinationId\" placeholder=\"HostDestinationId\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>Speed:\r\n        <input matInput [(ngModel)]=\"Node.Speed\" placeholder=\"Speed\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>Size:\r\n        <input matInput [(ngModel)]=\"Node.Size\" placeholder=\"Size\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n        <label>PositionX:\r\n          <input matInput [(ngModel)]=\"Node.PositionX\" placeholder=\"PositionX\" />\r\n        </label>\r\n    </div>    \r\n    <div>\r\n        <label>PositionY:\r\n          <input matInput [(ngModel)]=\"Node.PositionY\" placeholder=\"PositionY\" />\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>Rotation:\r\n          <input matInput [(ngModel)]=\"Node.Rotation\" placeholder=\"Rotation\" />\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>Curvature:\r\n          <input matInput [(ngModel)]=\"Node.Curvature\" placeholder=\"Curvature\" />\r\n        </label>\r\n    </div>\r\n    <div>\r\n      <label>DefaultNextId:\r\n          <select [(ngModel)]=\"Node.DefaultNextId\">\r\n              <option *ngFor=\"let node of Nodes\" [ngValue]=\"node.Id\">\r\n                {{ node.Name }}\r\n              </option>\r\n            </select>\r\n      </label>\r\n      <a routerLink=\"/node-details/{{Node.DefaultNextId}}\"><mat-icon>menu</mat-icon></a>\r\n    </div>\r\n    <div>\r\n      <label>DefaultNextOccurs:\r\n        <input matInput [(ngModel)]=\"Node.DefaultNextOccurs\" placeholder=\"DefaultNextOccurs\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>DefaultNextContinues:\r\n        <input matInput [(ngModel)]=\"Node.DefaultNextContinues\" placeholder=\"DefaultNextContinues\" />\r\n      </label>\r\n    </div>\r\n    <div><span>IsStopped: </span>{{Node.IsStopped}}</div>\r\n    <div>\r\n        <button class=\"badge-left button\" (click)=\"onSaveNode()\">Save</button>\r\n        <button class=\"badge-middle button is-stop\" (click)=\"onDeleteNode()\">Delete</button>\r\n        <button class=\"badge-right button\" (click)=\"onDuplicateNode()\">Duplicate</button>\r\n    </div>\r\n  </div>"
+module.exports = "<div *ngIf=\"node\">\r\n    <h2>{{node.name}} Details</h2>\r\n    <div><span>Id: </span>{{node.id}}</div>\r\n    <div>\r\n      <label>Name:\r\n        <input matInput [(ngModel)]=\"node.name\" placeholder=\"Name\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>HostDestinationId:\r\n        <input matInput type=\"number\" [(ngModel)]=\"node.hostDestinationId\" placeholder=\"HostDestinationId\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>Speed:\r\n        <input matInput type=\"number\" [(ngModel)]=\"node.speed\" placeholder=\"Speed\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>Size:\r\n        <input matInput type=\"number\" [(ngModel)]=\"node.size\" placeholder=\"Size\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n        <label>PositionX:\r\n          <input matInput type=\"number\" [(ngModel)]=\"node.positionX\" placeholder=\"PositionX\" />\r\n        </label>\r\n    </div>    \r\n    <div>\r\n        <label>PositionY:\r\n          <input matInput type=\"number\" [(ngModel)]=\"node.positionY\" placeholder=\"PositionY\" />\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>Rotation:\r\n          <input matInput type=\"number\" [(ngModel)]=\"node.rotation\" placeholder=\"Rotation\" />\r\n        </label>\r\n    </div>\r\n    <div>\r\n        <label>Curvature:\r\n          <input matInput type=\"number\" [(ngModel)]=\"node.curvature\" placeholder=\"Curvature\" />\r\n        </label>\r\n    </div>\r\n    <div>\r\n      <label>DefaultNextId:\r\n          <select [(ngModel)]=\"node.defaultNextId\">\r\n              <option *ngFor=\"let node of nodes\" [ngValue]=\"node.id\">\r\n                {{ node.Name }}\r\n              </option>\r\n            </select>\r\n      </label>\r\n      <a routerLink=\"/node-details/{{node.defaultNextId}}\"><mat-icon>menu</mat-icon></a>\r\n    </div>\r\n    <div>\r\n      <label>DefaultNextOccurs:\r\n        <input matInput type=\"number\" [(ngModel)]=\"node.defaultNextOccurs\" placeholder=\"DefaultNextOccurs\" />\r\n      </label>\r\n    </div>\r\n    <div>\r\n      <label>DefaultNextContinues:\r\n        <input matInput type=\"number\" [(ngModel)]=\"node.defaultNextContinues\" placeholder=\"DefaultNextContinues\" />\r\n      </label>\r\n    </div>\r\n    <div><span>IsStopped: </span>{{node.isStopped}}</div>\r\n    <div>\r\n        <button class=\"badge-left button\" (click)=\"onSaveNode()\">Save</button>\r\n        <button class=\"badge-middle button is-stop\" (click)=\"onDeleteNode()\">Delete</button>\r\n        <button class=\"badge-right button\" (click)=\"onDuplicateNode()\">Duplicate</button>\r\n    </div>\r\n  </div>"
 
 /***/ }),
 
@@ -452,33 +452,33 @@ var NodeDetailsComponent = /** @class */ (function () {
         this.route = route;
         this.router = router;
         route.params.subscribe(function (val) {
-            _this.NodeId = _this.route.snapshot.paramMap.get('id');
+            _this.nodeId = _this.route.snapshot.paramMap.get('id');
+            console.log("Setting up nodeId " + _this.nodeId);
             _this.getAllNodes();
         });
     }
     NodeDetailsComponent.prototype.ngOnInit = function () {
-        this.NodeId = this.route.snapshot.paramMap.get('id');
+        this.nodeId = this.route.snapshot.paramMap.get('id');
         this.getAllNodes();
     };
     NodeDetailsComponent.prototype.getAllNodes = function () {
         var _this = this;
         this.nodesService.getNodes().subscribe(function (data) {
-            console.log(data);
-            _this.Nodes = data;
+            _this.nodes = data;
             _this.getNode();
         });
     };
     NodeDetailsComponent.prototype.getNode = function () {
         var _this = this;
-        this.Node = this.Nodes.filter(function (n) { return n.Id == _this.NodeId; })[0];
-        this.DefaultNode = this.Nodes.filter(function (n) { return n.Id == _this.Node.DefaultNodeId; })[0];
+        this.node = this.nodes.find(function (n) { return n.id == _this.nodeId; });
+        this.defaultNode = this.nodes.find(function (n) { return n.id == _this.node.defaultNodeId; });
     };
     NodeDetailsComponent.prototype.onDuplicateNode = function () {
-        this.Node.Id = null;
-        this.NodeId = null;
+        this.node.id = null;
+        this.nodeId = null;
     };
     NodeDetailsComponent.prototype.onSaveNode = function () {
-        if (!this.Node.Id) {
+        if (!this.node.id) {
             this.addNode();
         }
         else {
@@ -490,8 +490,9 @@ var NodeDetailsComponent = /** @class */ (function () {
     };
     NodeDetailsComponent.prototype.updateNode = function () {
         var _this = this;
-        this.nodesService.updateNode(this.Node.Id, this.Node).subscribe(function (data) {
-            _this.router.navigate(['/node-details/' + data.Id]).then(function (nav) {
+        console.log(this.node);
+        this.nodesService.updateNode(this.nodeId, this.node).subscribe(function (data) {
+            _this.router.navigate(['/node-details/' + data.id]).then(function (nav) {
                 console.log(nav); // true if navigation is successful      
             }, function (err) {
                 console.log(err); // when there's an error
@@ -500,8 +501,8 @@ var NodeDetailsComponent = /** @class */ (function () {
     };
     NodeDetailsComponent.prototype.addNode = function () {
         var _this = this;
-        this.nodesService.addNode(this.Node).subscribe(function (data) {
-            _this.router.navigate(['/node-details/' + data.Id]).then(function (nav) {
+        this.nodesService.addNode(this.node).subscribe(function (data) {
+            _this.router.navigate(['/node-details/' + data.id]).then(function (nav) {
                 console.log(nav); // true if navigation is successful 
             }, function (err) {
                 console.log(err); // when there's an error
@@ -510,7 +511,7 @@ var NodeDetailsComponent = /** @class */ (function () {
     };
     NodeDetailsComponent.prototype.deleteNode = function () {
         var _this = this;
-        this.nodesService.deleteNode(this.Node.Id).subscribe(function (data) {
+        this.nodesService.deleteNode(this.nodeId).subscribe(function (data) {
             _this.router.navigate(['/nodes']).then(function (nav) {
                 console.log(nav); // true if navigation is successful        
             }, function (err) {
@@ -542,7 +543,7 @@ var NodeDetailsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"Nodes.length>0\">\r\n    <mat-form-field>\r\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n    </mat-form-field>\r\n  <table mat-table  [dataSource]=NodesData>\r\n      <ng-container matColumnDef=\"name\">\r\n          <th mat-header-cell *matHeaderCellDef> Name </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.Name}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"hostDestinationId\">\r\n          <th mat-header-cell *matHeaderCellDef> Host Destination Id </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.HostDestinationId}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"speed\">\r\n          <th mat-header-cell *matHeaderCellDef> Speed (mm/s) </th>\r\n          <td mat-cell *matCellDef=\"let node\">{{node.Speed | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"size\">\r\n          <th mat-header-cell *matHeaderCellDef> Size (mm) </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.Size | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"positionX\">\r\n            <th mat-header-cell *matHeaderCellDef> Position X (mm) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.PositionX | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"positionY\">\r\n            <th mat-header-cell *matHeaderCellDef> Position Y (mm) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.PositionY | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"rotation\">\r\n            <th mat-header-cell *matHeaderCellDef> Rotation (º) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.Rotation | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"curvature\">\r\n            <th mat-header-cell *matHeaderCellDef> Curvature (º) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.Curvature | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"next\">\r\n          <th mat-header-cell *matHeaderCellDef> Next </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{getNodeName(node.DefaultNextId)}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"occurs\">\r\n          <th mat-header-cell *matHeaderCellDef> Occurs (mm) </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.DefaultNextOccurs | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"continues\">\r\n          <th mat-header-cell *matHeaderCellDef> Continues (mm) </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.DefaultNextContinues | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"details\">\r\n          <th mat-header-cell *matHeaderCellDef> </th>\r\n          <td mat-cell *matCellDef=\"let node\">\r\n              <a routerLink=\"/node-details/{{node.Id}}\"  matTooltip=\"Details\"><mat-icon>description</mat-icon></a>        \r\n          </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"actions\">\r\n          <th mat-header-cell *matHeaderCellDef> </th>\r\n          <td mat-cell *matCellDef=\"let node\">\r\n              <a routerLink=\"/node-actions/{{node.Id}}\"  matTooltip=\"Actions\"><mat-icon>open_in_new</mat-icon></a>\r\n          </td>\r\n      </ng-container>\r\n      <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n      <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n\r\n\r\n  </table>\r\n</div>\r\n<div >\r\n  <span>\r\n    <h5> Updated:</h5>\r\n  </span>{{LastTracked| date :  \"HH:mm:ss\"}}\r\n</div>"
+module.exports = "<div *ngIf=\"nodes.length>0\">\r\n    <mat-form-field>\r\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filter\">\r\n    </mat-form-field>\r\n  <table mat-table  [dataSource]=nodesData>\r\n      <ng-container matColumnDef=\"name\">\r\n          <th mat-header-cell *matHeaderCellDef> Name </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.name}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"hostDestinationId\">\r\n          <th mat-header-cell *matHeaderCellDef> Host Destination Id </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.hostDestinationId}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"speed\">\r\n          <th mat-header-cell *matHeaderCellDef> Speed (mm/s) </th>\r\n          <td mat-cell *matCellDef=\"let node\">{{node.speed | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"size\">\r\n          <th mat-header-cell *matHeaderCellDef> Size (mm) </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.size | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"positionX\">\r\n            <th mat-header-cell *matHeaderCellDef> Position X (mm) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.positionX | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"positionY\">\r\n            <th mat-header-cell *matHeaderCellDef> Position Y (mm) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.positionY | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"rotation\">\r\n            <th mat-header-cell *matHeaderCellDef> Rotation (º) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.rotation | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"curvature\">\r\n            <th mat-header-cell *matHeaderCellDef> Curvature (º) </th>\r\n            <td mat-cell *matCellDef=\"let node\"> {{node.curvature | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"next\">\r\n          <th mat-header-cell *matHeaderCellDef> Next </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{getNodeName(node.defaultNextId)}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"occurs\">\r\n          <th mat-header-cell *matHeaderCellDef> Occurs (mm) </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.defaultNextOccurs | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"continues\">\r\n          <th mat-header-cell *matHeaderCellDef> Continues (mm) </th>\r\n          <td mat-cell *matCellDef=\"let node\"> {{node.defaultNextContinues | number:'1.3'}} </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"details\">\r\n          <th mat-header-cell *matHeaderCellDef> </th>\r\n          <td mat-cell *matCellDef=\"let node\">\r\n              <a routerLink=\"/node-details/{{node.id}}\"  matTooltip=\"Details\"><mat-icon>description</mat-icon></a>        \r\n          </td>\r\n      </ng-container>\r\n      <ng-container matColumnDef=\"actions\">\r\n          <th mat-header-cell *matHeaderCellDef> </th>\r\n          <td mat-cell *matCellDef=\"let node\">\r\n              <a routerLink=\"/node-actions/{{node.id}}\"  matTooltip=\"Actions\"><mat-icon>open_in_new</mat-icon></a>\r\n          </td>\r\n      </ng-container>\r\n      <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n      <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n\r\n\r\n  </table>\r\n</div>\r\n<div >\r\n  <span>\r\n    <h5> Updated:</h5>\r\n  </span>{{LastTracked| date :  \"HH:mm:ss\"}}\r\n</div>"
 
 /***/ }),
 
@@ -578,26 +579,25 @@ __webpack_require__.r(__webpack_exports__);
 var NodesComponent = /** @class */ (function () {
     function NodesComponent(nodesService) {
         this.nodesService = nodesService;
-        this.Nodes = [];
-        this.NodesData = [];
+        this.nodes = [];
+        this.nodesData = [];
         this.displayedColumns = ['name', 'hostDestinationId', 'speed', 'size', 'positionX', 'positionY', 'rotation', 'curvature', 'next', 'occurs', 'continues', 'details', 'actions'];
     }
     NodesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.nodesService.getNodes().subscribe(function (data) {
-            console.log(data);
-            _this.Nodes = data;
-            _this.NodesData = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](_this.Nodes);
+            _this.nodes = data;
+            _this.nodesData = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableDataSource"](_this.nodes);
         });
     };
     NodesComponent.prototype.getNodeName = function (nodeId) {
-        var node = this.Nodes.filter(function (n) { return n.Id == nodeId; })[0];
+        var node = this.nodes.filter(function (n) { return n.id == nodeId; })[0];
         if (node) {
-            return node.Name;
+            return node.name;
         }
     };
     NodesComponent.prototype.applyFilter = function (filterValue) {
-        this.NodesData.filter = filterValue.trim().toLowerCase();
+        this.nodesData.filter = filterValue.trim().toLowerCase();
     };
     NodesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -632,7 +632,7 @@ module.exports = "<div *ngIf=\"physicsConfig\">\r\n  <button mat-button [ngClass
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".sorter-area-container {\n  overflow-y: scroll;\n  overflow-x: scroll;\n  float: left;\n  width: 80%;\n  height: 75%;\n  margin: 2px; }\n\n.node-control-container {\n  float: left;\n  width: 15%;\n  margin: 1px; }\n\n.tracking-control-container {\n  float: left;\n  width: 15%;\n  margin: 1px; }\n\n.clear {\n  clear: left; }\n\n.sorter-area {\n  width: 500%;\n  height: 500%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zb3J0ZXIvRDpcXFByb2plY3RzXFxFZHNTb3J0ZXJFbXVsYXRvclxcRWRzU29ydGVyRW11bGF0b3JcXGVkcy5zb3J0ZXJlbXVsYXRvclxcZWRzLnNvcnRlcmVtdWxhdG9yLmNsaWVudFxcV2ViQ2xpZW50L3NyY1xcYXBwXFxjb21wb25lbnRzXFxzb3J0ZXJcXHNvcnRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFpQjtFQUNqQixrQkFBaUI7RUFDakIsV0FBVztFQUNYLFVBQVU7RUFDVixXQUFVO0VBQ1YsV0FBVyxFQUFBOztBQUdmO0VBQ0ksV0FBVTtFQUNWLFVBQVU7RUFDVixXQUFXLEVBQUE7O0FBRWY7RUFDSSxXQUFVO0VBQ1YsVUFBVTtFQUNWLFdBQVcsRUFBQTs7QUFFZjtFQUNJLFdBQVcsRUFBQTs7QUFFZjtFQUVJLFdBQVc7RUFDWCxZQUFXLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NvcnRlci9zb3J0ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc29ydGVyLWFyZWEtY29udGFpbmVye1xyXG4gICAgb3ZlcmZsb3cteTpzY3JvbGw7XHJcbiAgICBvdmVyZmxvdy14OnNjcm9sbDtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgd2lkdGg6IDgwJTsgXHJcbiAgICBoZWlnaHQ6NzUlO1xyXG4gICAgbWFyZ2luOiAycHg7XHJcblxyXG59XHJcbi5ub2RlLWNvbnRyb2wtY29udGFpbmVye1xyXG4gICAgZmxvYXQ6bGVmdDtcclxuICAgIHdpZHRoOiAxNSU7XHJcbiAgICBtYXJnaW46IDFweDtcclxufVxyXG4udHJhY2tpbmctY29udHJvbC1jb250YWluZXJ7XHJcbiAgICBmbG9hdDpsZWZ0O1xyXG4gICAgd2lkdGg6IDE1JTtcclxuICAgIG1hcmdpbjogMXB4O1xyXG59XHJcbi5jbGVhcntcclxuICAgIGNsZWFyOiBsZWZ0O1xyXG59XHJcbi5zb3J0ZXItYXJlYXtcclxuICAgIFxyXG4gICAgd2lkdGg6IDUwMCU7IFxyXG4gICAgaGVpZ2h0OjUwMCU7XHJcbn0iXX0= */"
+module.exports = ".sorter-area-container {\n  overflow-y: scroll;\n  overflow-x: scroll;\n  float: left;\n  width: 80%;\n  height: 75%;\n  margin: 2px; }\n\n.node-control-container {\n  float: left;\n  width: 15%;\n  margin: 1px; }\n\n.tracking-control-container {\n  float: left;\n  width: 15%;\n  margin: 1px; }\n\n.clear {\n  clear: left; }\n\n.sorter-area {\n  width: 500%;\n  height: 500%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9zb3J0ZXIvRDpcXFByb2plY3RzXFxFZHNTb3J0ZXJFbXVsYXRvclxcRWRzU29ydGVyRW11bGF0b3JHaXRcXGVkcy5zb3J0ZXJlbXVsYXRvclxcZWRzLnNvcnRlcmVtdWxhdG9yLmNsaWVudFxcV2ViQ2xpZW50L3NyY1xcYXBwXFxjb21wb25lbnRzXFxzb3J0ZXJcXHNvcnRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFpQjtFQUNqQixrQkFBaUI7RUFDakIsV0FBVztFQUNYLFVBQVU7RUFDVixXQUFVO0VBQ1YsV0FBVyxFQUFBOztBQUdmO0VBQ0ksV0FBVTtFQUNWLFVBQVU7RUFDVixXQUFXLEVBQUE7O0FBRWY7RUFDSSxXQUFVO0VBQ1YsVUFBVTtFQUNWLFdBQVcsRUFBQTs7QUFFZjtFQUNJLFdBQVcsRUFBQTs7QUFFZjtFQUVJLFdBQVc7RUFDWCxZQUFXLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3NvcnRlci9zb3J0ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc29ydGVyLWFyZWEtY29udGFpbmVye1xyXG4gICAgb3ZlcmZsb3cteTpzY3JvbGw7XHJcbiAgICBvdmVyZmxvdy14OnNjcm9sbDtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgd2lkdGg6IDgwJTsgXHJcbiAgICBoZWlnaHQ6NzUlO1xyXG4gICAgbWFyZ2luOiAycHg7XHJcblxyXG59XHJcbi5ub2RlLWNvbnRyb2wtY29udGFpbmVye1xyXG4gICAgZmxvYXQ6bGVmdDtcclxuICAgIHdpZHRoOiAxNSU7XHJcbiAgICBtYXJnaW46IDFweDtcclxufVxyXG4udHJhY2tpbmctY29udHJvbC1jb250YWluZXJ7XHJcbiAgICBmbG9hdDpsZWZ0O1xyXG4gICAgd2lkdGg6IDE1JTtcclxuICAgIG1hcmdpbjogMXB4O1xyXG59XHJcbi5jbGVhcntcclxuICAgIGNsZWFyOiBsZWZ0O1xyXG59XHJcbi5zb3J0ZXItYXJlYXtcclxuICAgIFxyXG4gICAgd2lkdGg6IDUwMCU7IFxyXG4gICAgaGVpZ2h0OjUwMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -696,21 +696,28 @@ var SorterComponent = /** @class */ (function () {
     SorterComponent.prototype.subscriveEvents = function () {
         var _this = this;
         this.trackingService.updateTracking.subscribe(function (data) {
-            console.log(data);
-            _this.trackings = _this.trackings.filter(function (t) { return t.id != data.id; });
-            _this.trackings.push(data);
+            var currentTracking = _this.trackings.find(function (t) { return t.id == data.id; });
+            if (!currentTracking) {
+                _this.trackings.push(data);
+                return;
+            }
+            ;
+            currentTracking.currentNodeId = data.currentNodeId;
+            currentTracking.currentPosition = data.currentPosition;
+            currentTracking.destinationNodeId = data.destinationNodeId;
+            currentTracking.pic = data.pic;
+            currentTracking.present = data.present;
         });
         this.trackingService.deleteTracking.subscribe(function (data) {
-            console.log(data);
+            console.log("Informed Removed tracking " + data.id);
             _this.trackings = _this.trackings.filter(function (t) { return t.id != data.id; });
         });
         this.nodesService.updateNodes.subscribe(function (data) {
-            console.log(data);
             _this.nodes = _this.nodes.filter(function (n) { return n.id != data.id; });
             _this.nodes.push(data);
         });
         this.nodesService.deleteNodes.subscribe(function (data) {
-            console.log(data);
+            console.log("Informed Removed node " + data.id);
             _this.nodes = _this.nodes.filter(function (n) { return n.id != data.id; });
         });
     };
@@ -728,7 +735,7 @@ var SorterComponent = /** @class */ (function () {
         });
     };
     SorterComponent.prototype.onStart = function (node) {
-        node.IsStopped = false;
+        node.isStopped = false;
         this.sorterService.updateNode(node.id, node).subscribe(function (data) {
         });
     };
@@ -751,7 +758,6 @@ var SorterComponent = /** @class */ (function () {
         var _this = this;
         this.lastTracked = new Date();
         this.trackingService.getTracking().subscribe(function (data) {
-            console.log(data);
             _this.trackings = data;
         });
     };
@@ -797,15 +803,16 @@ var SorterComponent = /** @class */ (function () {
     };
     SorterComponent.prototype.onRemoveTracking = function (tracking) {
         var _this = this;
+        console.log("Removing tracking " + tracking.id);
         this.parcelsService.deleteParcel(tracking.pic).subscribe(function (data) {
+            console.log("Removed tracking " + tracking.id);
             _this.trackingSelected = null;
         });
     };
     SorterComponent.prototype.drawSorterArea = function () {
         var _this = this;
-        this.trackingPaths = this.trackingPaths.filter(function (trackingPath) { return _this.trackings.find(function (t) { return t.id != trackingPath.tracking.id; }); });
-        this.nodePaths = this.nodePaths.filter(function (nodePath) { return _this.nodes.find(function (n) { return n.id != nodePath.node.id; }); });
-        console.log(this.nodePaths);
+        this.trackingPaths = this.trackingPaths.filter(function (trackingPath) { return _this.trackings.find(function (t) { return t.id == trackingPath.tracking.id; }); });
+        this.nodePaths = this.nodePaths.filter(function (nodePath) { return _this.nodes.find(function (n) { return n.id == nodePath.node.id; }); });
         this.nodes.forEach(function (node) { return _this.updateNodePath(node); });
     };
     SorterComponent.prototype.updateNodePath = function (node) {
@@ -1059,13 +1066,14 @@ var NodesService = /** @class */ (function () {
         return this.http.get(this.globalService.endpoint + 'nodes/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.extractData));
     };
     NodesService.prototype.addNode = function (node) {
-        return this.http.post(this.globalService.endpoint + 'nodes', JSON.stringify(node), httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (node) { return console.log('added node w/ id=${node.id}'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('addNode')));
+        return this.http.post(this.globalService.endpoint + 'nodes', JSON.stringify(node), httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (node) { console.log('added node w/ id=' + node.id); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('addNode')));
     };
     NodesService.prototype.updateNode = function (id, node) {
-        return this.http.put(this.globalService.endpoint + 'nodes/' + id, JSON.stringify(node), httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (_) { return console.log('updated node id=${id}'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('updateNode')));
+        console.log('updating node id=' + id);
+        return this.http.put(this.globalService.endpoint + 'nodes/' + id, JSON.stringify(node), httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (_) { return console.log('updated node id=' + id); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('updateNode')));
     };
     NodesService.prototype.deleteNode = function (id) {
-        return this.http.delete(this.globalService.endpoint + 'nodes/' + id, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (_) { return console.log('deleted node id=${id}'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('deleteNode')));
+        return this.http.delete(this.globalService.endpoint + 'nodes/' + id, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (_) { return console.log('deleted node id=' + id); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('deleteNode')));
     };
     NodesService.prototype.handleError = function (operation, result) {
         if (operation === void 0) { operation = 'operation'; }
@@ -1140,7 +1148,7 @@ var ParcelsService = /** @class */ (function () {
         return this.http.put(this.globalService.endpoint + 'parcels/' + id, JSON.stringify(parcel), httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (parcel) { return console.log('Parcel updated'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('updateParcel')));
     };
     ParcelsService.prototype.deleteParcel = function (id) {
-        return this.http.delete(this.globalService.endpoint + 'parcels/' + id, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (_) { return console.log("deleted parcel id=" + id); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('deleteParcel')));
+        return this.http.delete(this.globalService.endpoint + 'parcels/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (_) { return console.log('deleted parcel'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('deleteParcel')));
     };
     ParcelsService.prototype.handleError = function (operation, result) {
         if (operation === void 0) { operation = 'operation'; }
@@ -1461,7 +1469,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\EdsSorterEmulator\EdsSorterEmulator\eds.sorteremulator\eds.sorteremulator.client\WebClient\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\Projects\EdsSorterEmulator\EdsSorterEmulatorGit\eds.sorteremulator\eds.sorteremulator.client\WebClient\src\main.ts */"./src/main.ts");
 
 
 /***/ })
