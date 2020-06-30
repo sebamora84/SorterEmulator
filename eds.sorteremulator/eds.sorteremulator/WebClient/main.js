@@ -982,9 +982,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var GlobalService = /** @class */ (function () {
-    //endpoint=window.location.origin + '/api/';
     function GlobalService() {
-        this.endpoint = "http://localhost:49494/api/";
+        //endpoint="http://localhost:49494/api/"
+        this.endpoint = window.location.origin + '/api/';
     }
     GlobalService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

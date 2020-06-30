@@ -23,6 +23,7 @@ namespace eds.sorteremulator.services.Services
     {
         private readonly ILifetimeScope _scope;
         private readonly IConfigurationManager _configurationManager;
+        private readonly IHubContext<NodesHub> _nodesHubContext;
         private readonly IHubContext<TrackingHub> _trackingHubContext;
         private readonly ILogger<PhysicsService> _logger;
         private readonly INodesService _nodesService;
@@ -40,12 +41,14 @@ namespace eds.sorteremulator.services.Services
         public PhysicsService(
             ILifetimeScope scope,
             IConfigurationManager configurationManager,
+            IHubContext<NodesHub>nodesHubContext,
             IHubContext<TrackingHub> trackingHubContext,
             ILogger<PhysicsService> logger,
             INodesService nodesService)
         {
             _scope = scope;
             _configurationManager = configurationManager;
+            _nodesHubContext = nodesHubContext;
             _trackingHubContext = trackingHubContext;
             _logger = logger;
             _nodesService = nodesService;
@@ -144,6 +147,8 @@ namespace eds.sorteremulator.services.Services
             if (nextAction.StopOnExecution)
             {
                 currentNode.IsStopped = true;
+                _nodesHubContext.Clients.All.SendAsync("UpdateNode", currentNode);
+
             }
 
             ExecuteAction(tracking, nextAction);
