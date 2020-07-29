@@ -41,15 +41,12 @@ namespace eds.sorteremulator.Controllers
             {
                 return BadRequest($"No node with Id {value.NodeId}");
             }
-            if (string.IsNullOrEmpty(value.BarcodeToRead))
-            {
-                var parcel = _parcelsService.AddNewParcel(node, weightToWeigh: value.WeightToWeigh);
-                _physicsService.AddTracking(parcel.Pic, node.Id, 0);
-                return Ok(parcel);
-            }
-            var parcelWithBarcode = _parcelsService.AddNewParcel(node, value.BarcodeToRead, value.WeightToWeigh);
-            _physicsService.AddTracking(parcelWithBarcode.Pic, node.Id, 0);
-            return Ok(parcelWithBarcode);
+            var weightToWeigh = Convert.ToInt32(string.IsNullOrEmpty(value.WeightToWeigh) ? "0" : value.WeightToWeigh);
+            var barcodeToRead = string.IsNullOrEmpty(value.BarcodeToRead) ? "1   0" : value.BarcodeToRead;
+
+            var parcel = _parcelsService.AddNewParcel(node, barcodeToRead, weightToWeigh);
+            _physicsService.AddTracking(parcel.Pic, node.Id, 0);
+            return Ok(parcel);
         }
 
         [HttpPut("{id}")]

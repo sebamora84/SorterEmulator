@@ -10,6 +10,6 @@ namespace eds.sorteremulator.Dto
         public string Id { get; set; }
         public string NodeId { get; set; }
         public string BarcodeToRead { get; set; }
-        public int WeightToWeigh { get; set; }
+        public string WeightToWeigh { get; set; }
     }
 }
