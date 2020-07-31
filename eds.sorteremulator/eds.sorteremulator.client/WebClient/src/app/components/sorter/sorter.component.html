@@ -33,6 +33,10 @@
       [attr.stroke]="path.stroke" (click)="onTrackingSelect(path.tracking)" [attr.stroke-opacity]="path.tracking.present?'0.8':'0.4'" >
       <title>{{path.tracking.pic}}</title>
     </path>
+    <path *ngFor="let path of actionPaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
+      [attr.stroke]="path.stroke" (click)="onActionSelect(path.action)" fill="none" stroke-opacity="0.8" >
+      <title>{{path.action.name}}</title>
+    </path>
   </svg>
 </mat-card>
 

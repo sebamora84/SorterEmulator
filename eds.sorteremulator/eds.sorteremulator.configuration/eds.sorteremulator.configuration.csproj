@@ -5,35 +5,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Config\CommunicationConfig.config" />
-    <None Remove="Config\PhysicsConfig.config" />
-    <None Remove="Config\SorterActionsConfig.config" />
-    <None Remove="Config\SorterNodesConfig.config" />
-    <None Remove="Config\SorterServiceConfig.config" />
+    <None Remove="Config\CommunicationConfig.json" />
+    <None Remove="Config\PhysicsConfig.json" />
+    <None Remove="Config\SorterActionsConfig.json" />
+    <None Remove="Config\SorterNodesConfig.json" />
+    <None Remove="Config\SorterServiceConfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Config\CommunicationConfig.config">
+    <Content Include="Config\CommunicationConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Config\PhysicsConfig.config">
+    <Content Include="Config\PhysicsConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Config\SorterActionsConfig.config">
+    <Content Include="Config\SorterActionsConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Config\SorterNodesConfig.config">
+    <Content Include="Config\SorterNodesConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Config\SorterServiceConfig.config">
+    <Content Include="Config\SorterServiceConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Config\MessageServiceConfig.config">
+    <None Update="Config\MessageServiceConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Config\WebServiceConfig.config">

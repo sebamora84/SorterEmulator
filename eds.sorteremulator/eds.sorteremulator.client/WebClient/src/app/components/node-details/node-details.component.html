@@ -1,70 +1,72 @@
-<div *ngIf="node">
-    <h2>{{node.name}} Details</h2>
-    <div><span>Id: </span>{{node.id}}</div>
-    <div>
-      <label>Name:
-        <input matInput [(ngModel)]="node.name" placeholder="Name" />
-      </label>
-    </div>
-    <div>
-      <label>HostDestinationId:
-        <input matInput type="number" [(ngModel)]="node.hostDestinationId" placeholder="HostDestinationId" />
-      </label>
-    </div>
-    <div>
-      <label>Speed:
-        <input matInput type="number" [(ngModel)]="node.speed" placeholder="Speed" />
-      </label>
-    </div>
-    <div>
-      <label>Size:
-        <input matInput type="number" [(ngModel)]="node.size" placeholder="Size" />
-      </label>
-    </div>
-    <div>
-        <label>PositionX:
-          <input matInput type="number" [(ngModel)]="node.positionX" placeholder="PositionX" />
-        </label>
-    </div>    
-    <div>
-        <label>PositionY:
-          <input matInput type="number" [(ngModel)]="node.positionY" placeholder="PositionY" />
-        </label>
-    </div>
-    <div>
-        <label>Rotation:
-          <input matInput type="number" [(ngModel)]="node.rotation" placeholder="Rotation" />
-        </label>
-    </div>
-    <div>
-        <label>Curvature:
-          <input matInput type="number" [(ngModel)]="node.curvature" placeholder="Curvature" />
-        </label>
-    </div>
-    <div>
-      <label>DefaultNextId:
-          <select [(ngModel)]="node.defaultNextId">
-              <option *ngFor="let node of nodes" [ngValue]="node.id">
-                {{ node.Name }}
-              </option>
-            </select>
-      </label>
-      <a routerLink="/node-details/{{node.defaultNextId}}"><mat-icon>menu</mat-icon></a>
-    </div>
-    <div>
-      <label>DefaultNextOccurs:
-        <input matInput type="number" [(ngModel)]="node.defaultNextOccurs" placeholder="DefaultNextOccurs" />
-      </label>
-    </div>
-    <div>
-      <label>DefaultNextContinues:
-        <input matInput type="number" [(ngModel)]="node.defaultNextContinues" placeholder="DefaultNextContinues" />
-      </label>
-    </div>
-    <div><span>IsStopped: </span>{{node.isStopped}}</div>
-    <div>
-        <button class="badge-left button" (click)="onSaveNode()">Save</button>
-        <button class="badge-middle button is-stop" (click)="onDeleteNode()">Delete</button>
-        <button class="badge-right button" (click)="onDuplicateNode()">Duplicate</button>
-    </div>
-  </div>
+<h2>{{node.name}} Details</h2>
+<mat-card *ngIf="node" class="half-width content">
+  <mat-form-field class="full-width">
+    <mat-label>Id:</mat-label>
+    <input matInput [(ngModel)]="node.id" placeholder="Id" disabled>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Name:</mat-label>
+    <input matInput [(ngModel)]="node.name" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>HostDestinationId:</mat-label>
+    <input matInput [(ngModel)]="node.hostDestinationId" placeholder="HostDestinationId">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>DefaultNextId</mat-label>
+    <mat-select [(ngModel)]="node.defaultNextId">
+      <mat-option *ngFor="let node of nodes" [value]="node.id">
+        <a routerLink="/node-details/{{node.defaultNextId}}">
+          <mat-icon>menu</mat-icon>
+        </a>
+        {{node.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>DefaultNextOccurs:</mat-label>
+    <input matInput [(ngModel)]="node.defaultNextOccurs" placeholder="DefaultNextOccurs">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>DefaultNextContinues:</mat-label>
+    <input matInput [(ngModel)]="node.defaultNextContinues" placeholder="DefaultNextContinues">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>IsStopped:</mat-label>
+    <input matInput [(ngModel)]="node.isStopped" placeholder="IsStopped" disabled>
+  </mat-form-field>
+</mat-card>
+<mat-card *ngIf="node" class="half-width content">
+  <mat-form-field class="full-width">
+    <mat-label>Speed:</mat-label>
+    <input matInput [(ngModel)]="node.speed" placeholder="Speed">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Size:</mat-label>
+    <input matInput [(ngModel)]="node.size" placeholder="Size">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>PositionX:</mat-label>
+    <input matInput [(ngModel)]="node.positionX" placeholder="PositionX">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>PositionY:</mat-label>
+    <input matInput [(ngModel)]="node.positionY" placeholder="PositionY">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Rotation:</mat-label>
+    <input matInput [(ngModel)]="node.rotation" placeholder="Rotation">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Curvature:</mat-label>
+    <input matInput [(ngModel)]="node.curvature" placeholder="Curvature">
+  </mat-form-field>
+  <a routerLink="/node-actions/{{node.id}}">
+    <mat-icon>menu</mat-icon>
+  </a>
+</mat-card>
+<mat-card *ngIf="node" class="full-width content">
+  <button mat-raised-button (click)="onSaveNode()">Save</button>
+  <button mat-raised-button (click)="onDeleteNode()">Delete</button>
+  <button mat-raised-button (click)="onDuplicateNode()">Duplicate</button>
+</mat-card>

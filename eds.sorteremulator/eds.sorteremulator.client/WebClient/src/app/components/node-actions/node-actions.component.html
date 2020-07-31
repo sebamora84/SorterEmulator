@@ -1,3 +1,57 @@
-<p>
-  node-actions works!
-</p>
+<div *ngIf="actions.length>0">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <table mat-table [dataSource]=actionsData>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let action"> {{action.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let action"> {{action.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="nodeEvent">
+      <th mat-header-cell *matHeaderCellDef> Node Event </th>
+      <td mat-cell *matCellDef="let action"> {{action.nodeEvent}} </td>
+    </ng-container>
+    <ng-container matColumnDef="occurs">
+      <th mat-header-cell *matHeaderCellDef> Occurs </th>
+      <td mat-cell *matCellDef="let action"> {{action.occurs}} </td>
+    </ng-container>
+    <ng-container matColumnDef="continues">
+      <th mat-header-cell *matHeaderCellDef> Continues </th>
+      <td mat-cell *matCellDef="let action"> {{action.continues}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="disabled">
+      <th mat-header-cell *matHeaderCellDef> Disabled </th>
+      <td mat-cell *matCellDef="let action"> {{action.disabled}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="stopOnExecution">
+      <th mat-header-cell *matHeaderCellDef> Stop On Exec </th>
+      <td mat-cell *matCellDef="let action"> {{action.stopOnExecution}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="actionInfo">
+      <th mat-header-cell *matHeaderCellDef> Info </th>
+      <td mat-cell *matCellDef="let action"> {{action.actionInfo}} </td>
+    </ng-container>
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let action">
+          <a routerLink="/action-details/{{action.id}}"  matTooltip="Details"><mat-icon>description</mat-icon></a>        
+      </td>
+  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+  </table>
+</div>
+<div>
+  <span>
+    <h5> Updated:</h5>
+  </span>{{LastTracked| date :  "HH:mm:ss"}}
+</div>

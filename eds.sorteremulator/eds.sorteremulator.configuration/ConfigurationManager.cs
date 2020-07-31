@@ -90,7 +90,7 @@ namespace eds.sorteremulator.configuration
 
         private  string GetFileName<T>()
         {
-            return $"./Config/{typeof(T).Name}.config";
+            return $"./Config/{typeof(T).Name}.json";
         }
         public  T Deserialize<T>(string xml, Type[] extraTypes)
         {

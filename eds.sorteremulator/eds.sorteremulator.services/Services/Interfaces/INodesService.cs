@@ -17,6 +17,7 @@ namespace eds.sorteremulator.services.Services.Interfaces
         List<NodeActionConfig> GetActions(Guid nodeId);
         Node AddNode(Node newNode);
         Node DeleteNode(Guid id);
+        List<NodeActionConfig> GetAllActions();
         Node UpdateNode(Guid guid, Node value);
     }
 }

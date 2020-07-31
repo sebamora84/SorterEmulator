@@ -114,5 +114,10 @@ namespace eds.sorteremulator.services.Services
         {
             return NodesConfig.NodesConfig.ToList();
         }
+
+        public List<NodeActionConfig> GetAllActions()
+        {
+            return ActionConfig.ActionsConfig.ToList();
+        }
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { interval } from 'rxjs';
 import { Node } from '../../Model/Node';
+import { ActionsService } from '../../services/actions.service';
 import { NodesService } from '../../services/nodes.service';
 import { ParcelsService } from '../../services/parcels.service';
 import { PhysicsService } from '../../services/physics.service';
@@ -21,6 +22,7 @@ export class SorterComponent implements OnInit {
 
   nodePaths:any = [];
   trackingPaths:any = [];
+  actionPaths:any = [];
   barcodeToRead;
   weightToWeigh;
   translateX:number = 0;
@@ -30,11 +32,13 @@ export class SorterComponent implements OnInit {
 
   refreshDrawingsInterval: any;
   
+  actions: any = [];
   parcels: any = [];
   nodes: any = [];
   trackings: any = [];
   physicsConfig: any;
  
+  actionSelected: any;
   nodeSelected: any;
   trackingSelected: any;
 
@@ -45,6 +49,7 @@ export class SorterComponent implements OnInit {
     private trackingService: TrackingService,
     private nodesService: NodesService, 
     private parcelsService: ParcelsService, 
+    private actionsService: ActionsService, 
     private physicsService: PhysicsService,
     private snackBar: MatSnackBar) { }
 
@@ -55,8 +60,9 @@ export class SorterComponent implements OnInit {
 
     this.loadPhysics();
     this.loadTracking();
-    this.loadNodes();
+    this.loadActions();
     this.loadParcels();
+    this.loadNodes();
   }
 
   subscriveEvents() {
@@ -131,6 +137,13 @@ export class SorterComponent implements OnInit {
       });
 
   }
+  loadActions() {
+    this.lastTracked = new Date();
+    this.actionsService.getActions().subscribe(
+      (data: {}) => {
+        this.actions = data;
+      });
+  }
   loadParcels() {
     this.lastTracked = new Date();
     this.parcelsService.getParcels().subscribe(
@@ -166,6 +179,11 @@ export class SorterComponent implements OnInit {
   getTrackings(nodeId) {
     return this.trackings.filter(p => p.currentNodeId == nodeId).sort((a, b) => a.currentPosition < b.currentPosition ? -1 : a.currentPosition > b.currentPosition ? 1 : 0);
   }
+
+  getActions(nodeId) {
+    return this.actions.filter(p => p.nodeId == nodeId);
+  }
+
   getParcel(pic) {
     let parcel= this.parcels.filter(p => p.pic == pic)[0];
     if (parcel) {
@@ -181,8 +199,8 @@ export class SorterComponent implements OnInit {
       });
   }
   
-  drawSorterArea() {    
-    this.trackingPaths = this.trackingPaths.filter(trackingPath => this.trackings.find(t=>t.id==trackingPath.tracking.id) );
+  drawSorterArea() {   
+   this.trackingPaths = this.trackingPaths.filter(trackingPath => this.trackings.find(t=>t.id==trackingPath.tracking.id) );
     this.nodePaths = this.nodePaths.filter(nodePath => this.nodes.find(n=>n.id==nodePath.node.id) );
     this.nodes.forEach(node =>this.updateNodePath(node));
   }
@@ -257,6 +275,35 @@ export class SorterComponent implements OnInit {
         }
       });
     }
+
+    let actions = this.getActions(node.id);
+    if (actions) {
+      actions.forEach(action => {
+        let isSelected = this.actionSelected && this.actionSelected.id == action.id;
+        let stroke = isSelected ? 'Red' : 'DarkRed';
+        let width = 500 * this.sorterProportion;
+        let radius = 250 * this.sorterProportion;
+        let position = action.occurs * this.sorterProportion;
+        let ax = posX + (position * Math.cos(radRotation));
+        let ay = posY + (position * Math.sin(radRotation)) - radius;
+        let bx = posX + (position * Math.cos(radRotation));
+        let by = posY + (position * Math.sin(radRotation)) + radius;
+        let path = "M" + ax + " " + ay + " ";
+        path += "A " + radius + " " + radius + " 0 0 0 " + bx + " " + by + " ";
+        path += "A " + radius + " " + radius + " 0 0 0 " + ax + " " + ay + " ";
+
+
+        let currentActionPath = this.actionPaths.find(ap => ap.action.id == action.id)
+        if (currentActionPath) {
+          currentActionPath.node = node;
+          currentActionPath.width = width;
+          currentActionPath.stroke = stroke;
+          currentActionPath.path = path;
+        } else {
+          this.actionPaths.push({ action: action, width: width, stroke: stroke, path: path });
+        }
+      });
+    }
   }
 
 
@@ -270,6 +317,10 @@ export class SorterComponent implements OnInit {
   onTrackingSelect(tracking){
     this.snackBar.open(tracking.pic,"",{duration:1000})
     this.trackingSelected = tracking;
+  }
+  onActionSelect(action){
+    this.snackBar.open(action.name,"",{duration:1000})
+    this.actionSelected = action;
   }
 }
 

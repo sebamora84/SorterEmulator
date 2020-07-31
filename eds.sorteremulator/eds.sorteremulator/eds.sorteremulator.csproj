@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Config\MessageServiceConfig.config" />
+    <Content Remove="Config\MessageServiceConfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Config\MessageServiceConfig.config">
+    <None Include="Config\MessageServiceConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
