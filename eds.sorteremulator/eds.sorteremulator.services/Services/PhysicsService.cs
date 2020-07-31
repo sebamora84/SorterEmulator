@@ -223,7 +223,7 @@ namespace eds.sorteremulator.services.Services
 
         private NodeActionConfig GetNextAction(Node currentNode, decimal totalDistance, decimal parcelCurrentPosition)
         {
-            var nextAction = _nodesService.GetActions(currentNode.Id)?.OrderBy(a => a.Occurs).FirstOrDefault(a =>
+            var nextAction = _nodesService.GetActionsByNodeId(currentNode.Id)?.OrderBy(a => a.Occurs).FirstOrDefault(a =>
                                    !a.Disabled &&
                                    a.Occurs > parcelCurrentPosition &&
                                    a.Occurs <= totalDistance
@@ -279,7 +279,7 @@ namespace eds.sorteremulator.services.Services
                 return true;
             }
 
-            foreach (var nodeActionChild in _nodesService.GetActions(node.Id)?.Where(a=>a.NodeEvent==NodeEvent.NodeDeviation))
+            foreach (var nodeActionChild in _nodesService.GetActionsByNodeId(node.Id)?.Where(a=>a.NodeEvent==NodeEvent.NodeDeviation))
             {
                 if (dictionary.ContainsKey(nodeActionChild.GetData<NodeDeviationData>().NextNodeId))
                 {

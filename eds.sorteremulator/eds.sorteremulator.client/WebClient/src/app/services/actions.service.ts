@@ -13,6 +13,7 @@ const httpOptions = {
 };
 @Injectable({providedIn: 'root'})
 export class ActionsService {
+  
 
   constructor(private http: HttpClient, private globalService:GlobalService) { }
 
@@ -20,10 +21,40 @@ export class ActionsService {
     return this.http.get(this.globalService.endpoint + 'actions').pipe(
       map(this.extractData));
   }
+  getAction(id): Observable<any> {
+    return this.http.get(this.globalService.endpoint + 'actions/' + id).pipe(
+      map(this.extractData));
+  }
   getActionsByNode(nodeId): Observable<any> {
     return this.http.get(this.globalService.endpoint + 'actions/ByNode/'+nodeId).pipe(
       map(this.extractData));
   }
+
+  addAction (action): Observable<any> {
+    return this.http.post<any>(this.globalService.endpoint + 'action', JSON.stringify(action), httpOptions).pipe(
+      tap((action) =>{ console.log('added action w/ id='+action.id)}),
+      catchError(this.handleError<any>('addAction'))
+    );
+  }
+  
+  updateAction (id, action): Observable<any> {
+    console.log('updating action id='+id)
+    return this.http.put(this.globalService.endpoint + 'actions/' + id, JSON.stringify(action), httpOptions).pipe(
+      tap(_ => console.log('updated action id='+id)),
+      catchError(this.handleError<any>('updateAction'))
+    );
+  }
+  
+  deleteAction (id): Observable<any> {
+    return this.http.delete<any>(this.globalService.endpoint + 'actions/' + id, httpOptions).pipe(
+      tap(_ => console.log('deleted action id='+id)),
+      catchError(this.handleError<any>('deleteAction'))
+    );
+  }
+
+
+
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
   

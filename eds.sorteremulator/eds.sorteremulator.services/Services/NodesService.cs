@@ -46,7 +46,8 @@ namespace eds.sorteremulator.services.Services
         public void Start()
         {
            
-            LoadNodes();        
+            LoadNodes();
+            LoadActions();
         }
         public void Stop()
         {
@@ -56,7 +57,12 @@ namespace eds.sorteremulator.services.Services
         private void LoadNodes()
         {
             _nodes = new ConcurrentDictionary<Guid, Node>(NodesConfig.NodesConfig.ToDictionary(n => n.Id, n => n));
-            _actionsByNode =new ConcurrentDictionary<Guid, List<NodeActionConfig>>(ActionConfig.ActionsConfig.GroupBy(a=>a.NodeId).ToDictionary(a => a.Key, a => a.ToList()));
+           
+        }
+
+        private void LoadActions()
+        {
+            _actionsByNode = new ConcurrentDictionary<Guid, List<NodeActionConfig>>(ActionConfig.ActionsConfig.GroupBy(a => a.NodeId).ToDictionary(a => a.Key, a => a.ToList()));
         }
 
         public Node GetNode(Guid nodeId)
@@ -70,7 +76,7 @@ namespace eds.sorteremulator.services.Services
             return _nodes.FirstOrDefault(n => n.Value.HostDestinationId == hostId).Value;
         }
 
-        public List<NodeActionConfig> GetActions(Guid nodeId)
+        public List<NodeActionConfig> GetActionsByNodeId(Guid nodeId)
         {
             _actionsByNode.TryGetValue(nodeId, out var nodeActions);
             return nodeActions;
@@ -118,6 +124,45 @@ namespace eds.sorteremulator.services.Services
         public List<NodeActionConfig> GetAllActions()
         {
             return ActionConfig.ActionsConfig.ToList();
+        }
+
+        public NodeActionConfig GetActionById(Guid guid)
+        {
+            
+            return ActionConfig.ActionsConfig.FirstOrDefault(a=>a.Id.Equals(guid)) ;
+        }
+
+        public NodeActionConfig AddAction(NodeActionConfig newAction)
+        {
+            newAction.Id = Guid.NewGuid();                       
+            var config = ActionConfig;
+            config.ActionsConfig.Add(newAction);
+            ActionConfig = config;
+
+            LoadActions();
+            return newAction;
+        }
+        public NodeActionConfig DeleteAction(Guid id)
+        {
+
+            var config = ActionConfig;
+            var removedAction = config.ActionsConfig.First(a => a.Id == id);
+            config.ActionsConfig.Remove(removedAction);
+            ActionConfig = config;
+            LoadActions();
+
+            return removedAction;
+        }
+
+        public NodeActionConfig UpdateAction(Guid guid, NodeActionConfig action)
+        {
+            var removedAction = DeleteNode(guid);
+            action.Id = removedAction.Id;
+            var config = ActionConfig;
+            config.ActionsConfig.Add(action);
+            ActionConfig = config;
+            LoadActions();
+            return action;
         }
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { NodesService } from 'src/app/services/nodes.service';
+import { NodesService } from '../../services/nodes.service';
 
 @Component({
   selector: 'app-node-details',
@@ -17,11 +17,8 @@ export class NodeDetailsComponent implements OnInit {
     private nodesService:NodesService,
     private route: ActivatedRoute,
     private router: Router) {
-      route.params.subscribe(val => {        
-        
-        
+      route.params.subscribe(val => {
         this.nodeId = this.route.snapshot.paramMap.get('id');
-        console.log("Setting up nodeId "+this.nodeId);
         this.getAllNodes();
       });
      }

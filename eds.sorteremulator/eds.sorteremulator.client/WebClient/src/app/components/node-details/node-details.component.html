@@ -1,4 +1,4 @@
-<h2>{{node.name}} Details</h2>
+<h2 *ngIf="node" >{{node.name}} Details</h2>
 <mat-card *ngIf="node" class="half-width content">
   <mat-form-field class="full-width">
     <mat-label>Id:</mat-label>
@@ -31,10 +31,7 @@
     <mat-label>DefaultNextContinues:</mat-label>
     <input matInput [(ngModel)]="node.defaultNextContinues" placeholder="DefaultNextContinues">
   </mat-form-field>
-  <mat-form-field class="full-width">
-    <mat-label>IsStopped:</mat-label>
-    <input matInput [(ngModel)]="node.isStopped" placeholder="IsStopped" disabled>
-  </mat-form-field>
+    <mat-slide-toggle [(ngModel)]="node.isStopped" name="IsStopped" disabled>IsStopped</mat-slide-toggle>
 </mat-card>
 <mat-card *ngIf="node" class="half-width content">
   <mat-form-field class="full-width">

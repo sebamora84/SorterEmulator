@@ -1,3 +1,35 @@
-<p>
-  action-details works!
-</p>
+<h2 *ngIf="action">{{action.name}} Details</h2>
+<mat-card *ngIf="action" class="half-width content">
+  <mat-form-field class="full-width">
+    <mat-label>Id:</mat-label>
+    <input matInput [(ngModel)]="action.id" placeholder="Id" disabled>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Name:</mat-label>
+    <input matInput [(ngModel)]="action.name" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>NodeEvent:</mat-label>
+    <input matInput [(ngModel)]="action.nodeEvent" placeholder="NodeEvent">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Occurs:</mat-label>
+    <input matInput [(ngModel)]="action.occurs" placeholder="Occurs">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Continues:</mat-label>
+    <input matInput [(ngModel)]="action.continues" placeholder="Continues">
+  </mat-form-field>
+    <mat-slide-toggle [(ngModel)]="action.stopOnExecution" name="StopOnExecution">Stop On Exec</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="action.disabled" name="Disabled">Disabled</mat-slide-toggle>
+  <mat-form-field class="full-width">
+    <mat-label>Info:</mat-label>
+    <input matInput [(ngModel)]="action.actionInfo" placeholder="Info">
+  </mat-form-field>
+</mat-card>
+
+<mat-card *ngIf="action" class="full-width content">
+  <button mat-raised-button (click)="onSaveAction()">Save</button>
+  <button mat-raised-button (click)="onDeleteAction()">Delete</button>
+  <button mat-raised-button (click)="onDuplicateAction()">Duplicate</button>
+</mat-card>

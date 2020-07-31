@@ -14,10 +14,15 @@ namespace eds.sorteremulator.services.Services.Interfaces
         List<Node> GetAllNodes();
         Node GetNode(Guid nodeId);
         Node GetNodeByHostId(int hostId);
-        List<NodeActionConfig> GetActions(Guid nodeId);
         Node AddNode(Node newNode);
         Node DeleteNode(Guid id);
-        List<NodeActionConfig> GetAllActions();
         Node UpdateNode(Guid guid, Node value);
+
+        List<NodeActionConfig> GetAllActions();
+        List<NodeActionConfig> GetActionsByNodeId(Guid nodeId);
+        NodeActionConfig GetActionById(Guid guid);
+        NodeActionConfig AddAction(NodeActionConfig newAction);
+        NodeActionConfig DeleteAction(Guid id);
+        NodeActionConfig UpdateAction(Guid guid, NodeActionConfig action);
     }
 }
