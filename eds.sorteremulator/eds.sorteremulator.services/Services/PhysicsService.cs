@@ -10,6 +10,7 @@ using eds.sorteremulator.services.NodeActions.Base;
 using eds.sorteremulator.services.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -222,10 +223,10 @@ namespace eds.sorteremulator.services.Services
 
         private NodeActionConfig GetNextAction(Node currentNode, decimal totalDistance, decimal parcelCurrentPosition)
         {
-            var nextAction = _nodesService.GetActions(currentNode.Id)?.OrderBy(a=>a.Occurs).FirstOrDefault(a=>
-                                 !a.Disabled &&
-                                 a.Occurs > parcelCurrentPosition && 
-                                 a.Occurs <= totalDistance
+            var nextAction = _nodesService.GetActions(currentNode.Id)?.OrderBy(a => a.Occurs).FirstOrDefault(a =>
+                                   !a.Disabled &&
+                                   a.Occurs > parcelCurrentPosition &&
+                                   a.Occurs <= totalDistance
                              ) ?? new NodeActionConfig
                              {
                                  NodeId = currentNode.Id,
@@ -233,7 +234,7 @@ namespace eds.sorteremulator.services.Services
                                  Continues = totalDistance,
                                  NodeEvent = NodeEvent.MaxMoved,
                                  StopOnExecution = false,
-                                 Data = new NodeDeviationData { NextNodeId = currentNode.Id }
+                                 ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.Id })
                              };
 
             var defaultNext = currentNode.DefaultNextId == Guid.Empty
@@ -244,7 +245,7 @@ namespace eds.sorteremulator.services.Services
                     Continues = currentNode.Size,
                     NodeEvent = NodeEvent.NoNext,
                     StopOnExecution = false,
-                    Data = new NodeDeviationData { NextNodeId = currentNode.Id }
+                    ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.Id })
                 }
                 : new NodeActionConfig
                 {
@@ -253,7 +254,7 @@ namespace eds.sorteremulator.services.Services
                     Continues = currentNode.DefaultNextContinues,
                     NodeEvent = NodeEvent.DefaulNext,
                     StopOnExecution = false,
-                    Data = new NodeDeviationData { NextNodeId = currentNode.DefaultNextId }
+                    ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.DefaultNextId })
                 };
 
             return nextAction.Occurs >= defaultNext.Occurs ? defaultNext : nextAction;

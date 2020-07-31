@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eds.sorteremulator.services.Configurations;
 using eds.sorteremulator.services.Configurations.NodeActionConfig;
 using eds.sorteremulator.services.Model;
+using Newtonsoft.Json;
 
 namespace eds.sorteremulator.services.Extensions
 {
@@ -13,7 +14,7 @@ namespace eds.sorteremulator.services.Extensions
     {
         public static T GetData<T>(this NodeActionConfig nodeActionConfig)
         {
-            return (T) nodeActionConfig.Data;
+            return JsonConvert.DeserializeObject<T>(nodeActionConfig.ActionInfo);
         }
     }
 }

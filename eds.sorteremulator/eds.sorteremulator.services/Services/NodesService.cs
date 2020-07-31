@@ -1,4 +1,5 @@
-﻿using eds.sorteremulator.configuration;
+﻿using eds.sorteremulator.communiation;
+using eds.sorteremulator.configuration;
 using eds.sorteremulator.services.Configurations;
 using eds.sorteremulator.services.Configurations.NodeActionConfig;
 using eds.sorteremulator.services.Configurations.NodeActionConfig.CustomData;
@@ -7,6 +8,7 @@ using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -30,10 +32,9 @@ namespace eds.sorteremulator.services.Services
         }
         private SorterActionsConfig ActionConfig
         {
-            get => _configurationManager.GetConfig<SorterActionsConfig>(new[] { typeof(SortReportData), typeof(DestinationRequestData), typeof(NodeDeviationData), typeof(EntryPointData), typeof(MultiRemoteControlData) });
-            set => _configurationManager.SaveConfig(value, new[] { typeof(SortReportData), typeof(DestinationRequestData), typeof(NodeDeviationData), typeof(EntryPointData), typeof(MultiRemoteControlData) });
+            get => _configurationManager.GetConfig<SorterActionsConfig>();
+            set => _configurationManager.SaveConfig(value);
         }
-
         public NodesService(ILogger<NodesService> logger, IConfigurationManager configurationManager,
             IHubContext<NodesHub> nodesHubContext)
         {
@@ -44,6 +45,7 @@ namespace eds.sorteremulator.services.Services
 
         public void Start()
         {
+           
             LoadNodes();        
         }
         public void Stop()

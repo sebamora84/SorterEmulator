@@ -1,4 +1,6 @@
-﻿using System;
+﻿using eds.sorteremulator.services.Configurations.NodeActionConfig.CustomData;
+using System;
+using System.Collections.Generic;
 
 namespace eds.sorteremulator.services.Configurations.NodeActionConfig
 {
@@ -12,7 +14,7 @@ namespace eds.sorteremulator.services.Configurations.NodeActionConfig
         public decimal Continues { get; set; }
         public bool Disabled { get; set; }
         public bool StopOnExecution { get; set; }
-        public dynamic Data { get; set; }
+        public string ActionInfo { get; set; }
 
     }
 
