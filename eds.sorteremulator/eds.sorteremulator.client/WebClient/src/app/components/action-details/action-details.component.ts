@@ -44,11 +44,11 @@ export class ActionDetailsComponent implements OnInit {
   }
 
   onDuplicateAction():void{
-    this.action.id=null;
+    this.action.id='00000000-0000-0000-0000-000000000000';
     this.actionId=null;
   }
   onSaveAction():void{
-    if(!this.action.id){
+    if(this.action.id=='00000000-0000-0000-0000-000000000000'){
       this.addAction();
     }
     else{

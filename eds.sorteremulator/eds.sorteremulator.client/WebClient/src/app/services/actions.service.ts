@@ -31,8 +31,9 @@ export class ActionsService {
   }
 
   addAction (action): Observable<any> {
-    return this.http.post<any>(this.globalService.endpoint + 'action', JSON.stringify(action), httpOptions).pipe(
-      tap((action) =>{ console.log('added action w/ id='+action.id)}),
+    console.log(JSON.stringify(action))
+    return this.http.post<any>(this.globalService.endpoint + 'actions', JSON.stringify(action), httpOptions).pipe(
+      tap((action) =>{ console.log('added action')}),
       catchError(this.handleError<any>('addAction'))
     );
   }

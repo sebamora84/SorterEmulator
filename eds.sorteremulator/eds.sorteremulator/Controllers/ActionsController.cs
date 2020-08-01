@@ -41,7 +41,7 @@ namespace eds.sorteremulator.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(ActionConfig value)
+        public IActionResult Post([FromBody]ActionConfig value)
         {
             var newNode = _nodesService.AddAction(value);
             return Ok(newNode);

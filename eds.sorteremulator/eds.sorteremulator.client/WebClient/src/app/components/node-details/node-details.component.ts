@@ -40,11 +40,11 @@ export class NodeDetailsComponent implements OnInit {
     this.defaultNode=this.nodes.find(n=>n.id==this.node.defaultNodeId);
   }
   onDuplicateNode():void{
-    this.node.id=null;
+    this.node.id='00000000-0000-0000-0000-000000000000';
     this.nodeId=null;
   }
   onSaveNode():void{
-    if(!this.node.id){
+    if(this.node.id=='00000000-0000-0000-0000-000000000000'){
       this.addNode();
     }
     else{
