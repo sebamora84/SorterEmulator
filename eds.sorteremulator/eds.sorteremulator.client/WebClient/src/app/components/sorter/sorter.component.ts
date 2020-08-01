@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
 import { interval } from 'rxjs';
 import { ActionsService } from '../../services/actions.service';
 import { NodesService } from '../../services/nodes.service';
@@ -17,13 +17,15 @@ import {MatSnackBar} from '@angular/material';
 })
 
 export class SorterComponent implements OnInit {
-  private ctx: CanvasRenderingContext2D;
+
 
   nodePaths:any = [];
   trackingPaths:any = [];
   actionPaths:any = [];
   barcodeToRead;
   weightToWeigh;
+
+  isDraging:boolean;
   translateX:number = 0;
   translateY:number = 0;
   sorterProportion : number=0.0095;
@@ -351,5 +353,25 @@ export class SorterComponent implements OnInit {
     this.snackBar.open(action.name,"",{duration:1000})
     this.actionSelected = action;
   }
+
+  onMouseDown(event){
+    this.isDraging=true;
+  }
+  onMouseMove(event){
+    if(!event.ctrlKey && this.isDraging){
+      this.translateX +=(event.movementX/this.sorterProportion);
+      this.translateY +=(event.movementY/this.sorterProportion);
+    }
+    if(event.ctrlKey && this.isDraging){      
+      let proportionIncrement=event.movementY/10000;
+      this.sorterProportion+=(proportionIncrement);
+    }
+
+  }
+  onMouseUp(event){
+    this.isDraging=false;
+  }
+
+
 }
 

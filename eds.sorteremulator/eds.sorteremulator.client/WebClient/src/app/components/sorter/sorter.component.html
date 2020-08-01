@@ -19,11 +19,11 @@
 <div>
   <input matInput [(ngModel)]="barcodeToRead" placeholder="Barcode to read" />
   <input matInput [(ngModel)]="weightToWeigh" placeholder="Weight to weigh" />
-  <input matInput [(ngModel)]="sorterProportion" placeholder="Sorter Proportion" />
-  <input matInput [(ngModel)]="translateX" placeholder="Translate X" />
-  <input matInput [(ngModel)]="translateY" placeholder="Translate Y" />
+  <input matInput type="number" step="0.0005" [(ngModel)]="sorterProportion" placeholder="Sorter Proportion" />
+  <input matInput type="number" [(ngModel)]="translateX" placeholder="Translate X" />
+  <input matInput type="number" [(ngModel)]="translateY" placeholder="Translate Y" />
 </div>
-<mat-card class="sorter-area-container">
+<mat-card class="sorter-area-container" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" >
  <svg class="sorter-area">
     <path *ngFor="let path of nodePaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
       [attr.stroke]="path.stroke" (click)="onNodeSelect(path.node)" fill="none" stroke-opacity="0.8">
