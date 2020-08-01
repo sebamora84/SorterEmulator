@@ -10,9 +10,5 @@ namespace eds.sorteremulator.services.NodeActions
         {
             return true;
         }
-
-       
-
-        
     }
 }
