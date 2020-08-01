@@ -1,4 +1,4 @@
-﻿using eds.sorteremulator.services.Configurations.NodeActionConfig;
+﻿using eds.sorteremulator.services.Configurations.Actions;
 using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.NodeActions.Base;
 using eds.sorteremulator.services.Services.Interfaces;
@@ -15,7 +15,7 @@ namespace eds.sorteremulator.services.NodeActions
             _parcelsService = parcelsService;
         }
 
-        public bool Execute(Tracking tracking, NodeActionConfig nodeActionConfig)
+        public bool Execute(Tracking tracking, ActionConfig nodeActionConfig)
         {
             var parcel = _parcelsService.GetParcel(tracking.Pic);
             parcel.Barcode = $"{parcel.BarcodeToRead}";

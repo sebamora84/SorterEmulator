@@ -29,13 +29,13 @@
       [attr.stroke]="path.stroke" (click)="onNodeSelect(path.node)" fill="none" stroke-opacity="0.8">
       <title>{{path.node.name}}</title>
     </path>
-    <path *ngFor="let path of trackingPaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
-      [attr.stroke]="path.stroke" (click)="onTrackingSelect(path.tracking)" [attr.stroke-opacity]="path.tracking.present?'0.8':'0.4'" >
-      <title>{{path.tracking.pic}}</title>
-    </path>
     <path *ngFor="let path of actionPaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
       [attr.stroke]="path.stroke" (click)="onActionSelect(path.action)" fill="none" stroke-opacity="0.8" >
       <title>{{path.action.name}}</title>
+    </path>
+    <path *ngFor="let path of trackingPaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
+      [attr.stroke]="path.stroke" (click)="onTrackingSelect(path.tracking)" stroke-opacity="0.8">
+      <title>{{path.tracking.pic}}</title>
     </path>
   </svg>
 </mat-card>
@@ -46,18 +46,41 @@
         <span>
           Node {{nodeSelected.name}}
         </span>
-          <a routerLink="/node-details/{{nodeSelected.id}}"  matTooltip="Details"><mat-icon>description</mat-icon></a>
-        
+      </div>
+      <div>
+        <a routerLink="/node-details/{{nodeSelected.id}}"  matTooltip="Details"><mat-icon>description</mat-icon></a>
+        <a routerLink="/node-actions/{{nodeSelected.id}}"  matTooltip="Actions"><mat-icon>open_in_new</mat-icon></a>
+      </div>
+      <div>
+        <button mat-button (click)="onNodeAddParcel(nodeSelected)"><mat-icon>add_shopping_cart</mat-icon></button>
+        <button mat-button [ngClass]="{
+                    'is-start':true,
+                    'is-inactive': nodeSelected.isStopped}" ng-show (click)="onNodeStart(nodeSelected)"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-button color="warn" [ngClass]="{
+                      'is-stop':true,
+                      'is-inactive': !nodeSelected.isStopped}" (click)="onNodeStop(nodeSelected)"><mat-icon>stop</mat-icon></button>
+      </div>
+  </mat-card>
+</div>
+<div class="action-control-container" *ngIf="actionSelected">
+  <mat-card>
+      <div>
+        <span>
+          Action {{actionSelected.name}}
+        </span>
+        <div>
+          <a routerLink="/action-details/{{actionSelected.id}}"  matTooltip="Details"><mat-icon>description</mat-icon></a>
+        </div>
         
       </div>
       <div>
-        <button mat-button (click)="onAddParcel(nodeSelected)"><mat-icon>add</mat-icon></button>
+        <button mat-button (click)="onActionExecute(actionSelected)"><mat-icon>offline_bolt</mat-icon></button>   
         <button mat-button [ngClass]="{
                     'is-start':true,
-                    'is-inactive': nodeSelected.isStopped}" ng-show (click)="onStart(nodeSelected)"><mat-icon>play_arrow</mat-icon></button>
+                    'is-inactive': actionSelected.disabled}" ng-show (click)="onActionEnable(actionSelected)"><mat-icon>play_arrow</mat-icon></button>
         <button mat-button color="warn" [ngClass]="{
                       'is-stop':true,
-                      'is-inactive': !nodeSelected.isStopped}" (click)="onStop(nodeSelected)"><mat-icon>stop</mat-icon></button>
+                      'is-inactive': !actionSelected.disabled}" (click)="onActionDisable(actionSelected)"><mat-icon>stop</mat-icon></button>
       </div>
   </mat-card>
 </div>
@@ -77,8 +100,3 @@
     </mat-card>
 </div>
 <div class="clear"></div>
-<div>
-  <span>
-    <h5> Updated:</h5>
-  </span>{{lastTracked| date :  "HH:mm:ss"}}
-</div>

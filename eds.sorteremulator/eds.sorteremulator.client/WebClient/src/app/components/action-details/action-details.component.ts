@@ -5,7 +5,7 @@ import { ActionsService } from '../../services/actions.service';
 import { NodesService } from '../../services/nodes.service';
 
 @Component({
-  selector: 'app-action-details',
+  selector: 'app-action-details, json-pipe',
   templateUrl: './action-details.component.html',
   styleUrls: ['../../app.component.scss','./action-details.component.scss']
 })
@@ -90,9 +90,7 @@ export class ActionDetailsComponent implements OnInit {
     });
   }
 
-
-
-
-
-
+  prettyPrint(uglyJson) {
+    return JSON.stringify(JSON.parse(uglyJson), undefined, 4);;
+  }
 }

@@ -1,4 +1,4 @@
-﻿using eds.sorteremulator.services.Configurations.NodeActionConfig;
+﻿using eds.sorteremulator.services.Configurations.Actions;
 using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +12,15 @@ namespace eds.sorteremulator.Controllers
     public class ActionsController : Controller
     {
         private readonly INodesService _nodesService;
+        private readonly IPhysicsService _physicsService;
 
-        public ActionsController(INodesService nodesService)
+        public ActionsController(INodesService nodesService, IPhysicsService physicsService)
         {
             _nodesService = nodesService;
+            _physicsService = physicsService;
         }
         [HttpGet]
-        public IEnumerable<NodeActionConfig> Get()
+        public IEnumerable<ActionConfig> Get()
         {
             return _nodesService.GetAllActions();
         }
@@ -39,14 +41,21 @@ namespace eds.sorteremulator.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(NodeActionConfig value)
+        public IActionResult Post(ActionConfig value)
         {
             var newNode = _nodesService.AddAction(value);
             return Ok(newNode);
         }
+        [HttpPost("Execute/{id}")]
+        public IActionResult ExecuteAction(string id)
+        {
+            var actionConfig = _nodesService.GetActionById(new Guid(id));
+            _physicsService.ExecuteManualActionConfig(actionConfig);
+            return Ok(actionConfig.Name);
+        }
 
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody]NodeActionConfig value)
+        public IActionResult Put(string id, [FromBody]ActionConfig value)
         {
             var updatedNode = _nodesService.UpdateAction(new Guid(id), value);
             return Ok(updatedNode);

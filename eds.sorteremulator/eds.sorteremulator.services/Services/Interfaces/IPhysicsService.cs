@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eds.sorteremulator.services.Configurations.Actions;
 using eds.sorteremulator.services.Model;
 
 namespace eds.sorteremulator.services.Services.Interfaces
@@ -17,5 +18,6 @@ namespace eds.sorteremulator.services.Services.Interfaces
         Tracking GetTrackingByPic(int pic);
         void RemoveTracking(Guid id);
         void RemoveTrackingByPic(int pic);
+        void ExecuteManualActionConfig(ActionConfig actionConfig);
     }
 }

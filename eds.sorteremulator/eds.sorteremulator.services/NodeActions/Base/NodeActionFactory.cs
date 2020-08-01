@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using eds.sorteremulator.services.Configurations.NodeActionConfig;
+using eds.sorteremulator.services.Configurations.Actions;
 using eds.sorteremulator.services.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,6 @@ namespace eds.sorteremulator.services.NodeActions.Base
 {
     public class NodeActionFactory : INodeActionFactory
     {
-        private readonly List<IService> _services;
         private readonly ILifetimeScope _scope;
 
         public NodeActionFactory(ILifetimeScope scope)
@@ -34,12 +33,22 @@ namespace eds.sorteremulator.services.NodeActions.Base
                     return _scope.Resolve<DestinationRequest>();
                 case NodeEvent.SortReport:
                     return _scope.Resolve<SortReport>();
-                case NodeEvent.MultiRemoteControl:
-                    return _scope.Resolve<MultiRemoteControl>();
+                case NodeEvent.RemoteControlOut:
+                    return _scope.Resolve<RemoteControlOut>();
                 case NodeEvent.DefaulNext:
                     return _scope.Resolve<DefaultNext>();
                 case NodeEvent.NoNext:
                     return _scope.Resolve<NoNext>();
+                default:
+                    return _scope.Resolve<Default>();
+            }
+        }
+        public IManualAction GetManualAction(NodeEvent nodeEvent)
+        {
+            switch (nodeEvent)
+            {
+                case NodeEvent.RemoteControlOut:
+                    return _scope.Resolve<RemoteControlOut>();
                 default:
                     return _scope.Resolve<Default>();
             }

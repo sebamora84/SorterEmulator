@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using eds.sorteremulator.configuration;
 using eds.sorteremulator.services.Configurations;
-using eds.sorteremulator.services.Configurations.NodeActionConfig;
-using eds.sorteremulator.services.Configurations.NodeActionConfig.CustomData;
+using eds.sorteremulator.services.Configurations.Actions;
+using eds.sorteremulator.services.Configurations.Actions.CustomData;
+using eds.sorteremulator.services.Configurations.Nodes;
 using eds.sorteremulator.services.Extensions;
 using eds.sorteremulator.services.Hubs;
 using eds.sorteremulator.services.Model;
@@ -162,7 +163,7 @@ namespace eds.sorteremulator.services.Services
             }
         }
 
-        private void ExecuteAction(Tracking tracking, NodeActionConfig nextActionConfig)
+        private void ExecuteAction(Tracking tracking, ActionConfig nextActionConfig)
         {
             tracking.CurrentPosition = nextActionConfig.Occurs;
             switch (nextActionConfig.NodeEvent)
@@ -180,7 +181,7 @@ namespace eds.sorteremulator.services.Services
                             break;
                         }
 
-                        var reachesDestination = ReachesDestination(nextActionConfig, destinationNode, new Dictionary<Guid, Node>());
+                        var reachesDestination = ReachesDestination(nextActionConfig, destinationNode, new Dictionary<Guid, NodeConfig>());
                         if (!reachesDestination)
                         {
                             break;
@@ -189,14 +190,14 @@ namespace eds.sorteremulator.services.Services
                         ExecuteActionConfig(nextActionConfig, tracking);
 
                         tracking.Present = false;
-                        var newTracking = AddTracking(tracking.Pic, nextActionConfig.GetData<NodeDeviationData>().NextNodeId, nextActionConfig.Continues);
+                        var newTracking = AddTracking(tracking.Pic, nextActionConfig.GetActionInfo<NodeDeviationData>().NextNodeId, nextActionConfig.Continues);
                         SetDestination(newTracking.Id, tracking.DestinationNodeId);
                     }
                     break;
                 case NodeEvent.DefaulNext:
 
                     ExecuteActionConfig(nextActionConfig, tracking);
-                    tracking.CurrentNodeId = nextActionConfig.GetData<NodeDeviationData>().NextNodeId;
+                    tracking.CurrentNodeId = nextActionConfig.GetActionInfo<NodeDeviationData>().NextNodeId;
                     tracking.CurrentPosition = nextActionConfig.Continues;
                     if (!tracking.Present)
                     {
@@ -212,7 +213,7 @@ namespace eds.sorteremulator.services.Services
             
         }
 
-        private void ExecuteActionConfig(NodeActionConfig nextActionConfig, Tracking tracking)
+        private void ExecuteActionConfig(ActionConfig nextActionConfig, Tracking tracking)
         {
             using (var scope = _scope.BeginLifetimeScope())
             {
@@ -221,13 +222,13 @@ namespace eds.sorteremulator.services.Services
             }
         }
 
-        private NodeActionConfig GetNextAction(Node currentNode, decimal totalDistance, decimal parcelCurrentPosition)
+        private ActionConfig GetNextAction(NodeConfig currentNode, decimal totalDistance, decimal parcelCurrentPosition)
         {
             var nextAction = _nodesService.GetActionsByNodeId(currentNode.Id)?.OrderBy(a => a.Occurs).FirstOrDefault(a =>
                                    !a.Disabled &&
                                    a.Occurs > parcelCurrentPosition &&
                                    a.Occurs <= totalDistance
-                             ) ?? new NodeActionConfig
+                             ) ?? new ActionConfig
                              {
                                  NodeId = currentNode.Id,
                                  Occurs = totalDistance,
@@ -238,7 +239,7 @@ namespace eds.sorteremulator.services.Services
                              };
 
             var defaultNext = currentNode.DefaultNextId == Guid.Empty
-                ? new NodeActionConfig
+                ? new ActionConfig
                 {
                     NodeId = currentNode.Id,
                     Occurs = currentNode.Size,
@@ -247,7 +248,7 @@ namespace eds.sorteremulator.services.Services
                     StopOnExecution = false,
                     ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.Id })
                 }
-                : new NodeActionConfig
+                : new ActionConfig
                 {
                     NodeId = currentNode.Id,
                     Occurs = currentNode.DefaultNextOccurs,
@@ -270,9 +271,9 @@ namespace eds.sorteremulator.services.Services
             return distance / (speedFactor * speed / 1000m);
         }
 
-        private bool ReachesDestination(NodeActionConfig nodeActionConfig, Node originalDestination, Dictionary<Guid, Node> dictionary)
+        private bool ReachesDestination(ActionConfig nodeActionConfig, NodeConfig originalDestination, Dictionary<Guid, NodeConfig> dictionary)
         {
-            var node = _nodesService.GetNode(nodeActionConfig.GetData<NodeDeviationData>().NextNodeId);
+            var node = _nodesService.GetNode(nodeActionConfig.GetActionInfo<NodeDeviationData>().NextNodeId);
             dictionary.Add(node.Id, node);
             if (node == originalDestination)
             {
@@ -281,11 +282,11 @@ namespace eds.sorteremulator.services.Services
 
             foreach (var nodeActionChild in _nodesService.GetActionsByNodeId(node.Id)?.Where(a=>a.NodeEvent==NodeEvent.NodeDeviation))
             {
-                if (dictionary.ContainsKey(nodeActionChild.GetData<NodeDeviationData>().NextNodeId))
+                if (dictionary.ContainsKey(nodeActionChild.GetActionInfo<NodeDeviationData>().NextNodeId))
                 {
                     continue;
                 }
-                var childNode = _nodesService.GetNode(nodeActionChild.GetData<NodeDeviationData>().NextNodeId);
+                var childNode = _nodesService.GetNode(nodeActionChild.GetActionInfo<NodeDeviationData>().NextNodeId);
                 if(childNode == null)
                 {
                     continue;
@@ -355,6 +356,14 @@ namespace eds.sorteremulator.services.Services
             foreach (var tracking in trackings)
             {
                 RemoveTracking(tracking.Id);
+            }
+        }
+        public void ExecuteManualActionConfig(ActionConfig actionConfig)
+        {
+            using (var scope = _scope.BeginLifetimeScope())
+            {
+                IManualAction action = _scope.Resolve<INodeActionFactory>().GetManualAction(actionConfig.NodeEvent);
+                action.ExecuteManual(actionConfig);
             }
         }
     }

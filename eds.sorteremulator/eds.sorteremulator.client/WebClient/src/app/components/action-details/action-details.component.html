@@ -10,7 +10,7 @@
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-label>NodeEvent:</mat-label>
-    <input matInput [(ngModel)]="action.nodeEvent" placeholder="NodeEvent">
+    <input matInput  [(ngModel)]="action.nodeEvent" placeholder="NodeEvent">
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-label>Occurs:</mat-label>
@@ -24,7 +24,7 @@
     <mat-slide-toggle [(ngModel)]="action.disabled" name="Disabled">Disabled</mat-slide-toggle>
   <mat-form-field class="full-width">
     <mat-label>Info:</mat-label>
-    <input matInput [(ngModel)]="action.actionInfo" placeholder="Info">
+    <textarea matInput placeholder="Info"  [(ngModel)]="action.actionInfo"></textarea>
   </mat-form-field>
 </mat-card>
 

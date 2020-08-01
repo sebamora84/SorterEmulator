@@ -8,7 +8,7 @@ using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.NodeActions.Base;
 using eds.sorteremulator.services.Services.Interfaces;
 
-using eds.sorteremulator.services.Configurations.NodeActionConfig;
+using eds.sorteremulator.services.Configurations.Actions;
 
 
 namespace eds.sorteremulator.services.NodeActions
@@ -16,7 +16,7 @@ namespace eds.sorteremulator.services.NodeActions
     public class MaxMoved: INodeAction
     {
         
-        public bool Execute(Tracking tracking, NodeActionConfig nodeAction)
+        public bool Execute(Tracking tracking, ActionConfig nodeAction)
         {
             return true;
         }

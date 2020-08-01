@@ -11,10 +11,9 @@ using eds.sorteremulator.services.NodeActions.Base;
 using eds.sorteremulator.services.Services.Interfaces;
 
 using eds.sorteremulator.services.Configurations;
-using eds.sorteremulator.services.Configurations.NodeActionConfig;
-using eds.sorteremulator.services.Configurations.NodeActionConfig.CustomData;
 using eds.sorteremulator.services.Extensions;
-
+using eds.sorteremulator.services.Configurations.Actions;
+using eds.sorteremulator.services.Configurations.Actions.CustomData;
 
 namespace eds.sorteremulator.services.NodeActions
 {
@@ -32,11 +31,11 @@ namespace eds.sorteremulator.services.NodeActions
             _physicsService = physicsService;
         }
 
-        public bool Execute(Tracking tracking, NodeActionConfig nodeActionConfig)
+        public bool Execute(Tracking tracking, ActionConfig nodeActionConfig)
         {
 
             var parcel = _parcelsService.GetParcel(tracking.Pic);
-            var sortReportData = nodeActionConfig.GetData<SortReportData>();
+            var sortReportData = nodeActionConfig.GetActionInfo<SortReportData>();
             
             if (sortReportData.ExecuteOnExisting && !tracking.Present)
             {

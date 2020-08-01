@@ -4,25 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eds.sorteremulator.services.Configurations;
-using eds.sorteremulator.services.Configurations.NodeActionConfig;
+using eds.sorteremulator.services.Configurations.Actions;
+using eds.sorteremulator.services.Configurations.Nodes;
 using eds.sorteremulator.services.Model;
 
 namespace eds.sorteremulator.services.Services.Interfaces
 {
     public interface INodesService:IService
     {
-        List<Node> GetAllNodes();
-        Node GetNode(Guid nodeId);
-        Node GetNodeByHostId(int hostId);
-        Node AddNode(Node newNode);
-        Node DeleteNode(Guid id);
-        Node UpdateNode(Guid guid, Node value);
+        List<NodeConfig> GetAllNodes();
+        NodeConfig GetNode(Guid nodeId);
+        NodeConfig GetNodeByHostId(int hostId);
+        NodeConfig AddNode(NodeConfig newNode);
+        NodeConfig DeleteNode(Guid id);
+        NodeConfig UpdateNode(Guid guid, NodeConfig value);
 
-        List<NodeActionConfig> GetAllActions();
-        List<NodeActionConfig> GetActionsByNodeId(Guid nodeId);
-        NodeActionConfig GetActionById(Guid guid);
-        NodeActionConfig AddAction(NodeActionConfig newAction);
-        NodeActionConfig DeleteAction(Guid id);
-        NodeActionConfig UpdateAction(Guid guid, NodeActionConfig action);
+        List<ActionConfig> GetAllActions();
+        List<ActionConfig> GetActionsByNodeId(Guid nodeId);
+        ActionConfig GetActionById(Guid guid);
+        ActionConfig AddAction(ActionConfig newAction);
+        ActionConfig DeleteAction(Guid id);
+        ActionConfig UpdateAction(Guid guid, ActionConfig action);
     }
 }

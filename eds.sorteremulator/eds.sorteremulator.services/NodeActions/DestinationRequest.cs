@@ -1,5 +1,5 @@
-﻿using eds.sorteremulator.services.Configurations.NodeActionConfig;
-using eds.sorteremulator.services.Configurations.NodeActionConfig.CustomData;
+﻿using eds.sorteremulator.services.Configurations.Actions;
+using eds.sorteremulator.services.Configurations.Actions.CustomData;
 using eds.sorteremulator.services.Extensions;
 using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.Model.Messages;
@@ -22,10 +22,10 @@ namespace eds.sorteremulator.services.NodeActions
             _parcelsService = parcelsService;
         }
 
-        public bool Execute(Tracking tracking, NodeActionConfig nodeActionConfig)
+        public bool Execute(Tracking tracking, ActionConfig nodeActionConfig)
         {
             var parcel = _parcelsService.GetParcel(tracking.Pic);
-            var destinationRequestData = nodeActionConfig.GetData<DestinationRequestData>();
+            var destinationRequestData = nodeActionConfig.GetActionInfo<DestinationRequestData>();
             var message = new Message
             {
                 MessageId = destinationRequestData.MessageId,

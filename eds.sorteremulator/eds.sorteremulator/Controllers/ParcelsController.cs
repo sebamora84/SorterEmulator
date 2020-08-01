@@ -1,4 +1,5 @@
 ﻿using eds.sorteremulator.Dto;
+using eds.sorteremulator.services.Configurations.Nodes;
 using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -50,7 +51,7 @@ namespace eds.sorteremulator.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody]Node value)
+        public IActionResult Put(string id, [FromBody]NodeConfig value)
         {
             return Ok("");
         }

@@ -20,9 +20,6 @@ namespace eds.sorteremulator.services.Services
         private readonly IMessageService _messageService;
 
         private Timer _addTrayTimer;
-        private Timer _multiRemoteControlTimer;
-
-        private readonly Dictionary<string, Queue<RemoteControlParcel>> _multiRemoteControlParcels= new Dictionary<string, Queue<RemoteControlParcel>>();
 
         public SorterService(
             ILogger<SorterService> logger, 
@@ -50,7 +47,6 @@ namespace eds.sorteremulator.services.Services
         {
             
             StartTraysActivity();
-            StartMultiRemoteControlActivity();
         }
 
         
@@ -58,7 +54,6 @@ namespace eds.sorteremulator.services.Services
         public void Stop()
         {
             StopTraysActivity();
-            StopMultiRemoteControlActivity();
         }
         
 
@@ -89,67 +84,7 @@ namespace eds.sorteremulator.services.Services
         {
            _addTrayTimer.Stop();
         }
-
-        private void StartMultiRemoteControlActivity()
-        {
-            _multiRemoteControlTimer = new Timer(1000);
-            _multiRemoteControlTimer.Elapsed += SendMultiRemoteControlTimerElapsed;
-            _multiRemoteControlTimer.Start();
-        }
-
-        private void StopMultiRemoteControlActivity()
-        {
-            _multiRemoteControlTimer.Stop();
-        }
-
-        private void SendMultiRemoteControlTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            foreach (var multiRemoteControl in _multiRemoteControlParcels)
-            {
-                if(multiRemoteControl.Value.Count==0)
-                    continue;
-
-                var multiName = multiRemoteControl.Key;
-                var remoteControlParcel = multiRemoteControl.Value.Peek();
-
-                if (!remoteControlParcel.Active && remoteControlParcel.Updated.AddSeconds(remoteControlParcel.ActivateDelay) < DateTime.Now)
-                {
-                    var message = $"CC|       {multiName}|attrval|        active|Y|3F";
-                    Task.Run(() => _messageService.SendMessage(message));
-                    remoteControlParcel.Active = true;
-                    remoteControlParcel.Updated=DateTime.Now;
-                }
-                else if (remoteControlParcel.Active && remoteControlParcel.Updated.AddSeconds(remoteControlParcel.DeactivateDelay) < DateTime.Now)
-                {
-                    var message = $"CC|       {multiName}|attrval|        active|N|3F";
-                    Task.Run(() => _messageService.SendMessage(message));
-                    remoteControlParcel.Active = false;
-                    remoteControlParcel.Updated = DateTime.Now;
-
-                    multiRemoteControl.Value.Dequeue();
-                    _parcelService.RemoveParcel(remoteControlParcel.Pic);
-                    _physicsService.RemoveTrackingByPic(remoteControlParcel.Pic);
-                }
-            }
-        }
-
-        public void AddMultiRemoteControl(string multiName, int pic, int activateDelay, int deactivateDelay)
-        {
-            if (!_multiRemoteControlParcels.ContainsKey(multiName))
-            {
-                _multiRemoteControlParcels.Add(multiName,new Queue<RemoteControlParcel>());
-            }
-            _multiRemoteControlParcels[multiName].Enqueue(
-                new RemoteControlParcel()
-                {
-                    Pic = pic,
-                    Active = false,
-                    ActivateDelay = activateDelay,
-                    DeactivateDelay = deactivateDelay,
-                    Updated = DateTime.Now,
-                });
-        }
-
+        
         private class RemoteControlParcel
         {
             public int Pic { get; set; }
@@ -160,7 +95,5 @@ namespace eds.sorteremulator.services.Services
 
         }
 
-    }
-
-    
+    }    
 }

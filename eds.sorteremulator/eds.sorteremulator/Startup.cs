@@ -36,11 +36,10 @@ namespace eds.sorteremulator
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowCredentials();
-            })); 
+            }));
             services.AddSignalR();
 
-
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(); 
 
             services.AddSwaggerGen();
 
@@ -114,7 +113,7 @@ namespace eds.sorteremulator
             builder.RegisterType<CameraRead>();
             builder.RegisterType<DestinationRequest>();
             builder.RegisterType<SortReport>();
-            builder.RegisterType<MultiRemoteControl>();
+            builder.RegisterType<RemoteControlOut>();
             builder.RegisterType<DefaultNext>();
             builder.RegisterType<NoNext>();
             builder.RegisterType<Default>();

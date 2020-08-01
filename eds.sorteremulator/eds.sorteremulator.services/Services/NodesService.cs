@@ -1,10 +1,13 @@
-﻿using eds.sorteremulator.communiation;
+﻿using Autofac;
+using eds.sorteremulator.communiation;
 using eds.sorteremulator.configuration;
 using eds.sorteremulator.services.Configurations;
-using eds.sorteremulator.services.Configurations.NodeActionConfig;
-using eds.sorteremulator.services.Configurations.NodeActionConfig.CustomData;
+using eds.sorteremulator.services.Configurations.Actions;
+using eds.sorteremulator.services.Configurations.Actions.CustomData;
+using eds.sorteremulator.services.Configurations.Nodes;
 using eds.sorteremulator.services.Hubs;
 using eds.sorteremulator.services.Model;
+using eds.sorteremulator.services.NodeActions.Base;
 using eds.sorteremulator.services.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -19,8 +22,8 @@ namespace eds.sorteremulator.services.Services
     public class NodesService : INodesService
     {
        
-        private ConcurrentDictionary<Guid, Node> _nodes;
-        private ConcurrentDictionary<Guid, List<NodeActionConfig>> _actionsByNode;
+        private ConcurrentDictionary<Guid, NodeConfig> _nodes;
+        private ConcurrentDictionary<Guid, List<ActionConfig>> _actionsByNode;
         private readonly ILogger<NodesService> _logger;
         private readonly IConfigurationManager _configurationManager;
         private readonly IHubContext<NodesHub> _nodesHubContext;
@@ -56,33 +59,33 @@ namespace eds.sorteremulator.services.Services
 
         private void LoadNodes()
         {
-            _nodes = new ConcurrentDictionary<Guid, Node>(NodesConfig.NodesConfig.ToDictionary(n => n.Id, n => n));
+            _nodes = new ConcurrentDictionary<Guid, NodeConfig>(NodesConfig.NodesConfig.ToDictionary(n => n.Id, n => n));
            
         }
 
         private void LoadActions()
         {
-            _actionsByNode = new ConcurrentDictionary<Guid, List<NodeActionConfig>>(ActionConfig.ActionsConfig.GroupBy(a => a.NodeId).ToDictionary(a => a.Key, a => a.ToList()));
+            _actionsByNode = new ConcurrentDictionary<Guid, List<ActionConfig>>(ActionConfig.ActionsConfig.GroupBy(a => a.NodeId).ToDictionary(a => a.Key, a => a.ToList()));
         }
 
-        public Node GetNode(Guid nodeId)
+        public NodeConfig GetNode(Guid nodeId)
         {
             _nodes.TryGetValue(nodeId, out var node);
             return node;
         }
 
-        public Node GetNodeByHostId(int hostId)
+        public NodeConfig GetNodeByHostId(int hostId)
         {
             return _nodes.FirstOrDefault(n => n.Value.HostDestinationId == hostId).Value;
         }
 
-        public List<NodeActionConfig> GetActionsByNodeId(Guid nodeId)
+        public List<ActionConfig> GetActionsByNodeId(Guid nodeId)
         {
             _actionsByNode.TryGetValue(nodeId, out var nodeActions);
             return nodeActions;
         }
 
-        public Node AddNode(Node newNode)
+        public NodeConfig AddNode(NodeConfig newNode)
         {
             newNode.Id = Guid.NewGuid();
             _nodes.TryAdd(newNode.Id, newNode);
@@ -93,7 +96,7 @@ namespace eds.sorteremulator.services.Services
             _nodesHubContext.Clients.All.SendAsync("UpdateNode", newNode);
             return newNode;
         }
-        public Node DeleteNode(Guid id)
+        public NodeConfig DeleteNode(Guid id)
         {
             _nodes.TryRemove(id, out var removedNode);
             var config = NodesConfig;
@@ -103,7 +106,7 @@ namespace eds.sorteremulator.services.Services
             return removedNode;
         }
 
-        public Node UpdateNode(Guid guid, Node node)
+        public NodeConfig UpdateNode(Guid guid, NodeConfig node)
         {
             var removedNode = DeleteNode(guid);
             node.Id = removedNode.Id;
@@ -116,23 +119,23 @@ namespace eds.sorteremulator.services.Services
             return node;
         }
 
-        public List<Node> GetAllNodes()
+        public List<NodeConfig> GetAllNodes()
         {
             return NodesConfig.NodesConfig.ToList();
         }
 
-        public List<NodeActionConfig> GetAllActions()
+        public List<ActionConfig> GetAllActions()
         {
             return ActionConfig.ActionsConfig.ToList();
         }
 
-        public NodeActionConfig GetActionById(Guid guid)
+        public ActionConfig GetActionById(Guid guid)
         {
             
             return ActionConfig.ActionsConfig.FirstOrDefault(a=>a.Id.Equals(guid)) ;
         }
 
-        public NodeActionConfig AddAction(NodeActionConfig newAction)
+        public ActionConfig AddAction(ActionConfig newAction)
         {
             newAction.Id = Guid.NewGuid();                       
             var config = ActionConfig;
@@ -142,7 +145,7 @@ namespace eds.sorteremulator.services.Services
             LoadActions();
             return newAction;
         }
-        public NodeActionConfig DeleteAction(Guid id)
+        public ActionConfig DeleteAction(Guid id)
         {
 
             var config = ActionConfig;
@@ -154,11 +157,12 @@ namespace eds.sorteremulator.services.Services
             return removedAction;
         }
 
-        public NodeActionConfig UpdateAction(Guid guid, NodeActionConfig action)
-        {
-            var removedAction = DeleteNode(guid);
-            action.Id = removedAction.Id;
+        public ActionConfig UpdateAction(Guid guid, ActionConfig action)
+        {   
             var config = ActionConfig;
+            var removedAction = config.ActionsConfig.First(a => a.Id == guid);
+            action.Id = removedAction.Id;
+            config.ActionsConfig.Remove(removedAction);
             config.ActionsConfig.Add(action);
             ActionConfig = config;
             LoadActions();

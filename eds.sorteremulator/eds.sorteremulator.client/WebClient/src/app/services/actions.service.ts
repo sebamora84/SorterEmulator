@@ -52,6 +52,12 @@ export class ActionsService {
     );
   }
 
+  executeAction (id): Observable<any> {
+    return this.http.post<any>(this.globalService.endpoint + 'actions/execute/' + id, httpOptions).pipe(
+      tap(_ => console.log('executed action id='+id)),
+      catchError(this.handleError<any>('deleteAction'))
+    );
+  }
 
 
 

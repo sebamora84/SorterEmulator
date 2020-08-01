@@ -1,4 +1,5 @@
-﻿using eds.sorteremulator.services.Model;
+﻿using eds.sorteremulator.services.Configurations.Nodes;
+using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,7 +18,7 @@ namespace eds.sorteremulator.Controllers
             _nodesService = nodesService;
         }
         [HttpGet]
-        public IEnumerable<Node> Get()
+        public IEnumerable<NodeConfig> Get()
         {
              return _nodesService.GetAllNodes();
         }
@@ -29,14 +30,14 @@ namespace eds.sorteremulator.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Node value)
+        public IActionResult Post(NodeConfig value)
         {
             var newNode =_nodesService.AddNode(value);
             return Ok(newNode);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody]Node value)
+        public IActionResult Put(string id, [FromBody]NodeConfig value)
         {
             var updatedNode = _nodesService.UpdateNode(new Guid(id), value);
             return Ok(updatedNode);

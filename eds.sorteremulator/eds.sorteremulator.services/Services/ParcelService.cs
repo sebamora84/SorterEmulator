@@ -1,4 +1,5 @@
-﻿using eds.sorteremulator.services.Model;
+﻿using eds.sorteremulator.services.Configurations.Nodes;
+using eds.sorteremulator.services.Model;
 using eds.sorteremulator.services.Services.Interfaces;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace eds.sorteremulator.services.Services
             return _parcels.Values.ToList();
         }
 
-        public Parcel AddNewParcel(Node entryPoint, string barcodeToRead = "1   1", int weightToWeigh = 0)
+        public Parcel AddNewParcel(NodeConfig entryPoint, string barcodeToRead = "1   1", int weightToWeigh = 0)
         {
 
             var package = new Parcel

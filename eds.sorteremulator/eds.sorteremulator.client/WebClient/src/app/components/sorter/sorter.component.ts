@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 import { interval } from 'rxjs';
-import { Node } from '../../Model/Node';
 import { ActionsService } from '../../services/actions.service';
 import { NodesService } from '../../services/nodes.service';
 import { ParcelsService } from '../../services/parcels.service';
@@ -31,6 +30,7 @@ export class SorterComponent implements OnInit {
 
 
   refreshDrawingsInterval: any;
+  reloadSorterInterval: any;
   
   actions: any = [];
   parcels: any = [];
@@ -42,7 +42,6 @@ export class SorterComponent implements OnInit {
   nodeSelected: any;
   trackingSelected: any;
 
-  lastTracked;
 
   constructor(
     private sorterService: SorterService,
@@ -57,6 +56,15 @@ export class SorterComponent implements OnInit {
     this.subscriveEvents();
     this.refreshDrawingsInterval = interval(1000/60);
     this.refreshDrawingsInterval.subscribe(n => this.drawSorterArea());
+
+    this.reloadSorterInterval = interval(1000);
+    this.reloadSorterInterval.subscribe(n => {
+      console.log("reloading sorter");
+      this.loadPhysics();
+      this.loadTracking();
+      this.loadActions();
+      this.loadParcels();
+      this.loadNodes();});
 
     this.loadPhysics();
     this.loadTracking();
@@ -94,7 +102,7 @@ export class SorterComponent implements OnInit {
     });
 
   }
-  onAddParcel(node: Node): void {
+  onNodeAddParcel(node): void {
     var parcelDto = new NewParcelDto();
     parcelDto.barcodeToRead = this.barcodeToRead;
     parcelDto.weightToWeigh = this.weightToWeigh;
@@ -104,18 +112,39 @@ export class SorterComponent implements OnInit {
         
       });
   }
-  onStop(node) {
+  onNodeStop(node) {
     node.isStopped = true;
     this.sorterService.updateNode(node.id, node).subscribe(
       (data: {}) => {
       });
   }
-  onStart(node) {
+  onNodeStart(node) {
     node.isStopped = false;
     this.sorterService.updateNode(node.id, node).subscribe(
       (data: {}) => {
       });
   }
+
+  onActionExecute(action): void {
+    this.actionsService.executeAction(action.id).subscribe(
+      (data: {}) => {
+        this.snackBar.open("Manual action executed","",{duration:1000})
+      });
+  }
+  onActionEnable(action) {
+    action.disabled = false;
+    this.actionsService.updateAction(action.id, action).subscribe(
+      (data: {}) => {
+      });
+  }
+  onActionDisable(action) {
+    action.disabled = true;
+    this.actionsService.updateAction(action.id, action).subscribe(
+      (data: {}) => {
+      });
+  }
+
+
   startSorter(i) {
     this.physicsConfig.timeLapseSpeed = i;
     this.physicsService.addPhysic(this.physicsConfig).subscribe((data: {}) => {
@@ -123,14 +152,12 @@ export class SorterComponent implements OnInit {
     });
   }
   loadNodes() {
-    this.lastTracked = new Date();
     this.nodesService.getNodes().subscribe((data: {}) => {
       this.nodes = data;            
       this.drawSorterArea();   
     });
   }
   loadTracking() {
-    this.lastTracked = new Date();
     this.trackingService.getTracking().subscribe(
       (data: {}) => {
         this.trackings = data;
@@ -138,14 +165,12 @@ export class SorterComponent implements OnInit {
 
   }
   loadActions() {
-    this.lastTracked = new Date();
     this.actionsService.getActions().subscribe(
       (data: {}) => {
         this.actions = data;
       });
   }
   loadParcels() {
-    this.lastTracked = new Date();
     this.parcelsService.getParcels().subscribe(
       (data: {}) => {
         this.parcels = data;
@@ -279,8 +304,12 @@ export class SorterComponent implements OnInit {
     let actions = this.getActions(node.id);
     if (actions) {
       actions.forEach(action => {
+        let isDisabled = action.disabled;
         let isSelected = this.actionSelected && this.actionSelected.id == action.id;
-        let stroke = isSelected ? 'Red' : 'DarkRed';
+        let stroke = isSelected && !isDisabled ? 'DarkGrey' : 
+                     !isSelected && !isDisabled ? 'Grey':
+                     isSelected && isDisabled ? 'Red':
+                     'DarkRed';
         let width = 500 * this.sorterProportion;
         let radius = 250 * this.sorterProportion;
         let position = action.occurs * this.sorterProportion;
