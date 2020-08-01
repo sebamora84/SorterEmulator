@@ -278,18 +278,27 @@ export class SorterComponent implements OnInit {
     let trackings = this.getTrackings(node.id);
     if (trackings) {
       trackings.forEach(tracking => {
+        let isPresent =tracking.present;
         let isSelected = this.trackingSelected && this.trackingSelected.id == tracking.id;
-        let stroke = isSelected ? 'Blue' : 'DarkBlue';
-        let width = 250 * this.sorterProportion;
+        let stroke = isSelected && isPresent ? 'Blue' :
+                      !isSelected && isPresent ? 'DarkBlue' :
+                      isSelected && !isPresent ? 'Red' :
+                      'DarkRed';
+        let width = 500 * this.sorterProportion;
         let radius = 250 * this.sorterProportion;
         let position = tracking.currentPosition * this.sorterProportion;
         let ax = posX + (position * Math.cos(radRotation));
         let ay = posY + (position * Math.sin(radRotation)) - radius;
         let bx = posX + (position * Math.cos(radRotation));
         let by = posY + (position * Math.sin(radRotation)) + radius;
+        
         let path = "M" + ax + " " + ay + " ";
         path += "A " + radius + " " + radius + " 0 0 0 " + bx + " " + by + " ";
         path += "A " + radius + " " + radius + " 0 0 0 " + ax + " " + ay + " ";
+
+
+
+
 
         let currentTrackingPath = this.trackingPaths.find(tp => tp.tracking.id == tracking.id)
         if (currentTrackingPath) {

@@ -34,7 +34,7 @@
       <title>{{path.action.name}}</title>
     </path>
     <path *ngFor="let path of trackingPaths" [attr.d]="path.path" [attr.stroke-width]="path.width"
-      [attr.stroke]="path.stroke" (click)="onTrackingSelect(path.tracking)" stroke-opacity="0.8">
+      [attr.stroke]="path.stroke" (click)="onTrackingSelect(path.tracking)" fill="none" stroke-opacity="0.8">
       <title>{{path.tracking.pic}}</title>
     </path>
   </svg>
