@@ -19,7 +19,7 @@ namespace eds.sorteremulator.services.NodeActions
         {
             var parcel = _parcelsService.GetParcel(tracking.Pic);
             parcel.Barcode = $"{parcel.BarcodeToRead}";
-            return false;
+            return true;
         }
     }
 }

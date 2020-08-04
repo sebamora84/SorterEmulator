@@ -13,7 +13,7 @@ namespace eds.sorteremulator.services.Configurations.Actions
         DestinationRequest,
         SortReport,
         DefaulNext,
-        MaxMoved,
+        NoAction,
         NoNext,
         RemoteControlOut
     }

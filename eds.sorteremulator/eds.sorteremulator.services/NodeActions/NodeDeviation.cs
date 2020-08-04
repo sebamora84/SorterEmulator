@@ -22,7 +22,7 @@ namespace eds.sorteremulator.services.NodeActions
         {
             if (!tracking.Present)
             {
-                return true;
+                return false;
             }
             var nodeDeviationData = nodeActionConfig.GetActionInfo<NodeDeviationData>();
             var parcel = _parcelsService.GetParcel(tracking.Pic);
@@ -30,7 +30,7 @@ namespace eds.sorteremulator.services.NodeActions
 
             if (!reachesDestination)
             {
-                return true;
+                return false;
             }
             parcel.ActualDestination = nodeDeviationData.DestinationId;
             tracking.Present = false;

@@ -31,7 +31,7 @@ namespace eds.sorteremulator.services.NodeActions
         {
             var parcel = _parcelsService.GetParcel(tracking.Pic);
             parcel.EntryNode = nodeActionConfig.GetActionInfo<EntryPointData>().EntryPoint;
-            return false;
+            return true;
         }
     }
 }

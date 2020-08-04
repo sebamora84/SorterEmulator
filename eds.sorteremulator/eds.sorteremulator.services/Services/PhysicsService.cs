@@ -166,73 +166,69 @@ namespace eds.sorteremulator.services.Services
         private void ExecuteAction(Tracking tracking, ActionConfig nextActionConfig)
         {
             tracking.CurrentPosition = nextActionConfig.Occurs;
-            switch (nextActionConfig.NodeEvent)
+
+            var isOk = ExecuteActionConfig(nextActionConfig, tracking);
+            if (isOk)
             {
-                case NodeEvent.DefaulNext:
-
-                    ExecuteActionConfig(nextActionConfig, tracking);
-                    tracking.CurrentNodeId = nextActionConfig.GetActionInfo<NodeDeviationData>().NextNodeId;
-                    tracking.CurrentPosition = nextActionConfig.Continues;
-                    if (!tracking.Present)
-                    {
-                        RemoveTracking(tracking.Id);
-                    }
-                    break;
-                default:
-
-                    ExecuteActionConfig(nextActionConfig, tracking);
-                    tracking.CurrentPosition = nextActionConfig.Continues;
-                    break;
+                tracking.CurrentPosition = nextActionConfig.Continues;
             }
-            
         }
 
-        private void ExecuteActionConfig(ActionConfig nextActionConfig, Tracking tracking)
+        private bool ExecuteActionConfig(ActionConfig nextActionConfig, Tracking tracking)
         {
             using (var scope = _scope.BeginLifetimeScope())
             {
                 INodeAction action = _scope.Resolve<INodeActionFactory>().GetNodeAction(nextActionConfig.NodeEvent);
-                action.Execute(tracking, nextActionConfig);
+                return action.Execute(tracking, nextActionConfig);
             }
         }
 
         private ActionConfig GetNextAction(NodeConfig currentNode, decimal totalDistance, decimal parcelCurrentPosition)
         {
-            var nextAction = _nodesService.GetActionsByNodeId(currentNode.Id)?.OrderBy(a => a.Occurs).FirstOrDefault(a =>
-                                   !a.Disabled &&
-                                   a.Occurs > parcelCurrentPosition &&
-                                   a.Occurs <= totalDistance
-                             ) ?? new ActionConfig
-                             {
-                                 NodeId = currentNode.Id,
-                                 Occurs = totalDistance,
-                                 Continues = totalDistance,
-                                 NodeEvent = NodeEvent.MaxMoved,
-                                 StopOnExecution = false,
-                                 ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.Id })
-                             };
-
-            var defaultNext = currentNode.DefaultNextId == Guid.Empty
-                ? new ActionConfig
-                {
-                    NodeId = currentNode.Id,
-                    Occurs = currentNode.Size,
-                    Continues = currentNode.Size,
-                    NodeEvent = NodeEvent.NoNext,
-                    StopOnExecution = false,
-                    ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.Id })
-                }
-                : new ActionConfig
-                {
-                    NodeId = currentNode.Id,
-                    Occurs = currentNode.DefaultNextOccurs,
-                    Continues = currentNode.DefaultNextContinues,
-                    NodeEvent = NodeEvent.DefaulNext,
-                    StopOnExecution = false,
-                    ActionInfo = JsonConvert.SerializeObject(new NodeDeviationData { NextNodeId = currentNode.DefaultNextId })
-                };
+            ActionConfig nextAction = FindNextAction(currentNode, totalDistance, parcelCurrentPosition);
+            ActionConfig defaultNext = GetDefaultNext(currentNode);
 
             return nextAction.Occurs >= defaultNext.Occurs ? defaultNext : nextAction;
+        }
+
+        private ActionConfig FindNextAction(NodeConfig currentNode, decimal totalDistance, decimal parcelCurrentPosition)
+        {
+            return _nodesService.GetActionsByNodeId(currentNode.Id)?.OrderBy(a => a.Occurs).FirstOrDefault(a =>
+                                               !a.Disabled &&
+                                               a.Occurs > parcelCurrentPosition &&
+                                               a.Occurs <= totalDistance
+                                         ) ?? new ActionConfig
+                                         {
+                                             NodeId = currentNode.Id,
+                                             Occurs = totalDistance,
+                                             Continues = totalDistance,
+                                             NodeEvent = NodeEvent.NoAction,
+                                             StopOnExecution = false,
+                                             ActionInfo = JsonConvert.SerializeObject(new DefaultNextData { NextNodeId = currentNode.Id })
+                                         };
+        }
+
+        private static ActionConfig GetDefaultNext(NodeConfig currentNode)
+        {
+            return currentNode.DefaultNextId == Guid.Empty
+                            ? new ActionConfig
+                            {
+                                NodeId = currentNode.Id,
+                                Occurs = currentNode.Size,
+                                Continues = currentNode.Size,
+                                NodeEvent = NodeEvent.NoNext,
+                                StopOnExecution = false,
+                                ActionInfo = JsonConvert.SerializeObject(new DefaultNextData { NextNodeId = currentNode.Id })
+                            }
+                            : new ActionConfig
+                            {
+                                NodeId = currentNode.Id,
+                                Occurs = currentNode.DefaultNextOccurs,
+                                Continues = currentNode.DefaultNextContinues,
+                                NodeEvent = NodeEvent.DefaulNext,
+                                StopOnExecution = false,
+                                ActionInfo = JsonConvert.SerializeObject(new DefaultNextData { NextNodeId = currentNode.DefaultNextId })
+                            };
         }
 
         private decimal GetDistance(decimal timeElapsed, decimal speed, decimal speedFactor)

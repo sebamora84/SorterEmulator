@@ -51,7 +51,7 @@ namespace eds.sorteremulator.services.NodeActions
             };
 
             Task.Run(()=>_messageService.SendMessage(message));
-            return false;
+            return true;
         }
     }
 }
