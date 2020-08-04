@@ -35,7 +35,7 @@ namespace eds.sorteremulator.services.NodeActions
             parcel.ActualDestination = nodeDeviationData.DestinationId;
             tracking.Present = false;
             _physicsService.AddTracking(tracking.Pic, nodeDeviationData.NextNodeId, nodeActionConfig.Continues);
-            return true;
+            return false;
         }
         
     }
