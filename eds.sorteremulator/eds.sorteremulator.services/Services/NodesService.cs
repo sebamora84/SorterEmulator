@@ -73,12 +73,6 @@ namespace eds.sorteremulator.services.Services
             _nodes.TryGetValue(nodeId, out var node);
             return node;
         }
-
-        public NodeConfig GetNodeByHostId(int hostId)
-        {
-            return _nodes.FirstOrDefault(n => n.Value.HostDestinationId == hostId).Value;
-        }
-
         public List<ActionConfig> GetActionsByNodeId(Guid nodeId)
         {
             _actionsByNode.TryGetValue(nodeId, out var nodeActions);

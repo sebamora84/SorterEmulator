@@ -16,9 +16,8 @@ namespace eds.sorteremulator.services.Model
         public string BarcodeToRead { get; set; }
         public string Weight { get; set; }
         public int WeightToWeigh { get; set; }
-        public int DestinationId { get; set; }
-        public int DestinationResult { get; set; }
-        public int DestinationReason { get; set; }
         public int Lenght { get; set; } = 500;
+        public int OriginalDestination { get; set; }
+        public int ActualDestination { get; set; }
     }
 }

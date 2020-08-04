@@ -19,23 +19,6 @@ namespace eds.sorteremulator.Controllers
         {
             _nodesService = nodesService;
         }
-        [HttpGet]
-        public IEnumerable<NodeConfig> Get()
-        {
-           return new List<NodeConfig>();
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(string id)
-        {
-            return Ok(_nodesService.GetNodeByHostId(int.Parse(id)));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(NodeConfig value)
-        {
-            return Ok("");
-        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(string id, [FromBody]NodeConfig value)
@@ -45,12 +28,6 @@ namespace eds.sorteremulator.Controllers
                 return BadRequest($"Node with Id {id} does not exist");
             node.IsStopped = value.IsStopped;
             return Ok(node);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            return Ok("");
         }
     }
 }

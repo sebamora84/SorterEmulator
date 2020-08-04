@@ -33,7 +33,6 @@ namespace eds.sorteremulator.services.NodeActions
 
         public bool Execute(Tracking tracking, ActionConfig nodeActionConfig)
         {
-
             var parcel = _parcelsService.GetParcel(tracking.Pic);
             var sortReportData = nodeActionConfig.GetActionInfo<SortReportData>();
             
@@ -54,10 +53,10 @@ namespace eds.sorteremulator.services.NodeActions
                 Hostpic = parcel.HostPic,
                 Hostdata = parcel.HostData,
                 ParcelLength = parcel.Lenght,
-                ParcelOriginalDestination = parcel.DestinationId,
-                OriginalDestinationState = GetDestinationState(tracking, parcel),
-                ParcelActualDestination = parcel.DestinationId,
-                DestinationTranslateState = GetDestinationState(tracking, parcel),
+                ParcelOriginalDestination = parcel.OriginalDestination,
+                OriginalDestinationState = GetDestinationState(parcel),
+                ParcelActualDestination = parcel.ActualDestination,
+                DestinationTranslateState = GetDestinationState(parcel),
                 ScannerData1 = parcel.Barcode,
                 ScannerData2 = "1   0",
                 ScannerData3 = parcel.Weight,
@@ -75,17 +74,13 @@ namespace eds.sorteremulator.services.NodeActions
             return true;
         }
 
-        private char GetDestinationState(Tracking tracking, Parcel parcel)
+        private char GetDestinationState(Parcel parcel)
         {
-            if (parcel.DestinationId == 900)
+            if (parcel.OriginalDestination == 900)
             {
                 return '2';
             }
-            if (!tracking.Present)
-            {
-                tracking = _physicsService.GetTrackingByPic(tracking.Pic);
-            }
-            if (tracking.CurrentNodeId != tracking.DestinationNodeId)
+            if (parcel.OriginalDestination != parcel.ActualDestination)
             {
                 return '3';
             }

@@ -10,7 +10,6 @@ namespace eds.sorteremulator.services.Configurations.Nodes
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public int HostDestinationId { get; set; }
         public decimal Speed { get; set; }
         public decimal Size { get; set; }
         public decimal PositionX { get; set; }

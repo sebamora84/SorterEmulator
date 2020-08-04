@@ -107,7 +107,7 @@ namespace eds.sorteremulator
             builder.RegisterType<NullMessageProcessor>();
 
             builder.RegisterType<NodeActionFactory>().As<INodeActionFactory>();
-            builder.RegisterType<Deviation>();
+            builder.RegisterType<NodeDeviation>();
             builder.RegisterType<EntryPoint>();
             builder.RegisterType<ScaleWeight>();
             builder.RegisterType<CameraRead>();

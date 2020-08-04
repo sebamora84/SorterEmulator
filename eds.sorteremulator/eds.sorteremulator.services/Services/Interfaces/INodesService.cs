@@ -14,7 +14,6 @@ namespace eds.sorteremulator.services.Services.Interfaces
     {
         List<NodeConfig> GetAllNodes();
         NodeConfig GetNode(Guid nodeId);
-        NodeConfig GetNodeByHostId(int hostId);
         NodeConfig AddNode(NodeConfig newNode);
         NodeConfig DeleteNode(Guid id);
         NodeConfig UpdateNode(Guid guid, NodeConfig value);

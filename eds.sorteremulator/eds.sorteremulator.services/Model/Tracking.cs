@@ -12,7 +12,6 @@ namespace eds.sorteremulator.services.Model
         public int Pic { get; set; }
         public bool Present { get; set; }
         public Guid CurrentNodeId { get; set; }
-        public Guid DestinationNodeId { get; set; }
         public decimal CurrentPosition { get; set; }
     }
 }

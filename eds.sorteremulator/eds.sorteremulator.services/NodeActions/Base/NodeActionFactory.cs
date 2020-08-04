@@ -22,7 +22,7 @@ namespace eds.sorteremulator.services.NodeActions.Base
             {
 
                 case NodeEvent.NodeDeviation:
-                    return _scope.Resolve<Deviation>();
+                    return _scope.Resolve<NodeDeviation>();
                 case NodeEvent.EntryPoint:
                     return _scope.Resolve<EntryPoint>();
                 case NodeEvent.Scale:

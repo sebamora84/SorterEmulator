@@ -168,32 +168,6 @@ namespace eds.sorteremulator.services.Services
             tracking.CurrentPosition = nextActionConfig.Occurs;
             switch (nextActionConfig.NodeEvent)
             {
-                case NodeEvent.NodeDeviation:
-                    {
-                        if (!tracking.Present)
-                        {
-                            break;
-                        }
-
-                        var destinationNode = _nodesService.GetNode(tracking.DestinationNodeId);
-                        if (destinationNode == null)
-                        {
-                            break;
-                        }
-
-                        var reachesDestination = ReachesDestination(nextActionConfig, destinationNode, new Dictionary<Guid, NodeConfig>());
-                        if (!reachesDestination)
-                        {
-                            break;
-                        }
-
-                        ExecuteActionConfig(nextActionConfig, tracking);
-
-                        tracking.Present = false;
-                        var newTracking = AddTracking(tracking.Pic, nextActionConfig.GetActionInfo<NodeDeviationData>().NextNodeId, nextActionConfig.Continues);
-                        SetDestination(newTracking.Id, tracking.DestinationNodeId);
-                    }
-                    break;
                 case NodeEvent.DefaulNext:
 
                     ExecuteActionConfig(nextActionConfig, tracking);
@@ -271,62 +245,6 @@ namespace eds.sorteremulator.services.Services
             return distance / (speedFactor * speed / 1000m);
         }
 
-        private bool ReachesDestination(ActionConfig nodeActionConfig, NodeConfig originalDestination, Dictionary<Guid, NodeConfig> dictionary)
-        {
-            var node = _nodesService.GetNode(nodeActionConfig.GetActionInfo<NodeDeviationData>().NextNodeId);
-            dictionary.Add(node.Id, node);
-            if (node == originalDestination)
-            {
-                return true;
-            }
-
-            foreach (var nodeActionChild in _nodesService.GetActionsByNodeId(node.Id)?.Where(a=>a.NodeEvent==NodeEvent.NodeDeviation))
-            {
-                if (dictionary.ContainsKey(nodeActionChild.GetActionInfo<NodeDeviationData>().NextNodeId))
-                {
-                    continue;
-                }
-                var childNode = _nodesService.GetNode(nodeActionChild.GetActionInfo<NodeDeviationData>().NextNodeId);
-                if(childNode == null)
-                {
-                    continue;
-                }
-
-                if (childNode == originalDestination)
-                {
-                    dictionary.Add(childNode.Id, childNode);
-                    return true;
-                }
-                if (ReachesDestination(nodeActionChild, originalDestination, dictionary))
-                {
-                    return true;
-                }
-            }
-            dictionary.Remove(node.Id);
-            return false;
-        }
-
-        public Tracking AddTracking(int pic, Guid nodeId, decimal position)
-        {
-            var tracking = new Tracking
-            {
-                Id = Guid.NewGuid(),
-                Pic = pic,
-                CurrentNodeId = nodeId,
-                CurrentPosition = position,
-                Present = true
-            };
-            _trackings.TryAdd(tracking.Id, tracking);
-            _trackingHubContext.Clients.All.SendAsync("UpdateTracking", tracking);
-            return tracking;
-        }
-
-        public void SetDestination(Guid id, Guid nodeId)
-        {
-            _trackings.TryGetValue(id, out var tracking);
-            if (tracking != null) tracking.DestinationNodeId = nodeId;
-        }
-
         public Tracking GetTracking(Guid id)
         {
             _trackings.TryGetValue(id, out var tracking);
@@ -357,6 +275,20 @@ namespace eds.sorteremulator.services.Services
             {
                 RemoveTracking(tracking.Id);
             }
+        }
+        public Tracking AddTracking(int pic, Guid nodeId, decimal position)
+        {
+            var tracking = new Tracking
+            {
+                Id = Guid.NewGuid(),
+                Pic = pic,
+                CurrentNodeId = nodeId,
+                CurrentPosition = position,
+                Present = true
+            };
+            _trackings.TryAdd(tracking.Id, tracking);
+            _trackingHubContext.Clients.All.SendAsync("UpdateTracking", tracking);
+            return tracking;
         }
         public void ExecuteManualActionConfig(ActionConfig actionConfig)
         {

@@ -23,7 +23,7 @@ namespace eds.sorteremulator.services.Processors
             var parcel = _parcelService.GetParcel(message.Pic);
             parcel.HostPic = message.Hostpic;
             parcel.HostData = message.Hostdata;
-            parcel.DestinationId = message.ParcelOriginalDestination;
+            parcel.OriginalDestination = message.ParcelOriginalDestination;
             
             if (message.ParcelOriginalDestination == 998 || message.ParcelOriginalDestination == 999)
             {            
@@ -35,8 +35,6 @@ namespace eds.sorteremulator.services.Processors
                 _nodesService.GetNode(tracking.CurrentNodeId).IsStopped = false;
                 return await Task.FromResult<Message>(null);
             }
-            var destinationNode = _nodesService.GetNodeByHostId(message.ParcelOriginalDestination);
-            _physicsService.SetDestination(tracking.Id, destinationNode.Id);
             return await Task.FromResult<Message>(null);
         }
     }

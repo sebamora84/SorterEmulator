@@ -11,8 +11,6 @@ namespace eds.sorteremulator.services.Services.Interfaces
     public interface IPhysicsService : IService
     {
         Tracking AddTracking(int pic, Guid nodeId, decimal position);
-        void SetDestination(Guid id,  Guid nodeId);
-
         List<Tracking> GetAllTracking();
         Tracking GetTracking(Guid id);
         Tracking GetTrackingByPic(int pic);
