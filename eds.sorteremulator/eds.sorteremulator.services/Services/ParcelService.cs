@@ -39,7 +39,7 @@ namespace eds.sorteremulator.services.Services
             {
                 Pic = GetNextEmulatorPic(),
                 HostPic = -1,
-                HostData = "CREATED",
+                HostData = "",
                 EntryNode = entryPoint.Name,
                 Barcode = "1   0",
                 Weight = "1   0",

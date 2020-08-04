@@ -10,7 +10,7 @@ export class NodesComponent implements OnInit {
   
   nodes:any = [];
   nodesData:any = [];
-  displayedColumns: string[] = ['name', 'hostDestinationId', 'speed', 'size','positionX','positionY','rotation','curvature', 'next', 'occurs','continues','details', 'actions'];
+  displayedColumns: string[] = ['name', 'speed', 'size','positionX','positionY','rotation','curvature', 'next', 'occurs','continues','details', 'actions'];
   constructor(private nodesService:NodesService) { }
 
   ngOnInit() {    

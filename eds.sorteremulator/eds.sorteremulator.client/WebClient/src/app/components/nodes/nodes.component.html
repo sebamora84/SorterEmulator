@@ -7,10 +7,6 @@
           <th mat-header-cell *matHeaderCellDef> Name </th>
           <td mat-cell *matCellDef="let node"> {{node.name}} </td>
       </ng-container>
-      <ng-container matColumnDef="hostDestinationId">
-          <th mat-header-cell *matHeaderCellDef> Host Destination Id </th>
-          <td mat-cell *matCellDef="let node"> {{node.hostDestinationId}} </td>
-      </ng-container>
       <ng-container matColumnDef="speed">
           <th mat-header-cell *matHeaderCellDef> Speed (mm/s) </th>
           <td mat-cell *matCellDef="let node">{{node.speed | number:'1.3'}} </td>

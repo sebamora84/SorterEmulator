@@ -7,9 +7,17 @@
   <mat-form-field class="full-width">
     <mat-label>Name:</mat-label>
     <input matInput [(ngModel)]="action.name" placeholder="Name">
-  </mat-form-field><mat-form-field class="full-width">
-    <mat-label>NodeId:</mat-label>
-    <input matInput  [(ngModel)]="action.nodeId" placeholder="NodeId">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Node:</mat-label>
+    <mat-select [(ngModel)]="action.nodeId">
+      <mat-option *ngFor="let node of nodes" [value]="node.id">
+        <a routerLink="/node-details/{{node.nodeId}}">
+          <mat-icon>menu</mat-icon>
+        </a>
+        {{node.name}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-label>NodeEvent:</mat-label>

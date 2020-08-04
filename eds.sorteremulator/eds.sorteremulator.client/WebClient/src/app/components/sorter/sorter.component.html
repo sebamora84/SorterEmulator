@@ -92,7 +92,14 @@
         </div>
         <div>
           <span>Position {{tracking.currentPosition | number:'1.3'}}</span>
+        </div> 
+        <div>
+          <span>Destination {{getParcel(tracking.pic).originalDestination}}</span>
         </div>
+        <div>
+          <span>HostData {{getParcel(tracking.pic).hostData}}</span>
+        </div>
+       
         <div>
           <button mat-button color="warn" (click)="onRemoveTracking(tracking)"><mat-icon>delete_forever</mat-icon></button>
         </div>
