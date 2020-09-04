@@ -11,7 +11,7 @@ namespace eds.sorteremulator.services.Services.Interfaces
     public interface IParcelService : IService
     {
         List<Parcel> GetAllParcels();
-        Parcel AddNewParcel(NodeConfig entryPoint, string barcodeToRead = "1   0", int weightToWeigh = 0);
+        Parcel AddNewParcel(NodeConfig entryPoint, string scannerData1, string scannerData2, string scannerData3, string scannerData4, string scannerData5);
         void UpdateParcels(decimal sorterSpeed);
         Parcel GetParcel(int messagePic);
         void RemoveParcel(int pic);

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace eds.sorteremulator
 {
@@ -14,19 +15,34 @@ namespace eds.sorteremulator
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //Initialize Logger
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build())
+                .CreateLogger();
+            try
+            {
+                Log.Information("Application Starting.");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "The Application failed to start.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                }).ConfigureLogging(builder =>
-                {
-                    builder.SetMinimumLevel(LogLevel.Trace);
-                    builder.AddLog4Net("log4net.config");
                 });
     }
 }

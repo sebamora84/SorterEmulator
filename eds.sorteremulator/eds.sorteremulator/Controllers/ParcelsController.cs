@@ -42,10 +42,9 @@ namespace eds.sorteremulator.Controllers
             {
                 return BadRequest($"No node with Id {value.NodeId}");
             }
-            var weightToWeigh = Convert.ToInt32(string.IsNullOrEmpty(value.WeightToWeigh) ? "0" : value.WeightToWeigh);
-            var barcodeToRead = string.IsNullOrEmpty(value.BarcodeToRead) ? "1   0" : value.BarcodeToRead;
+           
 
-            var parcel = _parcelsService.AddNewParcel(node, barcodeToRead, weightToWeigh);
+            var parcel = _parcelsService.AddNewParcel(node, value.ScannerData1, value.ScannerData2, value.ScannerData3, value.ScannerData4, value.ScannerData5);
             _physicsService.AddTracking(parcel.Pic, node.Id, 0);
             return Ok(parcel);
         }

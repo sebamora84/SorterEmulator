@@ -16,6 +16,7 @@ namespace eds.sorteremulator.services.Processors
 
         public async Task<Message> ProcessAsync(Message message)
         {
+            //_messageService.SendMessage("W1              65", message.SocketName);
             _messageService.SendMessage("W1              65", message.SocketName);
             return await Task.FromResult<Message>(null);
         }

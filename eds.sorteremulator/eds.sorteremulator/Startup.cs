@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace eds.sorteremulator
 {
@@ -29,6 +31,15 @@ namespace eds.sorteremulator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var serilogLogger = 
+
+            services.AddLogging(builder =>
+            {
+                builder.SetMinimumLevel(LogLevel.Trace);
+                builder.AddSerilog(
+                    logger: new LoggerConfiguration().WriteTo.RollingFile("Logs/eds.sorteremulator.log").CreateLogger(), 
+                    dispose: true);
+            });
 
             services.AddCors(o => o.AddPolicy("AllowAllOrigin", builder =>
             {
@@ -47,6 +58,7 @@ namespace eds.sorteremulator
             {
                 configuration.RootPath = "WebClient";
             });
+
         }
         // ConfigureContainer is where you can register things directly
         // with Autofac. This runs after ConfigureServices so the things
@@ -109,14 +121,14 @@ namespace eds.sorteremulator
             builder.RegisterType<NodeActionFactory>().As<INodeActionFactory>();
             builder.RegisterType<NodeDeviation>();
             builder.RegisterType<EntryPoint>();
-            builder.RegisterType<ScaleWeight>();
-            builder.RegisterType<CameraRead>();
+            builder.RegisterType<ScannerDataReader>();
             builder.RegisterType<DestinationRequest>();
             builder.RegisterType<SortReport>();
-            builder.RegisterType<RemoteControlOut>();
             builder.RegisterType<DefaultNext>();
             builder.RegisterType<NoNext>();
             builder.RegisterType<Default>();
+            builder.RegisterType<RemoteControlOut>();
+            builder.RegisterType<RecirculationCounter>();
 
 
             builder.RegisterType<ConfigurationManager>().As<IConfigurationManager>().SingleInstance();

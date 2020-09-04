@@ -29,29 +29,43 @@ namespace eds.sorteremulator.services.NodeActions
             var message = new Message
             {
                 MessageId = destinationRequestData.MessageId,
-                MessageType = MessageType.DestinationRequest,
+                MessageType = MessageType.SortReport,
                 Pic = tracking.Pic,
+                AlibiId = tracking.Pic.ToString("00000000000000000000000"),
                 Hostpic = parcel.HostPic,
                 Hostdata = parcel.HostData,
                 ParcelLength = parcel.Lenght,
                 ParcelOriginalDestination = parcel.OriginalDestination,
-                OriginalDestinationState = '1',
+                OriginalDestinationState = GetDestinationState(parcel),
                 ParcelActualDestination = parcel.ActualDestination,
-                DestinationTranslateState = '1',
-                ScannerData1 = parcel.Barcode,
-                ScannerData2 = "1   0",
-                ScannerData3 = parcel.Weight,
-                ScannerData4 = "1   0",
+                DestinationTranslateState = GetDestinationState(parcel),
+                ScannerData1 = parcel.ScannerData1,
+                ScannerData2 = parcel.ScannerData2,
+                ScannerData3 = parcel.ScannerData3,
+                ScannerData4 = parcel.ScannerData4,
+                ScannerData5 = parcel.ScannerData5,
                 UpdateState = "00000000",
                 ParcelEntrancePoint = parcel.EntryNode,
                 ParcelEntranceState = "1",
                 ParcelExitPoint = destinationRequestData.ExitPoint,
                 ParcelExitState = "1",
-                Recirculations = 0,
+                Recirculations = parcel.Recirculations,
             };
 
             Task.Run(()=>_messageService.SendMessage(message));
             return true;
+        }
+        private char GetDestinationState(Parcel parcel)
+        {
+            if (parcel.OriginalDestination == 900)
+            {
+                return '2';
+            }
+            if (parcel.OriginalDestination != parcel.ActualDestination)
+            {
+                return '3';
+            }
+            return '1';
         }
     }
 }

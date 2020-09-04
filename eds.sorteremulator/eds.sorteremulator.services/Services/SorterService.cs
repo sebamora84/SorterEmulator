@@ -66,7 +66,7 @@ namespace eds.sorteremulator.services.Services
         private void AddTrayTimerElapsed(object sender, ElapsedEventArgs e)
         {
             var node = _nodesService.GetNode(Config.TraysNode);
-            var parcel = _parcelService.AddNewParcel(node);
+            var parcel = _parcelService.AddNewParcel(node, "", "", "", "", "");
             _physicsService.AddTracking(parcel.Pic,node.Id, 0);
         }
         private void StopTraysActivity()

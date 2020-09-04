@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using eds.sorteremulator.services.Configurations.Actions;
 using eds.sorteremulator.services.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,10 +26,8 @@ namespace eds.sorteremulator.services.NodeActions.Base
                     return _scope.Resolve<NodeDeviation>();
                 case NodeEvent.EntryPoint:
                     return _scope.Resolve<EntryPoint>();
-                case NodeEvent.Scale:
-                    return _scope.Resolve<ScaleWeight>();
-                case NodeEvent.CameraRead:
-                    return _scope.Resolve<CameraRead>();
+                case NodeEvent.ScannerDataReader:
+                    return _scope.Resolve<ScannerDataReader>();
                 case NodeEvent.DestinationRequest:
                     return _scope.Resolve<DestinationRequest>();
                 case NodeEvent.SortReport:
@@ -39,6 +38,8 @@ namespace eds.sorteremulator.services.NodeActions.Base
                     return _scope.Resolve<DefaultNext>();
                 case NodeEvent.NoNext:
                     return _scope.Resolve<NoNext>();
+                case NodeEvent.RecirculationCounter:
+                    return _scope.Resolve<RecirculationCounter>();
                 default:
                     return _scope.Resolve<Default>();
             }

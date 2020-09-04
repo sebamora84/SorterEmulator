@@ -7,14 +7,14 @@ namespace eds.sorteremulator.services.Configurations.Actions
     public enum NodeEvent
     {
         NodeDeviation,
-        Scale,
-        CameraRead,
+        ScannerDataReader,
         EntryPoint,
         DestinationRequest,
         SortReport,
         DefaulNext,
         NoAction,
         NoNext,
-        RemoteControlOut
+        RemoteControlOut,
+        RecirculationCounter
     }
 }

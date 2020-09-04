@@ -17,11 +17,11 @@
 
 </div>
 <div>
-  <input matInput [(ngModel)]="barcodeToRead" placeholder="Barcode to read" />
-  <input matInput [(ngModel)]="weightToWeigh" placeholder="Weight to weigh" />
-  <input matInput type="number" step="0.0005" [(ngModel)]="sorterProportion" placeholder="Sorter Proportion" />
-  <input matInput type="number" [(ngModel)]="translateX" placeholder="Translate X" />
-  <input matInput type="number" [(ngModel)]="translateY" placeholder="Translate Y" />
+  <input matInput [(ngModel)]="scannerData1" placeholder="ScannerData1" />
+  <input matInput [(ngModel)]="scannerData2" placeholder="ScannerData2" />
+  <input matInput [(ngModel)]="scannerData3" placeholder="ScannerData3" />
+  <input matInput [(ngModel)]="scannerData4" placeholder="ScannerData4" />
+  <input matInput [(ngModel)]="scannerData5" placeholder="ScannerData5" />
 </div>
 <mat-card class="sorter-area-container" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" >
  <svg class="sorter-area">

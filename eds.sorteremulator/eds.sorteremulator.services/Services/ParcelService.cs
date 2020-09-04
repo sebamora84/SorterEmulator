@@ -32,7 +32,7 @@ namespace eds.sorteremulator.services.Services
             return _parcels.Values.ToList();
         }
 
-        public Parcel AddNewParcel(NodeConfig entryPoint, string barcodeToRead = "1   1", int weightToWeigh = 0)
+        public Parcel AddNewParcel(NodeConfig entryPoint, string scannerData1, string scannerData2, string scannerData3, string scannerData4, string scannerData5)
         {
 
             var package = new Parcel
@@ -41,10 +41,11 @@ namespace eds.sorteremulator.services.Services
                 HostPic = -1,
                 HostData = "",
                 EntryNode = entryPoint.Name,
-                Barcode = "1   0",
-                Weight = "1   0",
-                BarcodeToRead = barcodeToRead,
-                WeightToWeigh = weightToWeigh
+                ScannerDataToRead1 = scannerData1,
+                ScannerDataToRead2 = scannerData2,
+                ScannerDataToRead3 = scannerData3,
+                ScannerDataToRead4 = scannerData4,
+                ScannerDataToRead5 = scannerData5,
             };
             _parcels.TryAdd(package.Pic, package);
             return package;

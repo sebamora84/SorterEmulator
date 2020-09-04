@@ -56,7 +56,7 @@ namespace eds.sorteremulator.services.Processors
                 case "PARCEL":
                     var nodeId = messageString[2].Trim();
                     var node = _nodesService.GetNode(new Guid(nodeId));
-                    var parcel = _parcelService.AddNewParcel(node);
+                    var parcel = _parcelService.AddNewParcel(node, "", "", "", "", "");
                     _physicsService.AddTracking(parcel.Pic,node.Id,0);
                     break;
                 case "REMOVE":

@@ -22,8 +22,12 @@ export class SorterComponent implements OnInit {
   nodePaths:any = [];
   trackingPaths:any = [];
   actionPaths:any = [];
-  barcodeToRead;
-  weightToWeigh;
+
+  scannerData1:string="1   0";
+  scannerData2:string="1   0";
+  scannerData3:string="1   0";
+  scannerData4:string="1   0";
+  scannerData5:string="1   0";
 
   isDraging:boolean;
   translateX:number = 0;
@@ -106,8 +110,11 @@ export class SorterComponent implements OnInit {
   }
   onNodeAddParcel(node): void {
     var parcelDto = new NewParcelDto();
-    parcelDto.barcodeToRead = this.barcodeToRead;
-    parcelDto.weightToWeigh = this.weightToWeigh;
+    parcelDto.scannerData1 = this.scannerData1;
+    parcelDto.scannerData2 = this.scannerData2;
+    parcelDto.scannerData3 = this.scannerData3;
+    parcelDto.scannerData4 = this.scannerData4;
+    parcelDto.scannerData5 = this.scannerData5;
     parcelDto.nodeId = node.id;
     this.parcelsService.addParcel(parcelDto).subscribe(
       (data: {}) => {
