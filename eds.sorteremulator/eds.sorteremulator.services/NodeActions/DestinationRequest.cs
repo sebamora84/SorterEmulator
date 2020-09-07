@@ -48,7 +48,7 @@ namespace eds.sorteremulator.services.NodeActions
                 ParcelEntrancePoint = parcel.EntryNode,
                 ParcelEntranceState = "1",
                 ParcelExitPoint = destinationRequestData.ExitPoint,
-                ParcelExitState = "1",
+                ParcelExitState = "0",
                 Recirculations = parcel.Recirculations,
             };
 
