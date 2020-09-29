@@ -40,6 +40,8 @@ namespace eds.sorteremulator.services.NodeActions.Base
                     return _scope.Resolve<NoNext>();
                 case NodeEvent.RecirculationCounter:
                     return _scope.Resolve<RecirculationCounter>();
+                case NodeEvent.Sink:
+                    return _scope.Resolve<Sink>();
                 default:
                     return _scope.Resolve<Default>();
             }

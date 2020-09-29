@@ -13,7 +13,8 @@ namespace eds.sorteremulator.services.Services.Interfaces
         Tracking AddTracking(int pic, Guid nodeId, decimal position);
         List<Tracking> GetAllTracking();
         Tracking GetTracking(Guid id);
-        Tracking GetTrackingByPic(int pic);
+        Tracking GetTrackingPresentByPic(int pic);
+        List<Tracking> GetAllTrackingByPic(int pic);
         void RemoveTracking(Guid id);
         void RemoveTrackingByPic(int pic);
         void ExecuteManualActionConfig(ActionConfig actionConfig);

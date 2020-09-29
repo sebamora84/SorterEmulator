@@ -247,9 +247,14 @@ namespace eds.sorteremulator.services.Services
             return tracking;
         }
 
-        public Tracking GetTrackingByPic(int pic)
+        public Tracking GetTrackingPresentByPic(int pic)
         {
            return _trackings.Values.FirstOrDefault(tp => tp.Pic == pic && tp.Present);
+        }
+
+        public List<Tracking> GetAllTrackingByPic(int pic)
+        {
+            return _trackings.Values.Where(tp => tp.Pic == pic).ToList();
         }
 
         public List<Tracking> GetAllTracking()

@@ -57,7 +57,7 @@ namespace eds.sorteremulator.services.NodeActions
                 ParcelOriginalDestination = parcel.OriginalDestination,
                 OriginalDestinationState = GetDestinationState(parcel),
                 ParcelActualDestination = parcel.ActualDestination,
-                DestinationTranslateState = GetDestinationState(parcel),
+                DestinationTranslateState = 1,
                 ScannerData1 = parcel.ScannerData1,
                 ScannerData2 = parcel.ScannerData2,
                 ScannerData3 = parcel.ScannerData3,

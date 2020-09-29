@@ -29,7 +29,7 @@ namespace eds.sorteremulator.services.Processors
             {            
                 return await Task.FromResult<Message>(null);
             }
-            var tracking = _physicsService.GetTrackingByPic(parcel.Pic);
+            var tracking = _physicsService.GetTrackingPresentByPic(parcel.Pic);
             if (message.ParcelOriginalDestination == 900)
             {
                 _nodesService.GetNode(tracking.CurrentNodeId).IsStopped = false;

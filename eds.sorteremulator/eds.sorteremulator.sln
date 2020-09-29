@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eds.sorteremulator", "eds.sorteremulator\eds.sorteremulator.csproj", "{E0458614-B96A-45A5-AF4B-60955F53DBEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eds.sorteremulator.services", "eds.sorteremulator.services\eds.sorteremulator.services.csproj", "{292FA9BC-CAA5-49B3-86E0-4E6D7322A89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eds.sorteremulator.services", "eds.sorteremulator.services\eds.sorteremulator.services.csproj", "{292FA9BC-CAA5-49B3-86E0-4E6D7322A89A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eds.sorteremulator.configuration", "eds.sorteremulator.configuration\eds.sorteremulator.configuration.csproj", "{A6FE123C-B937-43A5-94AD-F1142D2A80EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eds.sorteremulator.configuration", "eds.sorteremulator.configuration\eds.sorteremulator.configuration.csproj", "{A6FE123C-B937-43A5-94AD-F1142D2A80EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eds.sorteremulator.communication", "eds.sorteremulator.communication\eds.sorteremulator.communication.csproj", "{82E7201A-50A3-4748-A3A5-FEFD1FA35B92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eds.sorteremulator.communication", "eds.sorteremulator.communication\eds.sorteremulator.communication.csproj", "{82E7201A-50A3-4748-A3A5-FEFD1FA35B92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eds.sorteremulator.fileservices", "eds.sorteremulator.fileservices\eds.sorteremulator.fileservices.csproj", "{0C1E73F1-31CC-4B6F-9941-BDB5FB11E094}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{82E7201A-50A3-4748-A3A5-FEFD1FA35B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82E7201A-50A3-4748-A3A5-FEFD1FA35B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82E7201A-50A3-4748-A3A5-FEFD1FA35B92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C1E73F1-31CC-4B6F-9941-BDB5FB11E094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C1E73F1-31CC-4B6F-9941-BDB5FB11E094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C1E73F1-31CC-4B6F-9941-BDB5FB11E094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C1E73F1-31CC-4B6F-9941-BDB5FB11E094}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

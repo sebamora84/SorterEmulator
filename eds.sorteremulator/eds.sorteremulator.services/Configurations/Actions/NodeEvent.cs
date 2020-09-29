@@ -15,6 +15,7 @@ namespace eds.sorteremulator.services.Configurations.Actions
         NoAction,
         NoNext,
         RemoteControlOut,
-        RecirculationCounter
+        RecirculationCounter,
+        Sink
     }
 }

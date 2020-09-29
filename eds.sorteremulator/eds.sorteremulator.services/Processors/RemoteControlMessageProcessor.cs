@@ -32,43 +32,6 @@ namespace eds.sorteremulator.services.Processors
         }
         public async Task<Message> ProcessAsync(Message message)
         {
-            //CC | PARCEL | NODE | 59
-
-            var messageString = message.StringMessage.Split('|');
-            var control = messageString[1].Trim();
-            if (control == Config.TrayRequestControl)
-            {
-                var active = messageString[4].Trim().Equals("Y");
-                if (active)
-                {
-                    _sorterService.StartAddTray();
-                }
-                else
-                {
-                    _sorterService.StopAddTray();
-                }
-                return await Task.FromResult<Message>(null); ;
-            }
-
-
-            switch (control)
-            {
-                case "PARCEL":
-                    var nodeId = messageString[2].Trim();
-                    var node = _nodesService.GetNode(new Guid(nodeId));
-                    var parcel = _parcelService.AddNewParcel(node, "", "", "", "", "");
-                    _physicsService.AddTracking(parcel.Pic,node.Id,0);
-                    break;
-                case "REMOVE":
-                    var parcelId = int.Parse(messageString[2].Trim());
-                    _parcelService.RemoveParcel(parcelId);
-                    break;
-                case "STOPPED":
-                    nodeId = messageString[2].Trim();
-                    node = _nodesService.GetNode(new Guid(nodeId));
-                    node.IsStopped = messageString[3].Trim()=="Y";
-                    break;
-            }
             return await Task.FromResult<Message>(null);
         }
     }

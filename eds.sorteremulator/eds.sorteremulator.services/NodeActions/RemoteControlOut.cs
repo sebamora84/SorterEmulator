@@ -22,15 +22,27 @@ namespace eds.sorteremulator.services.NodeActions
     {
         private readonly INodesService _nodesService;
         private readonly IMessageService _messageService;
+        private readonly ISorterService _sorterService;
 
-        public RemoteControlOut(INodesService nodesService, IMessageService messageService)
+        public RemoteControlOut(INodesService nodesService, IMessageService messageService, ISorterService sorterService)
         {
             _nodesService = nodesService;
             _messageService = messageService;
+            _sorterService = sorterService;
         }
 
         public bool Execute(Tracking tracking, ActionConfig nodeActionConfig)
         {
+            var data = nodeActionConfig.GetActionInfo<RemoteControlOutData>();
+            if (data.IsOnAuto)
+            {
+                _sorterService.AddActionDelay(data.Name, this, nodeActionConfig, data.OnDelay);
+            }
+            if (data.IsOffAuto)
+            {
+                _sorterService.AddActionDelay(data.Name, this, nodeActionConfig, data.OffDelay);
+            }
+
             return true;
         }
 
@@ -39,7 +51,7 @@ namespace eds.sorteremulator.services.NodeActions
             var remoteControl = actionConfig.GetActionInfo<RemoteControlOutData>();
             remoteControl.IsActive = !remoteControl.IsActive;
             actionConfig.SetActionInfo(remoteControl);
-            _nodesService.UpdateAction(actionConfig.Id, actionConfig);
+            //_nodesService.UpdateAction(actionConfig.Id, actionConfig);
 
 
             var name = remoteControl.Name;

@@ -2,6 +2,7 @@ using Autofac;
 using eds.sorteremulator.communiation;
 using eds.sorteremulator.communiation.Sockets;
 using eds.sorteremulator.configuration;
+using eds.sorteremulator.fileservices;
 using eds.sorteremulator.services.Hubs;
 using eds.sorteremulator.services.NodeActions;
 using eds.sorteremulator.services.NodeActions.Base;
@@ -129,7 +130,7 @@ namespace eds.sorteremulator
             builder.RegisterType<Default>();
             builder.RegisterType<RemoteControlOut>();
             builder.RegisterType<RecirculationCounter>();
-
+            builder.RegisterType<Sink>();
 
             builder.RegisterType<ConfigurationManager>().As<IConfigurationManager>().SingleInstance();
             // Register services:
@@ -138,6 +139,7 @@ namespace eds.sorteremulator
             builder.RegisterType<ParcelService>().As<IParcelService>().As<IStartable>().SingleInstance();
             builder.RegisterType<MessageService>().As<IMessageService>().As<IStartable>().SingleInstance();
             builder.RegisterType<SorterService>().As<ISorterService>().As<IStartable>().SingleInstance();
+            builder.RegisterType<FileService>().As<IStartable>().SingleInstance();
         }
 
     }

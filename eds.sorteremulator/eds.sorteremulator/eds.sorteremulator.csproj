@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\eds.sorteremulator.fileservices\eds.sorteremulator.fileservices.csproj" />
     <ProjectReference Include="..\eds.sorteremulator.services\eds.sorteremulator.services.csproj" />
   </ItemGroup>
 
