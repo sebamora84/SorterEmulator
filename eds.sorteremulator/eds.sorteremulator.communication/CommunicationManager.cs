@@ -22,7 +22,7 @@ namespace eds.sorteremulator.communiation
         {
             _logger = logger;
             _configurationManager = configurationManager;
-
+            
             _server = server;
             _server.SocketName = "Server";
             _server.ConfigureAsServer(Config.LocalEndPoint);
@@ -31,6 +31,8 @@ namespace eds.sorteremulator.communiation
             _server.TCPMessageReceived += OnTcpMessageReceived;
             _server.TCPMessageSent += OnTcpMessageSent;
             _server.SocketStateChanged += OnSocketStateChanged;
+
+            _logger.LogInformation($"Configured channel Server on localhost:{Config.LocalEndPoint}");
 
             _client = client;
             _client.SocketName = "Client";
@@ -41,6 +43,8 @@ namespace eds.sorteremulator.communiation
             _client.TCPMessageSent += OnTcpMessageSent;
             _client.SocketStateChanged += OnSocketStateChanged;
 
+            _logger.LogInformation($"Configured channel Client on {Config.RemoteIp}:{Config.RemoteEndPoint}");
+
             _service = service;
             _service.SocketName = "Service";
             _service.ConfigureAsServer(Config.ServiceIp, Config.ServiceEndPoint);
@@ -49,6 +53,7 @@ namespace eds.sorteremulator.communiation
             _service.TCPMessageReceived += OnTcpMessageReceived;
             _service.TCPMessageSent += OnTcpMessageSent;
             _service.SocketStateChanged += OnSocketStateChanged;
+
         }
 
         private void OnSocketStateChanged(string socketName, SocketState value)
