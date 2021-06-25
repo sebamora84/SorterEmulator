@@ -53,6 +53,9 @@
     <None Update="WebClient\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="WebClient\main.1d9cae981336437a781b.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="WebClient\main.66309fc703b7f952b426.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
