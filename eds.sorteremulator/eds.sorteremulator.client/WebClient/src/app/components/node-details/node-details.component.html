@@ -12,7 +12,7 @@
     <mat-label>DefaultNextId</mat-label>
     <mat-select [(ngModel)]="node.defaultNextId">
       <mat-option *ngFor="let node of nodes" [value]="node.id">
-        <a routerLink="/node-details/{{node.defaultNextId}}">
+        <a routerLink="/node-details/{{node.id}}">
           <mat-icon>menu</mat-icon>
         </a>
         {{node.name}}
