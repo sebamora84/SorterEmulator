@@ -14,11 +14,13 @@ import { SorterComponent } from './components/sorter/sorter.component';
 import { NodeActionsComponent } from './components/node-actions/node-actions.component';
 import { ActionDetailsComponent } from './components/action-details/action-details.component';
 import { NodeDetailsComponent } from './components/node-details/node-details.component';
+import { CommunicationConfigComponent } from './components/communication-config/communication-config.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
+    CommunicationConfigComponent,
     NodesComponent,
     SorterComponent,
     NodeActionsComponent,

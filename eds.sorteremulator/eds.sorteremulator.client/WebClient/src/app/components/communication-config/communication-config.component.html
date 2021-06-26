@@ -1,0 +1,43 @@
+<h2 *ngIf="config" >Communication Configuration</h2>
+<mat-card *ngIf="config" class="half-width content">
+  <mat-form-field class="full-width">
+    <mat-label>Local Ip:</mat-label>
+    <input matInput [(ngModel)]="config.localIp" placeholder="localIp" >
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Local EndPoint:</mat-label>
+    <input matInput [(ngModel)]="config.localEndPoint" placeholder="localEndPoint" >
+  </mat-form-field>
+  
+  <mat-form-field class="full-width">
+    <mat-label>Remote Ip:</mat-label>
+    <input matInput [(ngModel)]="config.remoteIp" placeholder="remoteIp" >
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Remote EndPoint:</mat-label>
+    <input matInput [(ngModel)]="config.remoteEndPoint" placeholder="remoteEndPoint" >
+  </mat-form-field>
+  
+  <mat-form-field class="full-width">
+    <mat-label>Service Ip:</mat-label>
+    <input matInput [(ngModel)]="config.serviceIp" placeholder="serviceIp" >
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Service EndPoint:</mat-label>
+    <input matInput [(ngModel)]="config.serviceEndPoint" placeholder="serviceEndPoint" >
+  </mat-form-field>
+  
+  
+  <mat-form-field class="full-width">
+    <mat-label>Start Char:</mat-label>
+    <input matInput [(ngModel)]="config.startChar" placeholder="startChar" >
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>End Char:</mat-label>
+    <input matInput [(ngModel)]="config.endChar" placeholder="endChar" >
+  </mat-form-field>
+</mat-card>
+<mat-card *ngIf="config" class="full-width content">
+  <button mat-raised-button (click)="onSaveConfig()">Save</button>
+  <button mat-raised-button (click)="onCancelConfig()">Cancel</button>
+</mat-card>
