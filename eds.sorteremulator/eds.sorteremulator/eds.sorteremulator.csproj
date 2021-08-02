@@ -68,7 +68,40 @@
     <None Update="WebClient\main.66309fc703b7f952b426.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="WebClient\main.9068d47f8acbd7887b1f.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="WebClient\main.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-outlined.0a3d160d9d35a1aa522f.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-outlined.113d447ef2e1304fcdf3.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-round.712b3ae81bdb1fd53e30.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-round.854af69a210755415e60.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-sharp.a5576c21e43ff183f092.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-sharp.d6ff470ea4b770c9b224.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-two-tone.123e6891751c66ef6b9a.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons-two-tone.365f21e6a2ddd1f10656.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons.4f0b0b8b880c7efb0bab.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\material-icons.77b1b72456c0ebd4b4cb.woff">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="WebClient\polyfills.407a467dedb63cfdd103.js">
@@ -77,10 +110,85 @@
     <None Update="WebClient\polyfills.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="WebClient\Roboto-Black.313a65630d341645c13e.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Black.59eb3601394dd87f30f8.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-BlackItalic.cc2fadc3928f2f223418.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-BlackItalic.f75569f8a5fab0893fa7.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Bold.50d75e48e0a3ddab1dd1.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Bold.b52fac2bb93c5858f3f2.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-BoldItalic.4fe0f73cc919ba2b7a3c.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-BoldItalic.94008e69aaf05da75c0b.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Light.c73eb1ceba3321a80a0a.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Light.d26871e8149b5759f814.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-LightItalic.13efe6cbc10b97144a28.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-LightItalic.e8eaae902c3a4dacb9a5.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Medium.1d6594826615607f6dc8.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Medium.90d1676003d9c28c0499.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-MediumItalic.13ec0eb5bdb821ff4930.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-MediumItalic.83e114c316fcc3f23f52.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Regular.35b07eb2f8711ae08d1f.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Regular.73f0a88bbca1bec19fb1.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-RegularItalic.4357beb823a5f8d65c26.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-RegularItalic.f5902d5ef961717ed263.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Thin.ad538a69b0e8615ed041.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-Thin.d3b47375afd904983d9b.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-ThinItalic.5b4a33e176ff736a74f0.woff2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\Roboto-ThinItalic.8a96edbbcd9a6991d793.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="WebClient\runtime.a5dd35324ddfd942bef1.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="WebClient\runtime.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebClient\styles.482075c63a036c40e005.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="WebClient\styles.91aba71e19cbc521470d.css">
