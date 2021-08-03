@@ -1,1 +1,12 @@
-{"RefreshRate":50,"TimeLapseSpeed":8.0}
+{
+  "TimeLapseSpeed": 4.0,
+  "RefreshRate": 60,
+  "SorterProportion": 0.008700000000000005,
+  "TranslateX": -18578.367306622644,
+  "TranslateY": 19123.788710574612,
+  "ScannerData1": "1   0",
+  "ScannerData2": "1   0",
+  "ScannerData3": "1   0",
+  "ScannerData4": "1   0",
+  "ScannerData5": "1   0"
+}

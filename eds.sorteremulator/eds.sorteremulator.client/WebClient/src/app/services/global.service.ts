@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GlobalService {
-  //endpoint="http://localhost:4949/api/"
+  endpoint="http://localhost:4949/api/"
   
-  endpoint=window.location.origin + '/api/';
+  //endpoint=window.location.origin + '/api/';
   constructor() { }
 }

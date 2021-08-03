@@ -18,22 +18,11 @@ import {MatSnackBar} from '@angular/material';
 
 export class SorterComponent implements OnInit {
 
-
   nodePaths:any = [];
   trackingPaths:any = [];
-  actionPaths:any = [];
+  actionPaths:any = [];  
 
-  scannerData1:string="1   0";
-  scannerData2:string="1   0";
-  scannerData3:string="1   0";
-  scannerData4:string="1   0";
-  scannerData5:string="1   0";
-
-  isDraging:boolean;
-  translateX:number = 0;
-  translateY:number = 0;
-  sorterProportion : number=0.0095;
-
+  isDraging:boolean; 
 
   refreshDrawingsInterval: any;
   reloadSorterInterval: any;
@@ -48,7 +37,6 @@ export class SorterComponent implements OnInit {
   nodeSelected: any;
   trackingSelected: any;
 
-
   constructor(
     private sorterService: SorterService,
     private trackingService: TrackingService,
@@ -60,23 +48,24 @@ export class SorterComponent implements OnInit {
 
   ngOnInit() {
     this.subscriveEvents();
-    this.refreshDrawingsInterval = interval(1000/60);
-    this.refreshDrawingsInterval.subscribe(n => this.drawSorterArea());
-
-    this.reloadSorterInterval = interval(1000);
-    this.reloadSorterInterval.subscribe(n => {
-      console.log("reloading sorter");
-      this.loadPhysics();
+    this.physicsService.getPhysic(0).subscribe((data: {}) => {
+      this.physicsConfig = data;
       this.loadTracking();
       this.loadActions();
       this.loadParcels();
-      this.loadNodes();});
+      this.loadNodes();
 
-    this.loadPhysics();
-    this.loadTracking();
-    this.loadActions();
-    this.loadParcels();
-    this.loadNodes();
+      this.refreshDrawingsInterval = interval(1000/this.physicsConfig.refreshRate);
+      this.refreshDrawingsInterval.subscribe(n => this.drawSorterArea());
+      this.reloadSorterInterval = interval(1000);
+      this.reloadSorterInterval.subscribe(n => {
+        console.log("reloading sorte with a refresh rate of "+this.physicsConfig.refreshRate);      
+        this.loadTracking();
+        this.loadActions();
+        this.loadParcels();
+        this.loadNodes();
+      }); 
+    });
   }
 
   subscriveEvents() {
@@ -91,7 +80,6 @@ export class SorterComponent implements OnInit {
       currentTracking.destinationNodeId=data.destinationNodeId;
       currentTracking.pic = data.pic;
       currentTracking.present = data.present;
-
     });
     this.trackingService.deleteTracking.subscribe((data)=>{      
       console.log("Informed Removed tracking "+ data.id);
@@ -110,11 +98,11 @@ export class SorterComponent implements OnInit {
   }
   onNodeAddParcel(node): void {
     var parcelDto = new NewParcelDto();
-    parcelDto.scannerData1 = this.scannerData1;
-    parcelDto.scannerData2 = this.scannerData2;
-    parcelDto.scannerData3 = this.scannerData3;
-    parcelDto.scannerData4 = this.scannerData4;
-    parcelDto.scannerData5 = this.scannerData5;
+    parcelDto.scannerData1 = this.physicsConfig.scannerData1;
+    parcelDto.scannerData2 = this.physicsConfig.scannerData2;
+    parcelDto.scannerData3 = this.physicsConfig.scannerData3;
+    parcelDto.scannerData4 = this.physicsConfig.scannerData4;
+    parcelDto.scannerData5 = this.physicsConfig.scannerData5;
     parcelDto.nodeId = node.id;
     this.parcelsService.addParcel(parcelDto).subscribe(
       (data: {}) => {
@@ -185,11 +173,6 @@ export class SorterComponent implements OnInit {
         this.parcels = data;
       });
   }
-  loadPhysics() {
-    this.physicsService.getPhysic(0).subscribe((data: {}) => {
-      this.physicsConfig = data;
-    });
-  }
   
   getNodeName(nodeId) {
     let node = this.nodes.filter(n => n.id == nodeId)[0];
@@ -242,13 +225,13 @@ export class SorterComponent implements OnInit {
   updateNodePath(node){
     let isSelected=this.nodeSelected&&this.nodeSelected.id==node.id;
     let isStopped = node.isStopped;
-    let posX = (node.positionX+this.translateX) * this.sorterProportion;
-    let posY = (node.positionY+this.translateY) * this.sorterProportion;
-    let size = node.size  * this.sorterProportion;      
+    let posX = (node.positionX+this.physicsConfig.translateX) * this.physicsConfig.sorterProportion;
+    let posY = (node.positionY+this.physicsConfig.translateY) * this.physicsConfig.sorterProportion;
+    let size = node.size  * this.physicsConfig.sorterProportion;      
     let radRotation = node.rotation * Math.PI /180;
     let radCurvature = node.curvature * Math.PI /180;
     let stroke = isStopped?isSelected?'Red':'DarkRed':isSelected?'Lime':'Green';
-    let width = 1000 * this.sorterProportion;
+    let width = 1000 * this.physicsConfig.sorterProportion;
 
    
 
@@ -291,9 +274,9 @@ export class SorterComponent implements OnInit {
                       !isSelected && isPresent ? 'DarkBlue' :
                       isSelected && !isPresent ? 'Red' :
                       'DarkRed';
-        let width = 500 * this.sorterProportion;
-        let radius = 250 * this.sorterProportion;
-        let position = tracking.currentPosition * this.sorterProportion;
+        let width = 500 * this.physicsConfig.sorterProportion;
+        let radius = 250 * this.physicsConfig.sorterProportion;
+        let position = tracking.currentPosition * this.physicsConfig.sorterProportion;
         let ax = posX + (position * Math.cos(radRotation));
         let ay = posY + (position * Math.sin(radRotation)) - radius;
         let bx = posX + (position * Math.cos(radRotation));
@@ -328,9 +311,9 @@ export class SorterComponent implements OnInit {
                      !isSelected && !isDisabled ? 'Grey':
                      isSelected && isDisabled ? 'Red':
                      'DarkRed';
-        let width = 500 * this.sorterProportion;
-        let radius = 250 * this.sorterProportion;
-        let position = action.occurs * this.sorterProportion;
+        let width = 500 * this.physicsConfig.sorterProportion;
+        let radius = 250 * this.physicsConfig.sorterProportion;
+        let position = action.occurs * this.physicsConfig.sorterProportion;
         let ax = posX + (position * Math.cos(radRotation));
         let ay = posY + (position * Math.sin(radRotation)) - radius;
         let bx = posX + (position * Math.cos(radRotation));
@@ -353,10 +336,6 @@ export class SorterComponent implements OnInit {
     }
   }
 
-
-
-
-
   onNodeSelect(node){
     this.snackBar.open(node.name,"",{duration:1000})
     this.nodeSelected = node; 
@@ -370,24 +349,27 @@ export class SorterComponent implements OnInit {
     this.actionSelected = action;
   }
 
+  onScannerDataInput(){
+    this.physicsService.addPhysic(this.physicsConfig).subscribe((data) => {});
+  }
+
   onMouseDown(event){
     this.isDraging=true;
-  }
-  onMouseMove(event){
-    if(!event.ctrlKey && this.isDraging){
-      this.translateX +=(event.movementX/this.sorterProportion);
-      this.translateY +=(event.movementY/this.sorterProportion);
-    }
-    if(event.ctrlKey && this.isDraging){      
-      let proportionIncrement=event.movementY/10000;
-      this.sorterProportion+=(proportionIncrement);
-    }
-
   }
   onMouseUp(event){
     this.isDraging=false;
   }
-
-
+  onMouseMove(event){
+    if(this.isDraging){
+      this.physicsConfig.translateX +=(event.movementX/this.physicsConfig.sorterProportion);
+      this.physicsConfig.translateY +=(event.movementY/this.physicsConfig.sorterProportion);
+      this.physicsService.addPhysic(this.physicsConfig).subscribe((data) => {});
+    }
+  }
+  onZooming(zoom){    
+      let proportionIncrement=zoom/10000;
+      this.physicsConfig.sorterProportion+=(proportionIncrement);
+      this.physicsService.addPhysic(this.physicsConfig).subscribe((data) => {});
+  }
 }
 

@@ -14,14 +14,17 @@
        'button':true,
        'is-inactive': physicsConfig.timeLapseSpeed==0}" ng-show
     (click)="startSorter(physicsConfig.timeLapseSpeed*2)"><mat-icon>fast_forward</mat-icon></button>
-
+    <button mat-button [ngClass] ng-show (click)="onZooming(-1)"> <mat-icon>zoom_out</mat-icon></button>
+    <button mat-button [ngClass] ng-show (click)="onZooming(1)"> <mat-icon>zoom_in</mat-icon></button>
+   
 </div>
-<div>
-  <input matInput [(ngModel)]="scannerData1" placeholder="ScannerData1" />
-  <input matInput [(ngModel)]="scannerData2" placeholder="ScannerData2" />
-  <input matInput [(ngModel)]="scannerData3" placeholder="ScannerData3" />
-  <input matInput [(ngModel)]="scannerData4" placeholder="ScannerData4" />
-  <input matInput [(ngModel)]="scannerData5" placeholder="ScannerData5" />
+<div *ngIf="physicsConfig">
+  <input matInput [(ngModel)]="physicsConfig.scannerData1" placeholder="ScannerData1" (input)="onScannerDataInput()" />
+  <input matInput [(ngModel)]="physicsConfig.scannerData2" placeholder="ScannerData2" (input)="onScannerDataInput()" />
+  <input matInput [(ngModel)]="physicsConfig.scannerData3" placeholder="ScannerData3" (input)="onScannerDataInput()" />
+  <input matInput [(ngModel)]="physicsConfig.scannerData4" placeholder="ScannerData4" (input)="onScannerDataInput()" />
+  <input matInput [(ngModel)]="physicsConfig.scannerData5" placeholder="ScannerData5" (input)="onScannerDataInput()" />
+  
 </div>
 <mat-card class="sorter-area-container" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)" >
  <svg class="sorter-area">

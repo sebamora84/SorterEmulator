@@ -30,17 +30,16 @@ export class PhysicsService {
   }
   
   addPhysic (physic): Observable<any> {
-    console.log(physic);
      return this.http.post<any>(this.globalService.endpoint + 'physics',JSON.stringify(physic) , httpOptions)
     .pipe(      
-      tap(() => console.log('Physic added')),
+      tap(() =>{}),
       catchError(this.handleError<any>('addPhysic'))
     );
   }
   
   updatePhysic (id, physic): Observable<any> {
     return this.http.put(this.globalService.endpoint + 'physics/' + id, JSON.stringify(physic), httpOptions).pipe(
-      tap((physic) => console.log('Physic updated')),
+      tap((physic) =>{}),
       catchError(this.handleError<any>('updatePhysic'))
     );
   }
@@ -48,7 +47,7 @@ export class PhysicsService {
   
   deletePhysic (id): Observable<any> {
     return this.http.delete<any>(this.globalService.endpoint + 'physics/' + id, httpOptions).pipe(
-      tap(_ => console.log(`deleted physic id=${id}`)),
+      tap(_ => {}),
       catchError(this.handleError<any>('deletePhysic'))
     );
   }
