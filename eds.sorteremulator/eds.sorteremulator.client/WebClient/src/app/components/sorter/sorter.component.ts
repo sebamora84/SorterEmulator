@@ -371,5 +371,9 @@ export class SorterComponent implements OnInit {
       this.physicsConfig.sorterProportion+=(proportionIncrement);
       this.physicsService.addPhysic(this.physicsConfig).subscribe((data) => {});
   }
+
+  formatLabel(value: number) {    
+      return Math.round(value * 10000) + '%';
+  }
 }
 

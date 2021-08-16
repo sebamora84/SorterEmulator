@@ -109,6 +109,8 @@ THE SOFTWARE.
 
 @angular/material/slide-toggle
 
+@angular/material/slider
+
 @angular/material/snack-bar
 
 @angular/material/table
